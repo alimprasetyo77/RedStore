@@ -7,7 +7,7 @@ const Register = () => {
         <div
           className="w-4/6 bg-black/20 bg-blend-overlay bg-no-repeat bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://source.unsplash.com/1200x800?ecommerce)`,
+            backgroundImage: `url(https://source.unsplash.com/1200x800?online-shop)`,
           }}></div>
         <div className="w-4/12 p-16 ">
           <div className="flex flex-col items-start  gap-y-10 pt-16">
