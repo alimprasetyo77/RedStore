@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
   return (
     <div className="w-full border-b shadow-md py-4">
       <div className="container flex items-center mx-auto ">
@@ -8,13 +9,13 @@ const Navbar = () => {
           <h1 className="text-xl font-medium">Brand</h1>
         </Link>
         <ul className="flex items-center flex-grow justify-center gap-x-8">
-          <Link to={"/"}>
+          <Link to={"/"} className={`${location.pathname === "/" && "font-semibold"}`}>
             <li>Home</li>
           </Link>
           <li>Contact</li>
           <li>About</li>
           <Link to={"/register"}>
-            <li>Sign Up</li>
+            <li className={`${location.pathname === "/register" && "font-semibold "} `}>Sign Up</li>
           </Link>
         </ul>
         <div className="flex items-center bg-[#F5F5F5] px-3 py-1 h-8 overflow-hidden rounded-xl  text-sm border">
