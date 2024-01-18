@@ -16,8 +16,27 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+import { useEffect, useState } from "react";
+import { Users } from "../../utils/apis/admin/users/types";
+import { getUsers } from "../../utils/apis/admin/users/api";
 
-const Users = () => {
+const AdminUsers = () => {
+  const [user, setUser] = useState<Users>();
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const result = await getUsers();
+
+      setUser(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="my-5 font-bold font text-3xl pl-4">Orders</div>
@@ -28,17 +47,21 @@ const Users = () => {
             <TableHead className="text-left">Name</TableHead>
             <TableHead className="text-center">Username</TableHead>
             <TableHead className="text-left">Email</TableHead>
+            <TableHead className="text-left">Role</TableHead>
             <TableHead className="text-center">Created At</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium text-center">1</TableCell>
-            <TableCell className="text-left">Arja</TableCell>
-            <TableCell className="text-center">Arjacakil</TableCell>
-            <TableCell className="text-left">arjacakil12@gmail.com</TableCell>
-            <TableCell className="text-center">Jan 5, 2024</TableCell>
-          </TableRow>
+          {user && (
+            <TableRow>
+              <TableCell className="font-medium text-center">{user.id}</TableCell>
+              <TableCell className="text-left">{user.name}</TableCell>
+              <TableCell className="text-center">{user.username}</TableCell>
+              <TableCell className="text-left">{user.email}</TableCell>
+              <TableCell className="text-left">{user.role.toUpperCase()}</TableCell>
+              <TableCell className="text-center">{user.createdAt}</TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       <Pagination>
@@ -61,4 +84,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AdminUsers;
