@@ -10,6 +10,7 @@ import Card from "../../components/Card";
 import Swipper from "../../components/Swiper";
 import Pagination from "../../components/Pagination";
 import axios from "axios";
+import CardHome from "../../components/CardHome";
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
@@ -74,7 +75,7 @@ const Home = () => {
           {records &&
             records.map((item: any, index: number) => {
               if (item.category == category) {
-                return <Card key={index} thumbnail={item.photo_product} title={item.name} price={item.price} />;
+                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} />;
               }
             })}
         </div>
