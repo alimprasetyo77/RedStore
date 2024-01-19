@@ -22,3 +22,12 @@ export const getDetail = async (id: string) => {
     throw new Error(error.message);
   }
 };
+
+export const getSearch = async (query: string) => {
+  try {
+    const response = await axios.get(
+      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products/search?search=${query}`
+    );
+    return response.data;
+  } catch (error) {}
+};

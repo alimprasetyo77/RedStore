@@ -1,8 +1,26 @@
 import { Search, ShoppingCart, UserRound } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { KeyboardEvent, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
 
 const Navbar = () => {
   const location = useLocation();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSearchTerm = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      navigate(`/products/search?search=${searchTerm}`);
+    }
+  };
   return (
     <div className="w-full border-b shadow-md py-4">
       <div className="container flex items-center mx-auto ">
@@ -23,8 +41,12 @@ const Navbar = () => {
           <input
             className="px-5 py-1 outline-none border-none bg-transparent"
             placeholder="Search"
+            onChange={(e) => handleSearchTerm(e)}
+            onKeyDown={handleKeyDown}
           />
-          <Search />
+          <Link to={`/products/search?search=${searchTerm}`}>
+            <Search />
+          </Link>
         </div>
         <div className="flex items-center gap-x-7 ml-6 ">
           <div className="relative cursor-pointer">

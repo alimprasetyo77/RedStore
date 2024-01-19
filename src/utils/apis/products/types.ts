@@ -12,6 +12,14 @@ export interface Products {
   images: string[];
 }
 
+export interface Products2 {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  photo_product: string;
+}
+
 export interface ProductsDetail {
   id: number;
   name: string;
