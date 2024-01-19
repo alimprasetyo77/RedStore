@@ -6,6 +6,8 @@ import Profile from "../pages/users";
 import Orders from "../pages/admin/Orders";
 import Users from "../pages/admin/Users";
 import Home from "../pages/home";
+import ProductDetail from "../pages/products/productsDetail";
+import OrderProducts from "../pages/order";
 function App() {
   return (
     <BrowserRouter>
@@ -13,10 +15,12 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/user" element={<Profile />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/orderproducts" element={<OrderProducts />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>
   );
