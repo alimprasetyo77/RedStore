@@ -8,6 +8,7 @@ import Users from "../pages/admin/Users";
 import Home from "../pages/home";
 import ProductDetail from "../pages/products/productsDetail";
 import OrderProducts from "../pages/order";
+import Cart from "../pages/cart";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/orderproducts" element={<OrderProducts />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
