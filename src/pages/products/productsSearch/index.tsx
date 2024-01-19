@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../../components/Layout";
 import { Products2 } from "../../../utils/apis/products/types";
 import { getSearch } from "../../../utils/apis/products/api";
-import Card from "../../../components/Card";
+import Card from "../../../components/CardSearch";
 
 interface SearchResultProps {
   query: string;
