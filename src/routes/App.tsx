@@ -3,6 +3,9 @@ import Index from "../pages";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Profile from "../pages/users";
+import Orders from "../pages/admin/Orders";
+import Users from "../pages/admin/Users";
+import ProductDetail from "../pages/products/productsDetail";
 function App() {
   return (
     <BrowserRouter>
@@ -11,6 +14,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<Profile />} />
+        <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/admin/users" element={<Users />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>
   );
