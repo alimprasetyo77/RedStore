@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const location = useLocation();
   return (
-    <div className="w-full border-b shadow-md py-4">
+    <div className="w-full border-b shadow py-4  ">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
           <h1 className="text-xl font-medium">Brand</h1>
@@ -33,7 +33,7 @@ const Navbar = () => {
               6
             </span>
           </div>
-          <Link to={"/profile"}>
+          <Link to={"/user"}>
             <UserRound />
           </Link>
         </div>
