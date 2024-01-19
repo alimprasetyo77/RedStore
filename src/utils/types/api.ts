@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface Response<T = any> {
-  limit: number
-  products: T
-  skip: number
-  total: number
-} 
+
+import { IProductsUser } from "../apis/products/types"
+
+export interface Response {
+  code: number
+  message: string
+}
+export interface ResponseProductsUser {
+  Product: IProductsUser[]
+}
