@@ -5,6 +5,7 @@ import Register from "../pages/auth/Register";
 import Profile from "../pages/users";
 import Orders from "../pages/admin/Orders";
 import Users from "../pages/admin/Users";
+import Home from "../pages/home";
 import ProductDetail from "../pages/products/productsDetail";
 import OrderProducts from "../pages/order";
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/user" element={<Profile />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/users" element={<Users />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/orderproducts" element={<OrderProducts />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
