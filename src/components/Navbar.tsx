@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      navigate(`/products/search?search=${searchTerm}`);
+      navigate(`/products/search/${searchTerm}`);
     }
   };
   const handleLogout = () => {

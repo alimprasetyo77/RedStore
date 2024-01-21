@@ -22,20 +22,24 @@ import { getUsers } from "../../utils/apis/admin/users/api";
 
 const AdminUsers = () => {
   const [user, setUser] = useState<Users>();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers(1, 10);
+  }, [pageNumber, limit]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (pageNumber: number, limit: number) => {
     try {
-      const result = await getUsers();
+      const result = await getUsers(pageNumber, limit);
 
       setUser(result);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const totalPages = Math.ceil(user.totalCount / limit);
 
   return (
     <AdminLayout>
@@ -58,7 +62,7 @@ const AdminUsers = () => {
               <TableCell className="text-left">{user.name}</TableCell>
               <TableCell className="text-center">{user.username}</TableCell>
               <TableCell className="text-left">{user.email}</TableCell>
-              <TableCell className="text-left">{user.role.toUpperCase()}</TableCell>
+              <TableCell className="text-left">{user.createdAt.toUpperCase()}</TableCell>
               <TableCell className="text-center">{user.createdAt}</TableCell>
             </TableRow>
           )}
