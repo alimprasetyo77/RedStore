@@ -1,5 +1,5 @@
 import { Search, ShoppingCart, UserRound } from "lucide-react";
-import {  ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      navigate(`/products/search?search=${searchTerm}`);
+      navigate(`/products/search/${searchTerm}`);
     }
   };
   return (
