@@ -97,3 +97,8 @@
   height: 100%;
   object-fit: cover;
 }
+
+.table-cart {
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
