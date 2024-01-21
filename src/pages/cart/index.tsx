@@ -2,20 +2,32 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { BsTrash3 } from "react-icons/bs";
 import axios from "axios";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
 
 const Cart = () => {
   const [cart, setCart] = useState<[]>([]);
+  const [quantity, setQuantity] = useState<number[]>([]);
 
   function getCart() {
     axios
       .get("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts")
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        setCart(res.data);
+      })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
     getCart();
   }, []);
+
+  const quantityArr: number[] = [];
+  for (const key in cart) {
+    quantityArr.push(cart[key].quantity);
+  }
+  // setQuantity((current) => [...current, ...quantityArr]);
 
   return (
     <Layout>
@@ -33,29 +45,37 @@ const Cart = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th>
-                <h1>Toko Alim</h1>
-              </th>
-            </tr>
-            <tr className="shadow-sm rounded-sm">
-              <td className="w-28 p-3">
-                <img src="https://source.unsplash.com/random?product" width={100} height={100} />
-              </td>
-              <td className="w-32">LCD Monitor</td>
-              <td className="text-center">$500</td>
-              <td className="text-center">
-                <input type="number" className="w-[70px] p-3 border-2 border-slate-300 rounded-sm" min={1} />
-              </td>
-              <td className="text-center">$1000</td>
-              <td className="text-center">
-                <button>
-                  <BsTrash3 />
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          {cart &&
+            cart.map((items: any, index: number) => {
+              return (
+                <tbody key={index}>
+                  <tr className="shadow-sm rounded-sm">
+                    <td className="w-28 p-3">
+                      <img src={`${items.product.photo_product}`} width={100} height={100} />
+                    </td>
+                    <td className="w-32">{items.product.name}</td>
+                    <td className="text-center">Rp. {items.product.price}</td>
+                    <td className="text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white flex justify-center items-center">
+                          <FaMinus />
+                        </div>
+                        <div className="w-8 h-8 flex justify-center items-center">{quantityArr[index]}</div>
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white flex justify-center items-center">
+                          <FaPlus />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-center">Rp. {items.product.price * items.quantity}</td>
+                    <td className="text-center">
+                      <button>
+                        <BsTrash3 />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
         </table>
         <div className="flex justify-between">
           <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
@@ -68,7 +88,7 @@ const Cart = () => {
             <hr className="border-slate-400 mb-14" />
             <div className="flex justify-between mb-6">
               <p>Total:</p>
-              <p>$1000</p>
+              <p>Rp.</p>
             </div>
             <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
           </div>

@@ -6,9 +6,7 @@ import { MdOutlineCamera } from "react-icons/md";
 import { BsSmartwatch } from "react-icons/bs";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { IoIosLaptop } from "react-icons/io";
-import Card from "../../components/Card";
 import Swipper from "../../components/Swiper";
-import Pagination from "../../components/Pagination";
 import axios from "axios";
 import CardHome from "../../components/CardHome";
 
