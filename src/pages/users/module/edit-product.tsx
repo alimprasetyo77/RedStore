@@ -36,7 +36,8 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 ">
+          className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 "
+        >
           <div className="flex flex-col gap-y-1">
             <label htmlFor="name">Name</label>
             <input
@@ -76,7 +77,8 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
             <select
               id="category"
               {...register("category")}
-              className=" w-full px-4 py-2 rounded-md border outline-none">
+              className=" w-full px-4 py-2 rounded-md border outline-none"
+            >
               <option value={""} disabled hidden selected>
                 Choose category
               </option>
@@ -115,7 +117,8 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
           <button
             className="px-6 py-1 rounded-md border bg-sky-500 text-white "
             disabled={isSubmitting}
-            aria-disabled={isSubmitting}>
+            aria-disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <p className="flex items-center gap-x-3 text-sm">
                 <Loader2 className={"animate-spin text-xl "} /> Please wait

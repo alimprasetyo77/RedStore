@@ -20,7 +20,7 @@ const ProductDetail = () => {
     setDetail(response);
     console.log(response);
   };
-
+  console.log(detail?.users);
   return (
     <Layout>
       <div className="py-10 bg-slate-100 min-h-screen">
@@ -40,8 +40,8 @@ const ProductDetail = () => {
                     className="w-16 h-16 rounded-full mr-4"
                   />
                   <div>
-                    <h3 className="text-xl font-bold">TokoArja</h3>
-                    <p className="text-lg">@tokoarja123</p>
+                    <h3 className="text-xl font-bold">{detail.users.name}</h3>
+                    <p className="text-lg">{detail.users.user_name}</p>
                   </div>
                 </div>
               )}

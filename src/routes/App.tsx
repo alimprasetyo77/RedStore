@@ -7,6 +7,7 @@ import Orders from "../pages/admin/Orders";
 import Users from "../pages/admin/Users";
 import ProductDetail from "../pages/products/productsDetail";
 import OrderProducts from "../pages/order";
+import ProductsSearch from "../pages/products/productsSearch";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin/users" element={<Users />} />
         <Route path="/orderproducts" element={<OrderProducts />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products/search/:search" element={<ProductsSearch />} />
       </Routes>
     </BrowserRouter>
   );
