@@ -66,14 +66,12 @@ const ProfileDetail = ({ data }: ProfileDetailProps) => {
       </p>
       <button
         className="px-6 py-2 text-xs font-semibold rounded-md border bg-red-500 text-white"
-        onClick={handleDeleteUser}
-      >
+        onClick={handleDeleteUser}>
         Remove Account
       </button>
       <form
         onSubmit={handleSubmit(handleUpdateUser)}
-        className=" p-10 rounded-lg max-w-6xl w-full space-y-4"
-      >
+        className=" p-10 rounded-lg max-w-6xl w-full space-y-4">
         <h1 className="text-2xl font-semibold -mt-6">Profile</h1>
         <input type="file" id="upload-image" hidden {...register("photo_profile")} />
 
@@ -123,8 +121,7 @@ const ProfileDetail = ({ data }: ProfileDetailProps) => {
         <button
           className="px-5 py-1 rounded-md border bg-sky-500 text-white "
           disabled={isSubmitting}
-          aria-disabled={isSubmitting}
-        >
+          aria-disabled={isSubmitting}>
           {isSubmitting ? (
             <p className="flex items-center gap-x-3 text-sm">
               <Loader2 className={"animate-spin text-xl "} /> Please wait

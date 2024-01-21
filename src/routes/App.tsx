@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Profile from "../pages/users";
+import OrdersUser from "../pages/users/orders";
+import ProductsUser from "../pages/users/products";
 import Orders from "../pages/admin/Orders";
 import Users from "../pages/admin/Users";
 import Home from "../pages/home";
@@ -17,6 +19,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<Profile />} />
+        <Route path="/user/orders" element={<OrdersUser />} />
+        <Route path="/user/products" element={<ProductsUser />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/cart" element={<Cart />} />
