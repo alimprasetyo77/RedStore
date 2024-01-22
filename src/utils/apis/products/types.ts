@@ -6,9 +6,6 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 export interface Data {
   data?: string[];
 }
-import * as z from "zod";
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 export const productSchema = z.object({
   name: z.string().min(1, { message: "Enter your name" }),
@@ -28,6 +25,15 @@ export type IProductType = z.infer<typeof productSchema>;
 export interface IProductsUser {
   id: number;
   name: string;
+  price: number | string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+  addToCart: React.MouseEventHandler;
+}
+export interface Products {
+  id: number;
+  title: string;
   price: number | string;
   category: string;
   thumbnail: string;
