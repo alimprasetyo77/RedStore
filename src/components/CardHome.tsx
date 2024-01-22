@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CardHome = (props: Products) => {
   return (
     <div>
-      <div className="max-w-xl w-full border shadow-sm rounded overflow-hidden group">
+      <div className="max-w-xl w-full border shadow-sm rounded-lg overflow-hidden group">
         <div className="relative">
           <img
             src={props.thumbnail}

@@ -38,7 +38,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full border-b shadow py-4 bg-red-500 text-white  ">
+    <div
+      className="w-full border-b shadow py-4 bg-red-500 text-white sticky top-0"
+      style={{ position: "sticky", top: 0, zIndex: 1000 }}
+    >
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
           <h1 className="text-xl font-medium">Brand</h1>

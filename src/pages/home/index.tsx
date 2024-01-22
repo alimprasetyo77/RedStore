@@ -59,7 +59,7 @@ const Home = () => {
         <div className="flex gap-auto justify-between flex-wrap">
           <div
             onClick={() => setCategory("phone")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "phone" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -68,7 +68,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("computer")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "computer" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -77,7 +77,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("camera")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "camera" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -86,7 +86,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("smartwatch")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "smartwatch" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -95,7 +95,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("television")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "television" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -104,7 +104,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("laptop")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "laptop" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
