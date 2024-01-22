@@ -1,3 +1,4 @@
+import DialogPayMethod from "../../components/DialogPayMethod";
 import Layout from "../../components/Layout";
 import { Checkbox } from "../../components/ui/checkbox";
 
@@ -49,8 +50,8 @@ const OrderProducts = () => {
               />
             </div>
             <div className="flex justify-between mr-12 my-4 border py-4 px-4 items-center">
-              <p className="font-semibold text-md">Payment Method</p>
-              <button className="bg-[#1E81B3] text-white py-2 px-10">Select Payment</button>
+              <p className="font-semibold text-md">Payment Method : </p>
+              <DialogPayMethod />
             </div>
             <div className="mt-14 flex items-center space-x-2">
               <Checkbox />

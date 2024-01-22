@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 import { IUserType } from "./types"
-import { ResponseUser } from "../../types/api"
+import { Response } from "../../types/api"
 
 export const getUser = async () => {
   try {
@@ -24,7 +24,7 @@ export const updateUser = async (body: IUserType) => {
     }
 
     const response = await axios.put("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/users", formData)
-    return response.data as ResponseUser
+    return response.data as Response
   } catch (error: any) {
     throw new Error(error.message)
   }
@@ -33,7 +33,7 @@ export const updateUser = async (body: IUserType) => {
 export const deleteUser = async () => {
   try {
     const response = await axios.delete("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/users")
-    return response.data as ResponseUser
+    return response.data as Response
   } catch (error: any) {
     throw new Error(error.message)
   }

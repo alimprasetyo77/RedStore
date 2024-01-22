@@ -1,9 +1,11 @@
 import Layout from "../components/Layout";
+import { useAuth } from "../utils/contexts/auth";
 
 const Index = () => {
+  const { user } = useAuth();
   return (
     <Layout>
-      <p>index</p>
+      <p>{JSON.stringify(user)}</p>
     </Layout>
   );
 };
