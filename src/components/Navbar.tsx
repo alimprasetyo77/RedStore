@@ -38,10 +38,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full border-b shadow py-4  ">
+    <div className="w-full border-b shadow py-4">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
-          <h1 className="text-xl font-medium">Brand</h1>
+          <img src="/src/assets/logo-brand.png" alt="brand" width={80} />
         </Link>
         <ul className="flex items-center flex-grow justify-center gap-x-8">
           <Link to={"/"} className={`${location.pathname === "/" && "font-semibold"}`}>
