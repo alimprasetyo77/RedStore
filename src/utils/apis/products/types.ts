@@ -16,7 +16,10 @@ export const productSchema = z.object({
   photo_product: z
     .any()
     .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, "Max image size is 5MB")
-    .refine((files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type), "Only .jpg, .jpeg, .png formats are supported")
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      "Only .jpg, .jpeg, .png formats are supported"
+    )
     .optional()
     .or(z.literal("")),
 });
@@ -35,9 +38,9 @@ export interface Products {
   id: number;
   title: string;
   price: number | string;
-  category: string;
+  category?: string;
   thumbnail: string;
-  images: string[];
+  images?: string[];
   addToCart: React.MouseEventHandler;
 }
 

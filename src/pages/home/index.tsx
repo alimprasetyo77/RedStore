@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiMobile4 } from "react-icons/ci";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { MdOutlineCamera } from "react-icons/md";
@@ -33,7 +33,9 @@ const Home = () => {
 
   function addToCartHandle(id_product: number) {
     axios
-      .post(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id_product}`)
+      .post(
+        `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id_product}`
+      )
       .then((res) => {
         console.log(res);
       })
@@ -50,7 +52,9 @@ const Home = () => {
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
-        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">Categories</h1>
+        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">
+          Categories
+        </h1>
         <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>
         <div className="flex gap-auto justify-between flex-wrap">
           <div
@@ -112,7 +116,16 @@ const Home = () => {
           {records &&
             records.map((item: any, index: number) => {
               if (item.category == category) {
-                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
+                return (
+                  <CardHome
+                    key={index}
+                    thumbnail={item.photo_product}
+                    title={item.name}
+                    price={item.price}
+                    id={item.id}
+                    addToCart={() => addToCartHandle(item.id)}
+                  />
+                );
               }
             })}
         </div>
@@ -120,15 +133,25 @@ const Home = () => {
           {/* <Pagination data={products} /> */}
           <div>
             <ul className="flex gap-2">
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" onClick={prePage}>
+              <li
+                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
+                onClick={prePage}
+              >
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
               {numbers.map((n: number, i: number) => (
-                <li className="h-[35px] w-[35px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" key={i} onClick={() => changeCPage(n)}>
+                <li
+                  className="h-[35px] w-[35px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
+                  key={i}
+                  onClick={() => changeCPage(n)}
+                >
                   <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">{n}</p>
                 </li>
               ))}
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
+              <li
+                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
+                onClick={nextPage}
+              >
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
               </li>
             </ul>
@@ -144,7 +167,7 @@ const Home = () => {
     }
   }
 
-  function changeCPage(id) {
+  function changeCPage(id: number) {
     setCurrentPage(id);
   }
 
