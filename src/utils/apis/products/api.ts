@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
-import { IProductType } from "./types";
-import { Response, ResponseProductsUser } from "../../types/api";
+import axios from "axios"
+import { IProductType } from "./types"
+import { Response, ResponseProductsUser } from "../../types/api"
 import { ProductsDetail } from "./types";
+
 
 export const getProductsByUser = async () => {
   try {
@@ -67,5 +68,8 @@ export const getSearch = async (query: string) => {
       `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products/search?search=${query}`
     );
     return response.data;
-  } catch (error) {}
+  } catch (error: any) {
+    throw new Error(error.message);
+
+  }
 };

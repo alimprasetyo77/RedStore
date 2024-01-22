@@ -4,10 +4,11 @@ import { BsTrash3 } from "react-icons/bs";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, setCart] = useState<[]>([]);
-  const [quantity, setQuantity] = useState<number[]>([]);
+  const [total, setTotal] = useState<number>(0);
 
   function getCart() {
     axios
@@ -23,11 +24,27 @@ const Cart = () => {
     getCart();
   }, []);
 
-  const quantityArr: number[] = [];
-  for (const key in cart) {
-    quantityArr.push(cart[key].quantity);
+  const handleDecrement = (cart_id: number) => {
+    setCart((cart) => cart.map((item) => (cart_id === item.product.id ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) } : item)));
+    updateCartQuantity(cart_id);
+  };
+
+  const handleIncrement = (cart_id: number) => {
+    setCart((cart) => cart.map((item) => (cart_id === item.product.id ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) } : item)));
+    updateCartQuantity(cart_id);
+  };
+
+  const totalHarga: number[] = cart.map((item) => {
+    return item.product.price * item.quantity;
+  });
+  let sumTotal: number = totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  function updateCartQuantity(id: number) {
+    axios
+      .put(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id}`, {})
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   }
-  // setQuantity((current) => [...current, ...quantityArr]);
 
   return (
     <Layout>
@@ -57,11 +74,11 @@ const Cart = () => {
                     <td className="text-center">Rp. {items.product.price}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white flex justify-center items-center">
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleDecrement(items.product.id)}>
                           <FaMinus />
                         </div>
-                        <div className="w-8 h-8 flex justify-center items-center">{quantityArr[index]}</div>
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white flex justify-center items-center">
+                        <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.product.id)}>
                           <FaPlus />
                         </div>
                       </div>
@@ -78,17 +95,15 @@ const Cart = () => {
             })}
         </table>
         <div className="flex justify-between">
-          <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
+          <Link to={"/"}>
+            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
+          </Link>
           <div className="border-2 border-black rounded-sm p-8 w-[470px]">
             <h1 className="text-md font-semibold">Cart Total</h1>
-            <div className="flex justify-between">
-              <p>Subtotal:</p>
-              <p>$1000</p>
-            </div>
             <hr className="border-slate-400 mb-14" />
             <div className="flex justify-between mb-6">
               <p>Total:</p>
-              <p>Rp.</p>
+              <p>Rp. {sumTotal}</p>
             </div>
             <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
           </div>
