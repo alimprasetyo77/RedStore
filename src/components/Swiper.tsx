@@ -1,4 +1,3 @@
-import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -23,17 +22,23 @@ const Swipper = () => {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper"
+        className="mySwiper rounded-lg"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <img src="src\assets\supersale.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="src\assets\supersale2.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="src\assets\supersale3.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="src\assets\supersale4.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="src\assets\supersale5.jpg" />
+        </SwiperSlide>
       </Swiper>
     </>
   );
