@@ -38,20 +38,20 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className="w-full border-b shadow py-4 bg-red-500 text-white sticky top-0"
-      style={{ position: "sticky", top: 0, zIndex: 1000 }}
-    >
+    <div className="w-full shadow py-4 bg-red-500 text-white sticky top-0">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
-          <h1 className="text-xl font-medium">Brand</h1>
+          <img src="/src/assets/logo-brand.png" alt="logo-brand" width={80} height={80} />
         </Link>
         <ul className="flex items-center flex-grow justify-center gap-x-8">
-          <Link to={"/"} className={`${location.pathname === "/" && "font-semibold"}`}>
+          <Link
+            to={"/"}
+            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}
+          >
             <li>Home</li>
           </Link>
-          <li>Contact</li>
-          <li>About</li>
+          <li className="hover:font-semibold cursor-pointer">Contact</li>
+          <li className="hover:font-semibold cursor-pointer">About</li>
           {!token ? (
             <Link to={"/register"}>
               <li className={`${location.pathname === "/register" && "font-semibold "} `}>
@@ -60,9 +60,9 @@ const Navbar = () => {
             </Link>
           ) : null}
         </ul>
-        <div className="flex items-center bg-[#F5F5F5] px-3 py-1 h-8 overflow-hidden rounded-xl  text-sm border">
+        <div className="flex items-center bg-[#F5F5F5] px-3 py-1 h-8 overflow-hidden rounded-lg text-sm border">
           <input
-            className="px-5 py-1 outline-none border-none bg-transparent"
+            className="px-5 py-1 outline-none border-none bg-transparent text-zinc-800"
             placeholder="Search"
             onChange={(e) => handleSearchTerm(e)}
             onKeyDown={handleKeyDown}
@@ -73,15 +73,17 @@ const Navbar = () => {
         </div>
         {token ? (
           <div className="flex items-center gap-x-7 ml-6 ">
-            <div className="relative cursor-pointer">
+            <div className="relative cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300">
               <ShoppingCart />
-              <span className="absolute -top-3 -right-3 bg-red-500 font-medium text-white size-4 flex items-center justify-center text-xs rounded-full p-2">
+              <span className="absolute z-10 -top-2 -right-2 bg-white font-medium text-black size-4 flex items-center justify-center text-xs rounded-full p-2">
                 6
               </span>
             </div>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild className="cursor-pointer">
-                <UserRound />
+              <DropdownMenuTrigger asChild>
+                <div className={`cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300`}>
+                  <UserRound />
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2">
                 <DropdownMenuLabel>Hi {user.user_name}</DropdownMenuLabel>

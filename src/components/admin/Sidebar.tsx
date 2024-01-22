@@ -13,8 +13,7 @@ const Sidebar = () => {
                 isActive
                   ? "flex w-full items-center gap-4 rounded-lg bg-white text-[#1E81B3] font-bold py-4 pl-3"
                   : "flex w-full items-center gap-4 rounded-lg bg-transparent text-white py-4 pl-3"
-              }
-            >
+              }>
               <Users />
               Users
             </NavLink>
@@ -26,8 +25,7 @@ const Sidebar = () => {
                 isActive
                   ? "flex w-full items-center gap-4 rounded-lg bg-white text-[#1E81B3] font-bold py-4 pl-3"
                   : "flex w-full items-center gap-4 rounded-lg bg-transparent text-white py-4 pl-3"
-              }
-            >
+              }>
               <ShoppingCart />
               Orders
             </NavLink>
