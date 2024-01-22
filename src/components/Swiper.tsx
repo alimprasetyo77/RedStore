@@ -22,7 +22,8 @@ const Swipper = () => {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper">
+        className="mySwiper rounded-lg"
+      >
         <SwiperSlide>
           <img src="src\assets\supersale.jpg" />
         </SwiperSlide>

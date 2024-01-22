@@ -38,7 +38,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full shadow py-4 bg-red-500 text-white  ">
+    <div className="w-full shadow py-4 bg-red-500 text-white sticky top-0">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
           <img src="/src/assets/logo-brand.png" alt="logo-brand" width={80} height={80} />
@@ -46,7 +46,8 @@ const Navbar = () => {
         <ul className="flex items-center flex-grow justify-center gap-x-8">
           <Link
             to={"/"}
-            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}>
+            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}
+          >
             <li>Home</li>
           </Link>
           <li className="hover:font-semibold cursor-pointer">Contact</li>
