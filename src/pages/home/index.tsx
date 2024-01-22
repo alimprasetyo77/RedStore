@@ -31,6 +31,15 @@ const Home = () => {
       .catch((err) => console.log(err));
   }
 
+  function addToCartHandle(id_product: number) {
+    axios
+      .post(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id_product}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
   useEffect(() => {
     getProduct();
   }, [category]);
@@ -44,27 +53,57 @@ const Home = () => {
         <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">Categories</h1>
         <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>
         <div className="flex gap-auto justify-between flex-wrap">
-          <div onClick={() => setCategory("phone")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("phone")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "phone" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <CiMobile4 className="text-5xl" />
             <h1 className="text-center">Phones</h1>
           </div>
-          <div onClick={() => setCategory("computer")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("computer")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "computer" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <HiOutlineComputerDesktop className="text-5xl" />
             <h1 className="text-center">Computers</h1>
           </div>
-          <div onClick={() => setCategory("camera")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("camera")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "camera" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <MdOutlineCamera className="text-5xl" />
             <h1 className="text-center">Cameras</h1>
           </div>
-          <div onClick={() => setCategory("smartwatch")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("smartwatch")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "smartwatch" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <BsSmartwatch className="text-5xl" />
             <h1 className="text-center">Smartwatch</h1>
           </div>
-          <div onClick={() => setCategory("television")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("television")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "television" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <PiTelevisionSimpleLight className="text-5xl" />
             <h1 className="text-center">Television</h1>
           </div>
-          <div onClick={() => setCategory("laptop")} className="w-[170px] h-[145px] border-2 rounded-md border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5">
+          <div
+            onClick={() => setCategory("laptop")}
+            className={`w-[170px] h-[145px] border-2 rounded-md ${
+              category === "laptop" ? "bg-red-500 text-white" : "bg-white"
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <IoIosLaptop className="text-5xl" />
             <h1 className="text-center">Laptop</h1>
           </div>
@@ -73,7 +112,7 @@ const Home = () => {
           {records &&
             records.map((item: any, index: number) => {
               if (item.category == category) {
-                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} />;
+                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               }
             })}
         </div>
