@@ -1,7 +1,6 @@
 import axios from "axios";
 
 let USER_JWT_TOKEN = "";
-const ADMIN_JWT_TOKEN = "";
 
 const axiosWithConfig = axios.create();
 

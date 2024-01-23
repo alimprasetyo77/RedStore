@@ -61,7 +61,7 @@ const AdminOrders = () => {
               <TableCell className="text-center">{order.quantity}</TableCell>
               <TableCell className="text-left">{order.createdAt}</TableCell>
               <TableCell className="text-center">{order.payment}</TableCell>
-              <TableCell className="text-left">{formattedAmount(order.totalPrice)}</TableCell>
+              <TableCell className="text-left ">{formattedAmount(order.totalPrice)}</TableCell>
               <TableCell className="text-center">{order.address}</TableCell>
               <TableCell className="text-center">{order.status.toUpperCase()}</TableCell>
             </TableRow>

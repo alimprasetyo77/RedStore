@@ -9,7 +9,15 @@ import {
 
 import { cn } from "./lib/utils";
 
-const DialogPayMethod = () => {
+interface Props {
+  onSelect: (value: string) => void;
+}
+const DialogPayMethod = (props: Props) => {
+  const { onSelect } = props;
+
+  const handleSelect = (value: string) => {
+    onSelect(value);
+  };
   return (
     <Dialog>
       <DialogTrigger className={cn("rounded-lg p-3 font-medium hover:cursor-pointer bg-blue-400")}>
@@ -22,7 +30,7 @@ const DialogPayMethod = () => {
         <DialogClose asChild>
           <div className="wrap mt-5 mx-6 flex flex-row justify-between items-center gap-6">
             <div
-              onClick={() => "bca"}
+              onClick={() => handleSelect("bca")}
               className="flex cursor-pointer rounded-sm border border-black p-2 hover:bg-tyellow dark:border-white"
             >
               <img
@@ -31,7 +39,7 @@ const DialogPayMethod = () => {
               />
             </div>
             <div
-              onClick={() => "bni"}
+              onClick={() => handleSelect("bni")}
               className="flex cursor-pointer rounded-sm border border-black p-2 hover:bg-tyellow dark:border-white"
             >
               <img
@@ -40,7 +48,7 @@ const DialogPayMethod = () => {
               />
             </div>
             <div
-              onClick={() => "bri"}
+              onClick={() => handleSelect("bri")}
               className="flex cursor-pointer rounded-sm border border-black p-2 hover:bg-tyellow dark:border-white"
             >
               <img

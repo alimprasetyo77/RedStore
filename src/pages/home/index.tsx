@@ -128,9 +128,7 @@ const Home = () => {
           {records &&
             records.map((item: any, index: number) => {
               if (item.category == category) {
-                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
-              } else if (category == "") {
-                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
+                return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               }
             })}
         </div>

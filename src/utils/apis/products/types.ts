@@ -36,11 +36,10 @@ export interface IProductsUser {
 }
 export interface Products {
   id: number;
-  title: string;
-  price: number | string;
+  name: string;
+  price: number;
   category?: string;
-  thumbnail: string;
-  images?: string[];
+  photo_product: string;
   addToCart: React.MouseEventHandler;
 }
 
@@ -60,4 +59,21 @@ export interface Seller {
   name: string;
   user_name: string;
   photo_profile: string;
+}
+
+export interface Cart {
+  id: number;
+  quantity: number;
+  Products: ProductCart;
+}
+
+export interface ProductCart {
+  name: string;
+  price: number;
+  photo_product: string;
+  toko: TokoCart;
+}
+
+export interface TokoCart {
+  nama: string;
 }
