@@ -9,7 +9,7 @@ import { IoIosLaptop } from "react-icons/io";
 import Swipper from "../../components/Swiper";
 import CardHome from "../../components/CardHome";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
-import { useAuth } from "../../utils/contexts/auth";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
@@ -21,25 +21,28 @@ const Home = () => {
   const records = products.slice(firstIndex, lastIndex);
   const npage = Math.ceil(products.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
-  const { token } = useAuth();
 
   function getProduct() {
     axiosWithConfig
       .get("/products")
       .then((res) => {
         setProducts(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }
 
   function addToCartHandle(id_product: number) {
     axiosWithConfig
-      .post(`/carts/${id_product}`, {
-        Authorization: `Bearer ${token}`,
-      })
+      .post(`/carts/${id_product}`)
       .then((res) => {
         console.log(res);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Added to cart",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((err) => console.log(err));
   }

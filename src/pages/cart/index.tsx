@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { BsTrash3 } from "react-icons/bs";
-import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
-import { useAuth } from "../../utils/contexts/auth";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const [cart, setCart] = useState<[]>([]);
-  const [total, setTotal] = useState<number>(0);
-  const { token } = useAuth();
 
   function getCart() {
     axiosWithConfig
       .get("/carts")
       .then((res) => {
-        console.log(res);
-        setCart(res.data);
+        setCart(res.data.data);
       })
       .catch((err) => console.log(err));
   }
@@ -28,24 +24,50 @@ const Cart = () => {
   }, []);
 
   const handleDecrement = (cart_id: number) => {
-    setCart((cart) => cart.map((item) => (cart_id === item.product.id ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) } : item)));
-    updateCartQuantity(cart_id);
+    setCart((cart) => cart.map((item) => (cart_id === item.id ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) } : item)));
+    cart.map((item) => {
+      if (item.id == cart_id) {
+        const quantity = item.quantity - 1;
+        updateCartQuantity(cart_id, quantity);
+      }
+    });
   };
 
   const handleIncrement = (cart_id: number) => {
-    setCart((cart) => cart.map((item) => (cart_id === item.product.id ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) } : item)));
-    updateCartQuantity(cart_id);
+    setCart((cart) => cart.map((item) => (cart_id === item.id ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) } : item)));
+    cart.map((item) => {
+      if (item.id == cart_id) {
+        const quantity = item.quantity + 1;
+        updateCartQuantity(cart_id, quantity);
+      }
+    });
   };
 
   const totalHarga: number[] = cart.map((item) => {
-    return item.product.price * item.quantity;
+    return item.Products.price * item.quantity;
   });
   let sumTotal: number = totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  function updateCartQuantity(id: number) {
-    axios
-      .put(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id}`, {})
+  function updateCartQuantity(id: number, quantity: number) {
+    axiosWithConfig
+      .put(`/carts/${id}`, {
+        quantity: quantity,
+      })
       .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  }
+
+  function deleteCartHandle(id: number) {
+    axiosWithConfig
+      .delete(`/carts/${id}`)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      })
       .catch((error) => console.log(error));
   }
 
@@ -71,24 +93,24 @@ const Cart = () => {
                 <tbody key={index}>
                   <tr className="shadow-sm rounded-sm">
                     <td className="w-28 p-3">
-                      <img src={`${items.product.photo_product}`} width={100} height={100} />
+                      <img src={`${items.Products.photo_product}`} width={100} height={100} />
                     </td>
-                    <td className="w-32">{items.product.name}</td>
-                    <td className="text-center">Rp. {items.product.price}</td>
+                    <td className="w-32">{items.Products.name}</td>
+                    <td className="text-center">Rp. {items.Products.price}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleDecrement(items.product.id)}>
+                        <div className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`} onClick={() => handleDecrement(items.id)}>
                           <FaMinus />
                         </div>
                         <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.product.id)}>
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.id)}>
                           <FaPlus />
                         </div>
                       </div>
                     </td>
-                    <td className="text-center">Rp. {items.product.price * items.quantity}</td>
+                    <td className="text-center">Rp. {items.Products.price * items.quantity}</td>
                     <td className="text-center">
-                      <button>
+                      <button onClick={() => deleteCartHandle(items.id)}>
                         <BsTrash3 />
                       </button>
                     </td>
