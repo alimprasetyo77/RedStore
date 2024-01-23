@@ -11,8 +11,10 @@ import {
 import { IProductType, IProductsUser } from "../../utils/apis/products/types";
 import Layout from "../../components/Layout";
 import Sidebar from "../../components/Sidebar";
+import { Loader2 } from "lucide-react";
 
 const Products = () => {
+  const [loading, setLoading] = useState(false);
   const [idEdit, setIdEdit] = useState<number>();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
@@ -31,10 +33,13 @@ const Products = () => {
   };
   const getProductUser = async () => {
     try {
+      setLoading(true);
       const result = await getProductsByUser();
       setProductsUser(result.Product);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleDeleteProduct = async (id: number) => {
@@ -62,7 +67,7 @@ const Products = () => {
     <Layout>
       <div className="flex bg-slate-100">
         <Sidebar />
-        <div className="max-h-screen flex flex-col container bg-white my-8 p-10 gap-3">
+        <div className="max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">
             {isOpenForm ? (
               <AddEditProduct onSubmit={handleCreateProduct} close={() => setIsOpenForm(false)} />
@@ -77,19 +82,25 @@ const Products = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-5 gap-6">
-            {productsUser
-              ? productsUser.map((product) => (
-                  <Card
-                    key={product.id}
-                    data={product}
-                    id={product.id}
-                    onDelete={handleDeleteProduct}
-                    onEdit={onEditProduct}
-                  />
-                ))
-              : null}
-          </div>
+          {loading ? (
+            <Loader2 className="animate-spin text-center w-full h-8" />
+          ) : (
+            <>
+              <div className="grid grid-cols-5 gap-6">
+                {productsUser
+                  ? productsUser.map((product) => (
+                      <Card
+                        key={product.id}
+                        data={product}
+                        id={product.id}
+                        onDelete={handleDeleteProduct}
+                        onEdit={onEditProduct}
+                      />
+                    ))
+                  : null}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Layout>

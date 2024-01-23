@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiMobile4 } from "react-icons/ci";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { MdOutlineCamera } from "react-icons/md";
@@ -7,12 +7,13 @@ import { BsSmartwatch } from "react-icons/bs";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { IoIosLaptop } from "react-icons/io";
 import Swipper from "../../components/Swiper";
-import axios from "axios";
 import CardHome from "../../components/CardHome";
+import axiosWithConfig from "../../utils/apis/axiosWithConfig";
+import { useAuth } from "../../utils/contexts/auth";
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
-  const [category, setCategory] = useState<string>("phone");
+  const [category, setCategory] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const recordsPerPage: number = 5;
   const lastIndex = currentPage * recordsPerPage;
@@ -20,20 +21,23 @@ const Home = () => {
   const records = products.slice(firstIndex, lastIndex);
   const npage = Math.ceil(products.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
+  const { token } = useAuth();
 
   function getProduct() {
-    axios
-      .get("52.192.189.156:8000/products")
+    axiosWithConfig
+      .get("/products")
       .then((res) => {
-        console.log(res.data.data);
         setProducts(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }
 
   function addToCartHandle(id_product: number) {
-    axios
-      .post(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts/${id_product}`)
+    axiosWithConfig
+      .post(`/carts/${id_product}`, {
+        Authorization: `Bearer ${token}`,
+      })
       .then((res) => {
         console.log(res);
       })
@@ -51,11 +55,20 @@ const Home = () => {
           <Swipper />
         </div>
         <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">Categories</h1>
-        <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>{" "}
+          {category == "" ? (
+            <></>
+          ) : (
+            <button className="hover:bg-red-500 hover:text-white p-1" onClick={() => setCategory("")}>
+              Show all product
+            </button>
+          )}
+        </div>
         <div className="flex gap-auto justify-between flex-wrap">
           <div
             onClick={() => setCategory("phone")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "phone" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -64,7 +77,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("computer")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "computer" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -73,7 +86,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("camera")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "camera" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -82,7 +95,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("smartwatch")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "smartwatch" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -91,7 +104,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("television")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "television" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -100,7 +113,7 @@ const Home = () => {
           </div>
           <div
             onClick={() => setCategory("laptop")}
-            className={`w-[170px] h-[145px] border-2 rounded-md ${
+            className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "laptop" ? "bg-red-500 text-white" : "bg-white"
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
           >
@@ -113,6 +126,8 @@ const Home = () => {
             records.map((item: any, index: number) => {
               if (item.category == category) {
                 return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
+              } else if (category == "") {
+                return <CardHome key={index} thumbnail={item.photo_product} title={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               }
             })}
         </div>
@@ -120,15 +135,15 @@ const Home = () => {
           {/* <Pagination data={products} /> */}
           <div>
             <ul className="flex gap-2">
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" onClick={prePage}>
+              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={prePage}>
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
               {numbers.map((n: number, i: number) => (
-                <li className="h-[35px] w-[35px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" key={i} onClick={() => changeCPage(n)}>
+                <li className="h-[35px] w-[35px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" key={i} onClick={() => changeCPage(n)}>
                   <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">{n}</p>
                 </li>
               ))}
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-black hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
+              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
               </li>
             </ul>
@@ -144,7 +159,7 @@ const Home = () => {
     }
   }
 
-  function changeCPage(id) {
+  function changeCPage(id: number) {
     setCurrentPage(id);
   }
 

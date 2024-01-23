@@ -5,14 +5,17 @@ import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axiosWithConfig from "../../utils/apis/axiosWithConfig";
+import { useAuth } from "../../utils/contexts/auth";
 
 const Cart = () => {
   const [cart, setCart] = useState<[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const { token } = useAuth();
 
   function getCart() {
-    axios
-      .get("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/carts")
+    axiosWithConfig
+      .get("/carts")
       .then((res) => {
         console.log(res);
         setCart(res.data);

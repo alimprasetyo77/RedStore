@@ -1,4 +1,3 @@
-import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -23,7 +22,7 @@ const Swipper = () => {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper"
+        className="mySwiper rounded-lg"
       >
         <SwiperSlide>
           <img src="src\assets\supersale.jpg" />
