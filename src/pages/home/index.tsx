@@ -120,8 +120,8 @@ const Home = () => {
                 return (
                   <CardHome
                     key={index}
-                    thumbnail={item.photo_product}
-                    title={item.name}
+                    photo_product={item.photo_product}
+                    name={item.name}
                     price={item.price}
                     id={item.id}
                     addToCart={() => addToCartHandle(item.id)}

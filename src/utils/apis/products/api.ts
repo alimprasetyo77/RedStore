@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { IProductType } from "./types";
+import { Cart, IProductType } from "./types";
 import { Response, ResponseProductsUser } from "../../types/api";
 import { ProductsDetail } from "./types";
 import axiosWithConfig from "../axiosWithConfig";
@@ -62,10 +62,26 @@ export const getDetail = async (id: string) => {
 
 export const getSearch = async (query: string) => {
   try {
-    const response = await axios.get(
-      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products/search?search=${query}`
-    );
+    const response = await axiosWithConfig.get(`products/search?search=${query}`);
     return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const getCart = async () => {
+  try {
+    const response = await axiosWithConfig.get(`/carts`);
+    return response.data.data as Cart[];
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const addCart = async (id: string) => {
+  try {
+    const response = await axiosWithConfig.post(`/carts/${id}`);
+    return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
   }
