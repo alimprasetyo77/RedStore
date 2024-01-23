@@ -15,7 +15,7 @@ const Home = () => {
   const [products, setProducts] = useState<[]>([]);
   const [category, setCategory] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const recordsPerPage: number = 5;
+  const recordsPerPage: number = 12;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = products.slice(firstIndex, lastIndex);
@@ -128,6 +128,8 @@ const Home = () => {
           {records &&
             records.map((item: any, index: number) => {
               if (item.category == category) {
+                return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
+              } else if (category == "") {
                 return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               }
             })}
