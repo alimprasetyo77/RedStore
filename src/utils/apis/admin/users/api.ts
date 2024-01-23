@@ -1,12 +1,10 @@
-import axios from "axios";
-import { Users } from "./types";
+import { AdminGetUsers } from "./types";
+import axiosWithConfig from "../../axiosWithConfig";
 
 export const getUsers = async (pageNumber: number, limit: number) => {
   try {
-    const response = await axios.get(
-      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/admin/users?page=${pageNumber}&limit=${limit}`
-    );
-    return response.data as Users;
+    const response = await axiosWithConfig.get(`/admin/users?page=${pageNumber}&limit=${limit}`);
+    return response.data as AdminGetUsers;
   } catch (error: any) {
     throw new Error(error.message);
   }
