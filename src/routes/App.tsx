@@ -11,22 +11,31 @@ import ProductDetail from "../pages/products/productsDetail";
 import OrderProducts from "../pages/order";
 import ProductsSearch from "../pages/products/productsSearch";
 import Cart from "../pages/cart";
+import ProtectedRoute from "./ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/user" element={<Profile />} />
-        <Route path="/user/orders" element={<OrdersUser />} />
-        <Route path="/user/products" element={<ProductsUser />} />
-        <Route path="/admin/orders" element={<Orders />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orderproducts" element={<OrderProducts />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/products/search/:search" element={<ProductsSearch />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user" element={<Profile />} />
+          <Route path="/user/orders" element={<OrdersUser />} />
+          <Route path="/user/products" element={<ProductsUser />} />
+          <Route path="/admin/orders" element={<Orders />} />
+          <Route path="/admin/users" element={<Users />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orderproducts" element={<OrderProducts />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products/search/:search" element={<ProductsSearch />} />
+        </Route>
+        <Route
+          path="*"
+          element={
+            <p className="text-center text-3xl font-medium py-20">There's nothing here: 404!</p>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

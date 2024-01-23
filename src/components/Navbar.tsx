@@ -48,8 +48,7 @@ const Navbar = () => {
         <ul className="flex items-center flex-grow justify-center gap-x-8">
           <Link
             to={"/"}
-            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}
-          >
+            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}>
             <li>Home</li>
           </Link>
           <li className="hover:font-semibold cursor-pointer">Contact</li>
