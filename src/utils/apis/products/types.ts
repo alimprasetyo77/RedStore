@@ -44,14 +44,6 @@ export interface Products {
   addToCart: React.MouseEventHandler;
 }
 
-export interface Products2 {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  photo_product: string;
-}
-
 export interface ProductsDetail {
   id: number;
   name: string;
@@ -60,12 +52,12 @@ export interface ProductsDetail {
   category: string;
   stock: number;
   photo_product: string;
-  users: Seller;
+  toko: Seller;
 }
 
 export interface Seller {
-  id: number;
+  id?: number;
   name: string;
   user_name: string;
-  photo_profil: string;
+  photo_profile: string;
 }

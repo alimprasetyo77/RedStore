@@ -1,8 +1,7 @@
 import axios from "axios";
 
 let USER_JWT_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDU5NzcyMjAsInVzZXJJZCI6NX0.nXNZE1PCr_ay45J9Iv4wf1zyEMVannQN7y1miVS3HWo";
-
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDU5ODA0NDYsInVzZXJJZCI6OH0.Nqc3_aPlGcf5en-5ptcrGHkdEVvcXMP30Pzt3GZO90M";
 const axiosWithConfig = axios.create();
 
 export const setAxiosConfig = (token: string) => {
