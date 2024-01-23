@@ -1,7 +1,8 @@
 import axios from "axios";
 
-let USER_JWT_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDU5ODA0NDYsInVzZXJJZCI6OH0.Nqc3_aPlGcf5en-5ptcrGHkdEVvcXMP30Pzt3GZO90M";
+let USER_JWT_TOKEN = "";
+const ADMIN_JWT_TOKEN = "";
+
 const axiosWithConfig = axios.create();
 
 export const setAxiosConfig = (token: string) => {

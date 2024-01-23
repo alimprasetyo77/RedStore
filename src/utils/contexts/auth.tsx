@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { IUserType } from "../apis/users/types";
 import { getUser } from "../apis/users/api";
+import { setAxiosConfig } from "../apis/axiosWithConfig";
 
 interface Context {
   token: string;
@@ -21,13 +22,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<Partial<IUserType>>({});
 
   useEffect(() => {
+    setAxiosConfig(token);
     token !== "" && fetchUser();
   }, [token]);
 
   const fetchUser = async () => {
     try {
       const result = await getUser();
-      setUser(result);
+      setUser(result?.data);
     } catch (error) {
       console.log(error);
     }

@@ -1,40 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
-import { IProductType } from "./types";
-import { Response, ResponseProductsUser } from "../../types/api";
+import axios from "axios"
+import { IProductType } from "./types"
+import { ResponsePayload } from "../../types/api"
 import { ProductsDetail } from "./types";
 import axiosWithConfig from "../axiosWithConfig";
 
+
 export const getProductsByUser = async () => {
   try {
-    const response = await axios.get(
-      "https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/users/products"
-    );
-    return response.data as ResponseProductsUser;
+    const response = await axiosWithConfig.get("/users/products")
+    return response.data as ResponsePayload;
   } catch (error: any) {
     throw new Error(error.message);
   }
 };
 
 export const createProduct = async (body: IProductType) => {
+
+  const formData = new FormData();
+
+  formData.append("name", body.name);
+  formData.append("description", body.description);
+  formData.append("price", body.price.toString());
+  formData.append("category", body.category);
+  formData.append("stock", body.stock.toString());
+  formData.append("photo_product", body.photo_product[0]);
+
   try {
-    const response = await axios.post(
-      "https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products",
-      body
-    );
-    return response.data as Response;
+    const response = await axiosWithConfig.post("/products", formData)
+    return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
   }
 };
 
 export const updateProduct = async (body: IProductType, id: number) => {
+  const formData = new FormData();
+
+  formData.append("name", body.name);
+  formData.append("description", body.description);
+  formData.append("price", body.price.toString());
+  formData.append("category", body.category);
+  formData.append("stock", body.stock.toString());
+  formData.append("photo_product", body.photo_product[0]);
+
   try {
-    const response = await axios.put(
-      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products/${id}`,
-      body
-    );
-    return response.data as Response;
+    const response = await axiosWithConfig.put(`/products/${id}`, formData)
+    return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -42,10 +54,8 @@ export const updateProduct = async (body: IProductType, id: number) => {
 
 export const deleteProduct = async (id: number) => {
   try {
-    const response = await axios.delete(
-      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products/${id}`
-    );
-    return response.data as Response;
+    const response = await axiosWithConfig.delete(`products/${id}`)
+    return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
   }

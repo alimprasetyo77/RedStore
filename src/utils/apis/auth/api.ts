@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
 import { LoginType, RegisterType } from "./types";
-import { Response } from "../../types/api";
+import { ResponsePayload } from "../../types/api";
+import axiosWithConfig from "../axiosWithConfig";
 
-interface ResponseLogin {
-  code: number
-  token: string;
+interface LoginPayload {
+  nama: string
+  role: string
+  token: string
 }
 
 export const userLogin = async (body: LoginType) => {
   try {
-    const response = await axios.post(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/login`, body);
-    return response.data as ResponseLogin;
+    const response = await axiosWithConfig.post("/login", body);
+    return response.data as ResponsePayload<LoginPayload>;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
@@ -19,8 +20,8 @@ export const userLogin = async (body: LoginType) => {
 
 export const userRegister = async (body: RegisterType) => {
   try {
-    const response = await axios.post(`https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/users`, body);
-    return response.data as Response;
+    const response = await axiosWithConfig.post("/users", body);
+    return response.data as { message: string };
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
