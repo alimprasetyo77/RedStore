@@ -9,6 +9,7 @@ import { IoIosLaptop } from "react-icons/io";
 import Swipper from "../../components/Swiper";
 import axios from "axios";
 import CardHome from "../../components/CardHome";
+import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
@@ -22,15 +23,15 @@ const Home = () => {
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   function getProduct() {
-    axios
-      .get("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products")
+    axiosWithConfig
+      .get("/products")
       .then((res) => {
-        console.log(res);
-        setProducts(res.data.Product);
+        setProducts(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }
-
+  console.log("produk", products);
   function addToCartHandle(id_product: number) {
     axios
       .post(
