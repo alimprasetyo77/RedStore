@@ -38,7 +38,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full shadow py-4 bg-red-500 text-white sticky top-0">
+    <div className="w-full shadow py-4 bg-red-500 text-white sticky top-0 z-50">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
           <img src="/src/assets/logo-brand.png" alt="logo-brand" width={80} height={80} />

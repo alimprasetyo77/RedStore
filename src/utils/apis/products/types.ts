@@ -9,7 +9,7 @@ export interface Data {
 
 export const productSchema = z.object({
   name: z.string().min(1, { message: "Enter your name" }),
-  description: z.string().min(1, { message: "Enter your username" }),
+  description: z.string().min(1, { message: "Enter your description" }),
   price: z.number().min(1, { message: "Enter a price" }),
   category: z.string().min(1, { message: "Enter a category" }),
   stock: z.number().min(1, { message: "Enter a stock" }),

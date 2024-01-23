@@ -18,7 +18,7 @@ const Orders = () => {
     try {
       setLoading(true);
       const result = await getOrders();
-      setOrders([result]);
+      setOrders(result.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,7 +43,7 @@ const Orders = () => {
             <Loader2 className="text-center w-full h-8 animate-spin" />
           ) : (
             <>
-              {orders &&
+              {orders && orders.length > 0 ? (
                 orders.map((order) => (
                   <div key={order.id} className=" space-y-8">
                     {order.data?.map((data, index) => (
@@ -83,7 +83,10 @@ const Orders = () => {
                       </div>
                     ))}
                   </div>
-                ))}
+                ))
+              ) : (
+                <p className="text-center italic">Orders list not existing</p>
+              )}
             </>
           )}
         </div>

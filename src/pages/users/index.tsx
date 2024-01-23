@@ -8,9 +8,11 @@ import Sidebar from "../../components/Sidebar";
 import Layout from "../../components/Layout";
 import { useAuth } from "../../utils/contexts/auth";
 import Alert from "../../components/Alert";
+import { useToast } from "../../components/ui/use-toast";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, changeToken } = useAuth();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,7 @@ const Profile = () => {
       user_name: "",
       email: "",
       password: "",
-      photo_profile: new File([], ""),
+      photo_profile: "",
     },
   });
 
@@ -31,26 +33,37 @@ const Profile = () => {
     setValue("name", user?.name as string);
     setValue("user_name", user?.user_name as string);
     setValue("email", user?.email as string);
-    setValue("photo_profile", user?.photo_profile);
+    // setValue("photo_profile", user?.photo_profile ?? "");
   }, [user]);
 
   const handleUpdateUser = async (body: IUserType) => {
     try {
       const result = await updateUser(body);
-      alert(result.message);
+      toast({
+        description: result.message,
+      });
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   };
   const handleDeleteUser = async () => {
     try {
       const result = await deleteUser();
-      alert(result.message);
+      changeToken();
+      toast({
+        description: result.message,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   };
-
   return (
     <Layout>
       <div className=" bg-slate-100 min-h-screen ">
@@ -60,7 +73,11 @@ const Profile = () => {
             <div className="flex flex-col items-center gap-y-4  flex-grow">
               <div className="relative">
                 <img
-                  src={user?.photo_profile ?? "https://source.unsplash.com/300x300?person"}
+                  src={
+                    user.photo_profile === ""
+                      ? "https://source.unsplash.com/300x300?person"
+                      : user.photo_profile
+                  }
                   alt="profile-user"
                   className="rounded-full size-48"
                 />

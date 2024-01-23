@@ -1,10 +1,7 @@
 import axios from "axios";
 
-let USER_JWT_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDU5NTA2OTEsInVzZXJJZCI6M30.Mnkl81iwG2kyFClQwjpUJpNf6b6Uzh__K5C0oLuz0HU";
-
-const ADMIN_JWT_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDU5NDkwMDYsInVzZXJJZCI6NX0.oIl1z33jhvdkjekRdfodgApV4oYcnH_sPQFj9V_-Jbo";
+let USER_JWT_TOKEN = "";
+const ADMIN_JWT_TOKEN = "";
 const axiosWithConfig = axios.create();
 const axiosWithConfigAdmin = axios.create();
 

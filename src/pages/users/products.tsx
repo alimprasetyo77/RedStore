@@ -12,8 +12,10 @@ import { IProductType, IProductsUser } from "../../utils/apis/products/types";
 import Layout from "../../components/Layout";
 import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
+import { useToast } from "../../components/ui/use-toast";
 
 const Products = () => {
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [idEdit, setIdEdit] = useState<number>();
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -26,16 +28,22 @@ const Products = () => {
   const handleCreateProduct = async (body: IProductType) => {
     try {
       const result = await createProduct(body);
-      alert(result.message);
+      getProductUser();
+      toast({
+        description: result.message,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   };
   const getProductUser = async () => {
     try {
       setLoading(true);
       const result = await getProductsByUser();
-      setProductsUser(result.Product);
+      setProductsUser(result.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -45,17 +53,29 @@ const Products = () => {
   const handleDeleteProduct = async (id: number) => {
     try {
       const result = await deleteProduct(id);
-      alert(result.message);
+      getProductUser();
+      toast({
+        description: result.message,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   };
   const handleEditProduct = async (body: IProductType) => {
     try {
       const result = await updateProduct(body, idEdit!);
-      alert(result.message);
+      getProductUser();
+      toast({
+        description: result.message,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   };
 
@@ -87,17 +107,19 @@ const Products = () => {
           ) : (
             <>
               <div className="grid grid-cols-5 gap-6">
-                {productsUser
-                  ? productsUser.map((product) => (
-                      <Card
-                        key={product.id}
-                        data={product}
-                        id={product.id}
-                        onDelete={handleDeleteProduct}
-                        onEdit={onEditProduct}
-                      />
-                    ))
-                  : null}
+                {productsUser && productsUser.length > 0 ? (
+                  productsUser.map((product) => (
+                    <Card
+                      key={product.id}
+                      data={product}
+                      id={product.id}
+                      onDelete={handleDeleteProduct}
+                      onEdit={onEditProduct}
+                    />
+                  ))
+                ) : (
+                  <p>Product not exists</p>
+                )}
               </div>
             </>
           )}
