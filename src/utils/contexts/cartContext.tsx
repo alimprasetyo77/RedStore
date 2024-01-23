@@ -1,4 +1,12 @@
-import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Cart } from "../apis/products/types";
 import { useToast } from "../../components/ui/use-toast";
 import { getCart } from "../apis/products/api";
@@ -23,12 +31,19 @@ const DataContext = createContext<Context>(contextValue);
 
 export const DataProvider = ({ children }: Readonly<Props>) => {
   const [carts, setCarts] = useState<Cart[]>([]);
+  console.log(carts);
   const { toast } = useToast();
+
+  useEffect(() => {}, [carts]);
 
   const productInCart = async () => {
     const response = await getCart();
     setCarts(response);
     console.log(response);
+    toast({
+      title: "Berhasil ditambahkan",
+      description: "Product berhasil ditambahkan dalam favorites",
+    });
   };
 
   const changeCart = useCallback(

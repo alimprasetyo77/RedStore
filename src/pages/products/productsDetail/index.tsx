@@ -5,17 +5,20 @@ import { useParams } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import { formattedAmount } from "../../../utils/formattedAmount";
 import { useCart } from "../../../utils/contexts/cartContext";
+import { useAuth } from "../../../utils/contexts/auth";
 
 const ProductDetail = () => {
   const [detail, setDetail] = useState<ProductsDetail>();
   const { id } = useParams();
   const [addProduct, setAddProduct] = useState("");
   const { productInCart } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (id) {
       fetchDetail();
     }
+    fetchAddCart();
   }, []);
 
   const fetchDetail = async () => {
@@ -41,7 +44,7 @@ const ProductDetail = () => {
                 alt="keyboard"
               />
             </div>
-            <div className="flex-1 text-left mt-14 mr-3">
+            <div className="flex-1 text-left mt-14 mr-3 ml-10">
               <h1 className="text-[26px] font-medium mb-2 max-w-[470px]">{detail.name}</h1>
               <div className="text-xl font-bold mb-6">{formattedAmount(detail.price)}</div>
               <p className="mb-8 border-b-[1px] border-gray-600 pb-8">{detail.description}</p>
@@ -62,12 +65,14 @@ const ProductDetail = () => {
                 <p className="text-[18px] font-medium border-y-[1px] border-gray-600 py-2 px-8">
                   STOK {detail.stock}
                 </p>
-                <button
-                  className="bg-[#1E81B3] text-white py-3 px-8"
-                  onClick={() => fetchAddCart(detail.id)}
-                >
-                  Add to Cart
-                </button>
+                {detail.toko.user_name !== user.user_name ? (
+                  <button
+                    className="bg-[#1E81B3] text-white py-3 px-8"
+                    onClick={() => fetchAddCart(detail.id)}
+                  >
+                    Add to Cart
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
