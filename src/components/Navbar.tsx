@@ -59,8 +59,10 @@ const Navbar = () => {
         {token ? (
           <div className="flex items-center gap-x-7 ml-6 ">
             <div className="relative cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300">
-              <ShoppingCart />
-              <span className="absolute z-10 -top-2 -right-2 bg-white font-medium text-black size-4 flex items-center justify-center text-xs rounded-full p-2">{carts.length || 0}</span>
+              <Link to="/cart">
+                <ShoppingCart />
+                <span className="absolute z-10 -top-2 -right-2 bg-white font-medium text-black size-4 flex items-center justify-center text-xs rounded-full p-2">{carts.length || 0}</span>
+              </Link>
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
