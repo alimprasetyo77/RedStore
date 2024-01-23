@@ -21,7 +21,7 @@ import { Users } from "../../utils/apis/admin/users/types";
 import { getUsers } from "../../utils/apis/admin/users/api";
 
 const AdminUsers = () => {
-  const [user, setUser] = useState<Users>();
+  const [user, setUser] = useState<Users[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [limit, setLimit] = useState(10);
 
@@ -32,14 +32,29 @@ const AdminUsers = () => {
   const fetchUsers = async (pageNumber: number, limit: number) => {
     try {
       const result = await getUsers(pageNumber, limit);
-
-      setUser(result);
+      setUser(result.data);
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const totalPages = Math.ceil(user.totalCount / limit);
+  /*  const totalPages = Math.ceil(user.length / limit);
+  const startIndex = (pageNumber - 1) * limit;
+  const endIndex = startIndex + limit;
+  const currentItems = user.slice(startIndex, endIndex); */
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1);
+    console.log(pageNumber);
+  };
+
+  const handlePreviousPage = () => {
+    if (pageNumber > 1) {
+      setPageNumber(pageNumber - 1);
+      console.log(pageNumber);
+    }
+  };
 
   return (
     <AdminLayout>
@@ -48,39 +63,42 @@ const AdminUsers = () => {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] text-left">User ID</TableHead>
+            <TableHead className="text-center">Photo Profile</TableHead>
             <TableHead className="text-left">Name</TableHead>
             <TableHead className="text-center">Username</TableHead>
             <TableHead className="text-left">Email</TableHead>
-            <TableHead className="text-left">Role</TableHead>
-            <TableHead className="text-center">Created At</TableHead>
+            <TableHead className="text-left">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {user && (
-            <TableRow>
-              <TableCell className="font-medium text-center">{user.id}</TableCell>
-              <TableCell className="text-left">{user.name}</TableCell>
-              <TableCell className="text-center">{user.username}</TableCell>
-              <TableCell className="text-left">{user.email}</TableCell>
-              <TableCell className="text-left">{user.createdAt.toUpperCase()}</TableCell>
-              <TableCell className="text-center">{user.createdAt}</TableCell>
-            </TableRow>
-          )}
+          {user &&
+            user.map((user, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium text-center">{user.id}</TableCell>
+                <TableCell className="text-center">{user.photo_profile}</TableCell>
+                <TableCell className="text-left">{user.name}</TableCell>
+                <TableCell className="text-center">{user.user_name}</TableCell>
+                <TableCell className="text-left">{user.email}</TableCell>
+                <TableCell className="text-left font-semibold">
+                  {user.status_user.toUpperCase()}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious href="" onClick={handlePreviousPage} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
+            <PaginationLink href="">{pageNumber}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext href="" onClick={handleNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

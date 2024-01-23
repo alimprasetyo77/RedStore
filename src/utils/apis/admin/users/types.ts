@@ -1,8 +1,16 @@
+export interface AdminGetUsers {
+  message: string;
+  data: Users[];
+}
+
 export interface Users {
   id: number;
   name: string;
-  username: string;
+  user_name: string;
   email: string;
   role: string;
-  createdAt: string;
+  photo_profile: string;
+  created_at: string;
+  deleted_at?: string;
+  status_user: string;
 }
