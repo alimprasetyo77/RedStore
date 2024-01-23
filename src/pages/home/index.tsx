@@ -23,10 +23,10 @@ const Home = () => {
 
   function getProduct() {
     axios
-      .get("https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/products")
+      .get("52.192.189.156:8000/products")
       .then((res) => {
-        console.log(res);
-        setProducts(res.data.Product);
+        console.log(res.data.data);
+        setProducts(res.data.data);
       })
       .catch((err) => console.log(err));
   }

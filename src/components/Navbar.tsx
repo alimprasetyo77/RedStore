@@ -56,10 +56,12 @@ const Navbar = () => {
         </div>
         {token ? (
           <div className="flex items-center gap-x-7 ml-6 ">
-            <div className="relative cursor-pointer">
-              <ShoppingCart />
-              <span className="absolute -top-3 -right-3 bg-red-500 font-medium text-white size-4 flex items-center justify-center text-xs rounded-full p-2">6</span>
-            </div>
+            <Link to={"/cart"}>
+              <div className="relative cursor-pointer">
+                <ShoppingCart />
+                <span className="absolute -top-3 -right-3 bg-red-500 font-medium text-white size-4 flex items-center justify-center text-xs rounded-full p-2">6</span>
+              </div>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="cursor-pointer">
                 <UserRound />
