@@ -53,7 +53,8 @@ const Cart = () => {
     cart.map((item) => {
       return item.Products.price * item.quantity;
     });
-  let sumTotal: number = totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  let sumTotal: number =
+    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
@@ -147,15 +148,11 @@ const Cart = () => {
               <p>Total:</p>
               <p>Rp. {sumTotal}</p>
             </div>
-<<<<<<< HEAD
-            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
-              Process to Order
-            </button>
-=======
             <Link to={"/orderproducts"}>
-              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
+              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+                Process to Order
+              </button>
             </Link>
->>>>>>> cb49e25273c2042bbbd240b7b116d9cdd7e9b2e1
           </div>
         </div>
       </div>
