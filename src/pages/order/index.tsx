@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { Checkbox } from "../../components/ui/checkbox";
-import { Cart, IOrderType, ResCreateOrder } from "../../utils/apis/products/types";
+import { Cart, IOrderType } from "../../utils/apis/products/types";
 import { createOrder, getCart } from "../../utils/apis/products/api";
 import { formattedAmount } from "../../utils/formattedAmount";
 import AccorPayment from "../../components/AccorPayment";
@@ -13,7 +13,6 @@ const OrderProducts = () => {
   const [term, setTerm] = useState<boolean>(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [dataCheckout, setDataCheckout] = useState<ResCreateOrder>();
   const [data, setData] = useState<IOrderType>({
     address: "",
     cart_id: [],
@@ -49,7 +48,6 @@ const OrderProducts = () => {
   const handleCheckout = async () => {
     try {
       const result = await createOrder(data);
-      setDataCheckout(result.data);
       toast({
         description: result.message,
       });
