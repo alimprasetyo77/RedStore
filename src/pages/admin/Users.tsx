@@ -23,11 +23,10 @@ import { getUsers } from "../../utils/apis/admin/users/api";
 const AdminUsers = () => {
   const [user, setUser] = useState<Users[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [limit] = useState(10);
 
   useEffect(() => {
-    fetchUsers(1, 10);
-  }, [pageNumber, limit]);
+    fetchUsers(pageNumber, 10);
+  }, [pageNumber]);
 
   const fetchUsers = async (pageNumber: number, limit: number) => {
     try {
@@ -63,7 +62,6 @@ const AdminUsers = () => {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] text-left">User ID</TableHead>
-            <TableHead className="text-center">Photo Profile</TableHead>
             <TableHead className="text-left">Name</TableHead>
             <TableHead className="text-center">Username</TableHead>
             <TableHead className="text-left">Email</TableHead>
@@ -75,7 +73,6 @@ const AdminUsers = () => {
             user.map((user, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium text-center">{user.id}</TableCell>
-                <TableCell className="text-center">{user.photo_profile}</TableCell>
                 <TableCell className="text-left">{user.name}</TableCell>
                 <TableCell className="text-center">{user.user_name}</TableCell>
                 <TableCell className="text-left">{user.email}</TableCell>
@@ -89,16 +86,16 @@ const AdminUsers = () => {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="" onClick={handlePreviousPage} />
+            <PaginationPrevious onClick={handlePreviousPage} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="">{pageNumber}</PaginationLink>
+            <PaginationLink>{pageNumber}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="" onClick={handleNextPage} />
+            <PaginationNext onClick={handleNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

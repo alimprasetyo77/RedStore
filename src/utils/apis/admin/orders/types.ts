@@ -1,10 +1,16 @@
-export interface Orders {
-  id: number;
-  productName: string;
+export interface GetAdminOrders {
+  order: OrderData[];
+}
+
+export interface OrderData {
+  order_id: string;
+  product: {
+    name: string;
+  };
   quantity: number;
-  createdAt: string;
-  payment: string;
-  totalPrice: number;
+  created_at: string;
+  bank: string;
+  gross_amount: number;
   address: string;
   status: string;
 }
