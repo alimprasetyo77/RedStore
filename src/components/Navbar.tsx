@@ -44,11 +44,9 @@ const Navbar = () => {
           </Link>
           <li className="hover:font-semibold cursor-pointer">Contact</li>
           <li className="hover:font-semibold cursor-pointer">About</li>
-          {!token ? (
-            <Link to={"/register"}>
-              <li className={`${location.pathname === "/register" && "font-semibold "} `}>Sign Up</li>
-            </Link>
-          ) : null}
+          <Link to={"/register"}>
+            <li className={`${location.pathname === "/register" && "font-semibold "} ${!token ? "block" : "hidden"} `}>Sign Up</li>
+          </Link>
         </ul>
         <div className="flex items-center bg-[#F5F5F5] px-3 py-1 h-8 overflow-hidden rounded-lg text-sm border">
           <input className="px-5 py-1 outline-none border-none bg-transparent text-zinc-800" placeholder="Search" onChange={(e) => handleSearchTerm(e)} onKeyDown={handleKeyDown} />

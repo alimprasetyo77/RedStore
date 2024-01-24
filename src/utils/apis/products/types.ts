@@ -32,6 +32,7 @@ export interface IProductsUser {
   category: string;
   thumbnail: string;
   images: string[];
+  photo_product: string;
   addToCart: React.MouseEventHandler;
 }
 export interface Products {
