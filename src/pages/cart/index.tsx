@@ -24,15 +24,9 @@ const Cart = () => {
   }, [cart]);
 
   const handleDecrement = (cart_id: number) => {
-<<<<<<< HEAD
-    cart.map((item) => {
-      if (item.id === cart_id) {
-        if (item.quantity === 1) {
-=======
     cart.map((item: any) => {
       if (item.id == cart_id) {
         if (item.quantity == 1) {
->>>>>>> 3f092dd74e30a480417dcadac2bab7a3f372ffa2
           const quantity = item.quantity - 0;
           updateCartQuantity(cart_id, quantity);
         } else {
@@ -44,13 +38,8 @@ const Cart = () => {
   };
 
   const handleIncrement = (cart_id: number) => {
-<<<<<<< HEAD
-    cart.map((item) => {
-      if (item.id === cart_id) {
-=======
     cart.map((item: any) => {
       if (item.id == cart_id) {
->>>>>>> 3f092dd74e30a480417dcadac2bab7a3f372ffa2
         const quantity = item.quantity + 1;
         updateCartQuantity(cart_id, quantity);
       }
@@ -62,13 +51,9 @@ const Cart = () => {
     cart.map((item: any) => {
       return item.Products.price * item.quantity;
     });
-<<<<<<< HEAD
-  let sumTotal: number =
-    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-=======
-  const sumTotal: number = totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
->>>>>>> 3f092dd74e30a480417dcadac2bab7a3f372ffa2
 
+  const sumTotal: number =
+    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
