@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
     if (!token) return <Navigate to="/login" />;
 
     // if (adminProtected.includes(pathname)) {
-    //   if (role === "user") return <Navigate to="/" />;
+    //   if (user.role === "user") return <Navigate to="/" />;
     // }
   }
 

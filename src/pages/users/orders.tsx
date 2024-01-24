@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
-
+import "../../styles/index.css";
 const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<IOrderUser[]>();
@@ -37,24 +37,21 @@ const Orders = () => {
     <Layout>
       <div className="flex bg-slate-100">
         <Sidebar />
-        <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white  overflow-y-scroll">
+        <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white ">
           <h1 className="text-2xl font-semibold mb-6">My Orders</h1>
           {loading ? (
             <Loader2 className="text-center w-full h-8 animate-spin" />
           ) : (
-            <>
+            <div className="max-h-[90%] space-y-6 overflow-y-scroll orders px-3">
               {orders && orders.length > 0 ? (
                 orders.map((data, index) => (
-                  <div key={index} className=" space-y-8">
+                  <div key={index} className="space-y-8">
                     {data.order.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 border ">
                         <img
-                          src={
-                            "https://source.unsplash.com/100x100?products" ??
-                            item.product.photo_product
-                          }
+                          src={item.product.photo_product}
                           alt="photo-product"
                           className=" rounded size-28"
                         />
@@ -92,7 +89,7 @@ const Orders = () => {
               ) : (
                 <p className="text-center italic">Orders list not existing</p>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
