@@ -1,17 +1,18 @@
-export interface OrderResponse {
-  id: string;
-  status: string;
-  data: OrderItem[];
+export interface IOrderUser {
+  order: DataOrder[]
 }
 
-export interface OrderItem {
-  product: Product;
-  quantity: number;
+export interface DataOrder {
+  product: ProductItem
+  quantity: number
+  status: string
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  photo_product: string;
+export interface ProductItem {
+  name: string,
+  price: number,
+  photo_product: string
+  toko: {
+    name: string
+  }
 }

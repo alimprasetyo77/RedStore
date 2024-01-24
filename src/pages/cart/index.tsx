@@ -6,8 +6,10 @@ import { FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
+import { useCart } from "../../utils/contexts/cartContext";
 
 const Cart = () => {
+  const { changeCart } = useCart();
   const [cart, setCart] = useState<[]>([]);
 
   function getCart() {
@@ -24,7 +26,13 @@ const Cart = () => {
   }, []);
 
   const handleDecrement = (cart_id: number) => {
-    setCart((cart) => cart.map((item) => (cart_id === item.id ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) } : item)));
+    setCart((cart) =>
+      cart.map((item) =>
+        cart_id === item.id
+          ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) }
+          : item
+      )
+    );
     cart.map((item) => {
       if (item.id == cart_id) {
         const quantity = item.quantity - 1;
@@ -34,7 +42,13 @@ const Cart = () => {
   };
 
   const handleIncrement = (cart_id: number) => {
-    setCart((cart) => cart.map((item) => (cart_id === item.id ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) } : item)));
+    setCart((cart) =>
+      cart.map((item) =>
+        cart_id === item.id
+          ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) }
+          : item
+      )
+    );
     cart.map((item) => {
       if (item.id == cart_id) {
         const quantity = item.quantity + 1;
@@ -46,7 +60,10 @@ const Cart = () => {
   const totalHarga: number[] = cart.map((item) => {
     return item.Products.price * item.quantity;
   });
-  let sumTotal: number = totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  let sumTotal: number = totalHarga.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
 
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
@@ -66,7 +83,9 @@ const Cart = () => {
           title: "Deleted!",
           text: "Your file has been deleted.",
           icon: "success",
+          preConfirm: () => getCart(),
         });
+        changeCart();
       })
       .catch((error) => console.log(error));
   }
@@ -99,11 +118,17 @@ const Cart = () => {
                     <td className="text-center">Rp. {items.Products.price}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`} onClick={() => handleDecrement(items.id)}>
+                        <div
+                          className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`}
+                          onClick={() => handleDecrement(items.id)}>
                           <FaMinus />
                         </div>
-                        <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.id)}>
+                        <div className="w-8 h-8 flex justify-center items-center">
+                          {items.quantity}
+                        </div>
+                        <div
+                          className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center"
+                          onClick={() => handleIncrement(items.id)}>
                           <FaPlus />
                         </div>
                       </div>
@@ -121,7 +146,9 @@ const Cart = () => {
         </table>
         <div className="flex justify-between">
           <Link to={"/"}>
-            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
+            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">
+              Return To Home
+            </button>
           </Link>
           <div className="border-2 border-black rounded-sm p-8 w-[470px]">
             <h1 className="text-md font-semibold">Cart Total</h1>
@@ -130,7 +157,9 @@ const Cart = () => {
               <p>Total:</p>
               <p>Rp. {sumTotal}</p>
             </div>
-            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
+            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+              Process to Order
+            </button>
           </div>
         </div>
       </div>

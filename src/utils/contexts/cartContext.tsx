@@ -1,20 +1,11 @@
-import {
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { Cart } from "../apis/products/types";
-import { useToast } from "../../components/ui/use-toast";
 import { getCart } from "../apis/products/api";
+import { useAuth } from "./auth";
 
 interface Context {
   carts: Cart[];
-  changeCart: (cart: Cart) => void;
-  productInCart: () => void;
+  changeCart: () => void;
 }
 
 interface Props {
@@ -24,47 +15,32 @@ interface Props {
 const contextValue = {
   carts: [],
   changeCart: () => {},
-  productInCart: () => {},
 };
 
 const DataContext = createContext<Context>(contextValue);
 
 export const DataProvider = ({ children }: Readonly<Props>) => {
+  const { token } = useAuth();
   const [carts, setCarts] = useState<Cart[]>([]);
-  console.log(carts);
-  const { toast } = useToast();
 
-  useEffect(() => {}, [carts]);
+  useEffect(() => {
+    token !== "" && changeCart();
+    console.log("changeCart");
+  }, [setCarts, token]);
 
-  const productInCart = async () => {
-    const response = await getCart();
-    setCarts(response);
-    console.log(response);
-    toast({
-      title: "Berhasil ditambahkan",
-      description: "Product berhasil ditambahkan dalam favorites",
-    });
+  const changeCart = async () => {
+    try {
+      const response = await getCart();
+      setCarts(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const changeCart = useCallback(
-    (cart: Cart) => {
-      setCarts((prevCarts) => [...prevCarts, cart]);
-      toast({
-        title: "Berhasil ditambahkan",
-        description: "Product berhasil ditambahkan dalam favorites",
-      });
-    },
-    [carts]
-  );
-
-  const dataContextValue = useMemo(
-    () => ({
-      carts,
-      changeCart,
-      productInCart,
-    }),
-    [carts]
-  );
+  const dataContextValue = {
+    carts,
+    changeCart,
+  };
 
   return <DataContext.Provider value={dataContextValue}>{children}</DataContext.Provider>;
 };

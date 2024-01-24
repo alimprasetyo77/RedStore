@@ -6,20 +6,20 @@ import Layout from "../../../components/Layout";
 import { formattedAmount } from "../../../utils/formattedAmount";
 import { useCart } from "../../../utils/contexts/cartContext";
 import { useAuth } from "../../../utils/contexts/auth";
+import { useToast } from "../../../components/ui/use-toast";
 
 const ProductDetail = () => {
   const [detail, setDetail] = useState<ProductsDetail>();
   const { id } = useParams();
-  const [addProduct, setAddProduct] = useState("");
-  const { productInCart } = useCart();
+  const { changeCart } = useCart();
   const { user } = useAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (id) {
       fetchDetail();
     }
-    fetchAddCart();
-  }, []);
+  }, [id]);
 
   const fetchDetail = async () => {
     const response = await getDetail(id as string);
@@ -27,10 +27,19 @@ const ProductDetail = () => {
   };
 
   const fetchAddCart = async (id: number) => {
-    const response = await addCart(`${id}`);
-    setAddProduct(response.message);
-    productInCart();
-    console.log(response.message);
+    try {
+      const response = await addCart(`${id}`);
+      changeCart();
+      toast({
+        title: "Berhasil ditambahkan",
+        description: response.message,
+      });
+    } catch (error) {
+      toast({
+        description: (error as Error).message,
+        variant: "destructive",
+      });
+    }
   };
   return (
     <Layout>
@@ -68,8 +77,7 @@ const ProductDetail = () => {
                 {detail.toko.user_name !== user.user_name ? (
                   <button
                     className="bg-[#1E81B3] text-white py-3 px-8"
-                    onClick={() => fetchAddCart(detail.id)}
-                  >
+                    onClick={() => fetchAddCart(detail.id)}>
                     Add to Cart
                   </button>
                 ) : null}
