@@ -16,7 +16,7 @@ const OrderProducts = () => {
   const [dataCheckout, setDataCheckout] = useState<ResCreateOrder>();
   const [data, setData] = useState<IOrderType>({
     address: "",
-    cart_id: [],
+    cart_ids: [],
     bank: "",
     gross_amount: 0,
   });
@@ -40,16 +40,18 @@ const OrderProducts = () => {
   const handlePaymentMethodSelect = (selectedMethod: string) => {
     setData({
       ...data,
-      cart_id: cart.map((c) => c.id),
+      cart_ids: cart.map((c) => c.id),
       gross_amount: totalPayment,
       bank: selectedMethod,
     });
   };
 
   const handleCheckout = async () => {
+    console.log(data);
     try {
       const result = await createOrder(data);
       setDataCheckout(result.data);
+      console.log(result);
       toast({
         description: result.message,
       });
@@ -61,7 +63,6 @@ const OrderProducts = () => {
     }
   };
 
-  console.log(data);
   return (
     <Layout>
       <div className="py-10 bg-slate-100 min-h-screen">
@@ -84,7 +85,6 @@ const OrderProducts = () => {
                   cart.map((item, index) => (
                     <tr key={index}>
                       <th className="py-12 px-4 font-normal max-w-36">
-                        {" "}
                         <div className="flex items-center ">
                           <img
                             className="w-32 h-32 mr-2"
@@ -133,8 +133,7 @@ const OrderProducts = () => {
               <Checkbox onCheckedChange={(value: boolean) => setTerm(value)} />
               <label
                 htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3"
-              >
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3">
                 By ticking, you are confirming that you have already read all the details and input
                 correct information
               </label>
@@ -146,8 +145,7 @@ const OrderProducts = () => {
                   !term ? "bg-gray-200" : "bg-[#1E81B3]"
                 }`}
                 disabled={!term}
-                onClick={handleCheckout}
-              >
+                onClick={handleCheckout}>
                 Checkout
               </button>
             </div>

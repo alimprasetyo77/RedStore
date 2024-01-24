@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { BsTrash3 } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
@@ -6,8 +7,10 @@ import { FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
+import { useCart } from "../../utils/contexts/cartContext";
 
 const Cart = () => {
+  const { changeCart } = useCart();
   const [cart, setCart] = useState<[] | any>([]);
 
   function getCart() {
@@ -72,7 +75,9 @@ const Cart = () => {
           title: "Deleted!",
           text: "Your file has been deleted.",
           icon: "success",
+          preConfirm: () => getCart(),
         });
+        changeCart();
       })
       .catch((error) => console.log(error));
   }
@@ -107,8 +112,7 @@ const Cart = () => {
                       <div className="flex items-center justify-center gap-2">
                         <div
                           className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`}
-                          onClick={() => handleDecrement(items.id)}
-                        >
+                          onClick={() => handleDecrement(items.id)}>
                           <FaMinus />
                         </div>
                         <div className="w-8 h-8 flex justify-center items-center">
@@ -116,8 +120,7 @@ const Cart = () => {
                         </div>
                         <div
                           className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center"
-                          onClick={() => handleIncrement(items.id)}
-                        >
+                          onClick={() => handleIncrement(items.id)}>
                           <FaPlus />
                         </div>
                       </div>

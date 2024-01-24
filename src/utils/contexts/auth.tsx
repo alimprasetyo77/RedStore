@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { IUserType } from "../apis/users/types";
 import { getUser } from "../apis/users/api";
-import { setAxiosConfig } from "../apis/axiosWithConfig";
+import axiosWithConfig, { setAxiosConfig } from "../apis/axiosWithConfig";
 
 interface Context {
   token: string;
@@ -24,6 +24,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setAxiosConfig(token);
     token !== "" && fetchUser();
+    axiosWithConfig.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response.status === 401) {
+          changeToken();
+        }
+      }
+    );
   }, [token]);
 
   const fetchUser = async () => {
