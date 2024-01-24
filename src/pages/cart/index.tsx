@@ -23,32 +23,23 @@ const Cart = () => {
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [cart]);
 
   const handleDecrement = (cart_id: number) => {
-    setCart((cart) =>
-      cart.map((item) =>
-        cart_id === item.id
-          ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) }
-          : item
-      )
-    );
     cart.map((item) => {
       if (item.id == cart_id) {
-        const quantity = item.quantity - 1;
-        updateCartQuantity(cart_id, quantity);
+        if (item.quantity == 1) {
+          const quantity = item.quantity - 0;
+          updateCartQuantity(cart_id, quantity);
+        } else {
+          const quantity = item.quantity - 1;
+          updateCartQuantity(cart_id, quantity);
+        }
       }
     });
   };
 
   const handleIncrement = (cart_id: number) => {
-    setCart((cart) =>
-      cart.map((item) =>
-        cart_id === item.id
-          ? { ...item, quantity: item.quantity + (item.quantity < 100 ? 1 : 0) }
-          : item
-      )
-    );
     cart.map((item) => {
       if (item.id == cart_id) {
         const quantity = item.quantity + 1;
@@ -57,13 +48,12 @@ const Cart = () => {
     });
   };
 
-  const totalHarga: number[] = cart.map((item) => {
-    return item.Products.price * item.quantity;
-  });
-  let sumTotal: number = totalHarga.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
+  const totalHarga: number[] =
+    cart &&
+    cart.map((item) => {
+      return item.Products.price * item.quantity;
+    });
+  let sumTotal: number = totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
@@ -157,9 +147,15 @@ const Cart = () => {
               <p>Total:</p>
               <p>Rp. {sumTotal}</p>
             </div>
+<<<<<<< HEAD
             <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
               Process to Order
             </button>
+=======
+            <Link to={"/orderproducts"}>
+              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
+            </Link>
+>>>>>>> cb49e25273c2042bbbd240b7b116d9cdd7e9b2e1
           </div>
         </div>
       </div>

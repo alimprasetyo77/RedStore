@@ -18,6 +18,7 @@ const Orders = () => {
       setLoading(true);
       const result = await getOrders();
       setOrders(result.data);
+      console.log(result.data);
     } catch (error) {
       console.error(error);
     } finally {

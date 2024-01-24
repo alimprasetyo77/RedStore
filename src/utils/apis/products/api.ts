@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Cart, IProductType } from "./types";
+import { Cart, IProductType, IOrderType, ResCreateOrder } from "./types";
 import { ResponsePayload } from "../../types/api";
 import { ProductsDetail } from "./types";
 import axiosWithConfig from "../axiosWithConfig";
@@ -79,7 +79,7 @@ export const getSearch = async (query: string) => {
 export const getCart = async () => {
   try {
     const response = await axiosWithConfig.get(`/carts`);
-    return response.data.data as Cart[];
+    return response.data as ResponsePayload<Cart[]>;
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -89,6 +89,15 @@ export const addCart = async (id: string) => {
   try {
     const response = await axiosWithConfig.post(`/carts/${id}`);
     return response.data as { message: string };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const createOrder = async (body: IOrderType) => {
+  try {
+    const response = await axiosWithConfig.post(`/orders`, body);
+    return response.data as ResponsePayload<ResCreateOrder>;
   } catch (error: any) {
     throw new Error(error.message);
   }

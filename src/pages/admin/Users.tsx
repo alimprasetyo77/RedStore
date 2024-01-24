@@ -23,7 +23,7 @@ import { getUsers } from "../../utils/apis/admin/users/api";
 const AdminUsers = () => {
   const [user, setUser] = useState<Users[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit] = useState(10);
 
   useEffect(() => {
     fetchUsers(1, 10);

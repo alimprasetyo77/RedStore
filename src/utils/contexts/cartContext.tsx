@@ -31,7 +31,7 @@ export const DataProvider = ({ children }: Readonly<Props>) => {
   const changeCart = async () => {
     try {
       const response = await getCart();
-      setCarts(response);
+      setCarts(response.data);
     } catch (error) {
       console.log(error);
     }

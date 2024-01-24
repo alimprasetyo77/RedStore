@@ -142,8 +142,12 @@ const Home = () => {
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
               {numbers.map((n: number, i: number) => (
-                <li className="h-[35px] w-[35px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" key={i} onClick={() => changeCPage(n)}>
-                  <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">{n}</p>
+                <li
+                  className={`h-[35px] w-[35px] relative ${currentPage === n ? "bg-red-500 text-white" : "bg-white"} rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
+                  key={i}
+                  onClick={() => changeCPage(n)}
+                >
+                  <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>{n}</p>
                 </li>
               ))}
               <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
