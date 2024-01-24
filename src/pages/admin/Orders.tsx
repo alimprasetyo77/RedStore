@@ -68,7 +68,7 @@ const AdminOrders = () => {
         <TableBody>
           {order &&
             order.order.map((order, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} className="">
                 <TableCell className="font-medium text-center">{order.order_id}</TableCell>
                 <TableCell className="text-left">{order.product.name}</TableCell>
                 <TableCell className="text-center">{order.quantity}</TableCell>
@@ -81,19 +81,16 @@ const AdminOrders = () => {
             ))}
         </TableBody>
       </Table>
-      <Pagination>
+      <Pagination className="py-3">
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={handlePreviousPage} />
+            <PaginationPrevious className="cursor-pointer" onClick={handlePreviousPage} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink>{pageNumber}</PaginationLink>
+            <PaginationLink className="cursor-default">{pageNumber}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={handleNextPage} />
+            <PaginationNext className="cursor-pointer" onClick={handleNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
