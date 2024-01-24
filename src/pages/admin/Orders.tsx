@@ -17,26 +17,38 @@ import {
   TableRow,
 } from "../../components/ui/table";
 import { useEffect, useState } from "react";
-import { Orders } from "../../utils/apis/admin/orders/types";
+import { GetAdminOrders } from "../../utils/apis/admin/orders/types";
 import { getOrders } from "../../utils/apis/admin/orders/api";
 import { formattedAmount } from "../../utils/formattedAmount";
 
 const AdminOrders = () => {
-  const [order, setOrder] = useState<Orders>();
+  const [order, setOrder] = useState<GetAdminOrders>();
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    fetchOrders(pageNumber, 10);
+  }, [pageNumber]);
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (pageNumber: number, limit: number) => {
     try {
-      const result = await getOrders();
-
+      const result = await getOrders(pageNumber, limit);
       setOrder(result);
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (pageNumber > 1) {
+      setPageNumber(pageNumber - 1);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="my-5 font-bold font text-3xl pl-4">Orders</div>
@@ -54,33 +66,34 @@ const AdminOrders = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {order && (
-            <TableRow>
-              <TableCell className="font-medium text-center">{order.id}</TableCell>
-              <TableCell className="text-left">{order.productName}</TableCell>
-              <TableCell className="text-center">{order.quantity}</TableCell>
-              <TableCell className="text-left">{order.createdAt}</TableCell>
-              <TableCell className="text-center">{order.payment}</TableCell>
-              <TableCell className="text-left ">{formattedAmount(order.totalPrice)}</TableCell>
-              <TableCell className="text-center">{order.address}</TableCell>
-              <TableCell className="text-center">{order.status.toUpperCase()}</TableCell>
-            </TableRow>
-          )}
+          {order &&
+            order.order.map((order, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium text-center">{order.order_id}</TableCell>
+                <TableCell className="text-left">{order.product.name}</TableCell>
+                <TableCell className="text-center">{order.quantity}</TableCell>
+                <TableCell className="text-left">{order.created_at}</TableCell>
+                <TableCell className="text-center">{order.bank.toUpperCase()}</TableCell>
+                <TableCell className="text-left ">{formattedAmount(order.gross_amount)}</TableCell>
+                <TableCell className="text-center">{order.address}</TableCell>
+                <TableCell className="text-center">{order.status.toUpperCase()}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious onClick={handlePreviousPage} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
+            <PaginationLink>{pageNumber}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext onClick={handleNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

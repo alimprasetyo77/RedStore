@@ -51,8 +51,9 @@ const Cart = () => {
     cart.map((item: any) => {
       return item.Products.price * item.quantity;
     });
-  const sumTotal: number = totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
+  const sumTotal: number =
+    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
@@ -104,11 +105,19 @@ const Cart = () => {
                     <td className="text-center">Rp. {items.Products.price}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`} onClick={() => handleDecrement(items.id)}>
+                        <div
+                          className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`}
+                          onClick={() => handleDecrement(items.id)}
+                        >
                           <FaMinus />
                         </div>
-                        <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
-                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.id)}>
+                        <div className="w-8 h-8 flex justify-center items-center">
+                          {items.quantity}
+                        </div>
+                        <div
+                          className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center"
+                          onClick={() => handleIncrement(items.id)}
+                        >
                           <FaPlus />
                         </div>
                       </div>
@@ -126,7 +135,9 @@ const Cart = () => {
         </table>
         <div className="flex justify-between">
           <Link to={"/"}>
-            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
+            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">
+              Return To Home
+            </button>
           </Link>
           <div className="border-2 border-black rounded-sm p-8 w-[470px]">
             <h1 className="text-md font-semibold">Cart Total</h1>
@@ -136,7 +147,9 @@ const Cart = () => {
               <p>Rp. {sumTotal}</p>
             </div>
             <Link to={"/orderproducts"}>
-              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
+              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+                Process to Order
+              </button>
             </Link>
           </div>
         </div>
