@@ -57,11 +57,12 @@ const AdminUsers = () => {
 
   return (
     <AdminLayout>
-      <div className="my-5 font-bold font text-3xl pl-4">Orders</div>
+      <div className="my-5 font-bold font text-3xl pl-4">Users</div>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] text-left">User ID</TableHead>
+            <TableHead className="">Avatar</TableHead>
             <TableHead className="text-left">Name</TableHead>
             <TableHead className="text-center">Username</TableHead>
             <TableHead className="text-left">Email</TableHead>
@@ -73,6 +74,12 @@ const AdminUsers = () => {
             user.map((user, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium text-center">{user.id}</TableCell>
+                <TableCell className="font-medium text-center">
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={user?.photo_profile || "https://via.placeholder.com/150"}
+                  />
+                </TableCell>
                 <TableCell className="text-left">{user.name}</TableCell>
                 <TableCell className="text-center">{user.user_name}</TableCell>
                 <TableCell className="text-left">{user.email}</TableCell>
@@ -83,19 +90,16 @@ const AdminUsers = () => {
             ))}
         </TableBody>
       </Table>
-      <Pagination>
+      <Pagination className="py-3">
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={handlePreviousPage} />
+            <PaginationPrevious className="cursor-pointer" onClick={handlePreviousPage} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink>{pageNumber}</PaginationLink>
+            <PaginationLink className="cursor-default">{pageNumber}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={handleNextPage} />
+            <PaginationNext className="cursor-pointer" onClick={handleNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
