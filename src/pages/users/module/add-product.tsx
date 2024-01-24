@@ -34,16 +34,30 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
             <X />
           </button>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 ">
           <div className="flex flex-col gap-y-1">
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" {...register("name")} className=" w-full px-4 py-2 rounded-md border outline-none" />
+            <input
+              type="text"
+              id="name"
+              {...register("name")}
+              className=" w-full px-4 py-2 rounded-md border outline-none"
+            />
             <p className="text-sm text-red-500 ">{errors.name && errors.name.message}</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="description">Description</label>
-            <input type="text" id="description" {...register("description")} className=" w-full px-4 py-2 rounded-md border outline-none" />
-            <p className="text-sm text-red-500 ">{errors.description && errors.description.message}</p>
+            <input
+              type="text"
+              id="description"
+              {...register("description")}
+              className=" w-full px-4 py-2 rounded-md border outline-none"
+            />
+            <p className="text-sm text-red-500 ">
+              {errors.description && errors.description.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="price">Price</label>
@@ -59,7 +73,10 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="category">Category</label>
-            <select id="category" {...register("category")} className=" w-full px-4 py-2 rounded-md border outline-none">
+            <select
+              id="category"
+              {...register("category")}
+              className=" w-full px-4 py-2 rounded-md border outline-none">
               <option value={""} disabled hidden selected>
                 Choose category
               </option>
@@ -85,10 +102,17 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="photo_product">Photo product</label>
-            <input type="file" id="photo_product" className=" w-full px-4 py-2 rounded-md border outline-none" {...register("photo_product")} />
-            <p className="text-sm text-red-500 ">{errors.photo_product && errors.photo_product.message}</p>
+            <input
+              type="file"
+              id="photo_product"
+              className=" w-full px-4 py-2 rounded-md border outline-none"
+              {...register("photo_product")}
+            />
           </div>
-          <button className="px-6 py-1 rounded-md border bg-sky-500 text-white " disabled={isSubmitting} aria-disabled={isSubmitting}>
+          <button
+            className="px-6 py-1 rounded-md border bg-sky-500 text-white "
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}>
             {isSubmitting ? (
               <p className="flex items-center gap-x-3 text-sm">
                 <Loader2 className={"animate-spin text-xl "} /> Please wait

@@ -28,7 +28,7 @@ const Login = () => {
       toast({
         description: result.message,
       });
-      navigate("/");
+      result.data.role === "admin" ? navigate("/admin/users") : navigate("/");
     } catch (error) {
       toast({
         title: "Oops! Something went wrong.",

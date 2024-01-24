@@ -11,6 +11,8 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
     "/user",
     "/user/orders",
     "/user/products",
+    "/cart",
+    "/orderproducts",
     "/admin/orders",
     "/admin/users",
   ];

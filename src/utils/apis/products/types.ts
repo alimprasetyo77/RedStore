@@ -29,7 +29,7 @@ export const orderSchema = z.object({
   address: z.string().min(1, { message: "Enter your address" }),
   gross_amount: z.number().min(1),
   bank: z.string().min(1, { message: "Select your payment method" }),
-  cart_id: z.any().optional(),
+  cart_ids: z.any().optional(),
 });
 export type IOrderType = z.infer<typeof orderSchema>;
 

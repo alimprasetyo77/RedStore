@@ -50,6 +50,7 @@ const Products = () => {
       setLoading(false);
     }
   };
+
   const handleDeleteProduct = async (id: number) => {
     try {
       const result = await deleteProduct(id);

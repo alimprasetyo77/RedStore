@@ -15,7 +15,7 @@ const OrderProducts = () => {
   const navigate = useNavigate();
   const [data, setData] = useState<IOrderType>({
     address: "",
-    cart_id: [],
+    cart_ids: [],
     bank: "",
     gross_amount: 0,
   });
@@ -39,13 +39,14 @@ const OrderProducts = () => {
   const handlePaymentMethodSelect = (selectedMethod: string) => {
     setData({
       ...data,
-      cart_id: cart.map((c) => c.id),
+      cart_ids: cart.map((c) => c.id),
       gross_amount: totalPayment,
       bank: selectedMethod,
     });
   };
 
   const handleCheckout = async () => {
+    console.log(data);
     try {
       const result = await createOrder(data);
       toast({
@@ -59,7 +60,6 @@ const OrderProducts = () => {
     }
   };
 
-  console.log(data);
   return (
     <Layout>
       <div className="py-10 bg-slate-100 min-h-screen">
@@ -82,7 +82,6 @@ const OrderProducts = () => {
                   cart.map((item, index) => (
                     <tr key={index}>
                       <th className="py-12 px-4 font-normal max-w-36">
-                        {" "}
                         <div className="flex items-center ">
                           <img
                             className="w-32 h-32 mr-2"

@@ -1,7 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Users, ShoppingCart, LogOut } from "lucide-react";
+import { useAuth } from "../../utils/contexts/auth";
+import { useToast } from "../ui/use-toast";
 
 const Sidebar = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { changeToken } = useAuth();
+
+  const handleLogout = () => {
+    changeToken();
+    toast({
+      description: "Logout successfully",
+    });
+    navigate("/login");
+  };
   return (
     <div className="sticky top-0 mr-8 hidden h-[calc(100vh-40px)]  w-[220px] min-w-[220px] bg-[#1E81B3] dark:border xl:block rounded-br-xl">
       <div className="mt-5 flex flex-col p-3">
@@ -31,10 +44,12 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <Link to="" className="flex w-full items center text-white gap-4 py-4 pl-3  ">
+            <button
+              className="flex w-full items center text-white gap-4 py-4 pl-3 "
+              onClick={() => handleLogout()}>
               <LogOut />
               Logout
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
