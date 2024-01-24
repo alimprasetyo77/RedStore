@@ -25,6 +25,14 @@ export const productSchema = z.object({
 });
 export type IProductType = z.infer<typeof productSchema>;
 
+export const orderSchema = z.object({
+  address: z.string().min(1, { message: "Enter your address" }),
+  gross_amount: z.number().min(1),
+  bank: z.string().min(1, { message: "Select your payment method" }),
+  cart_id: z.any().optional(),
+});
+export type IOrderType = z.infer<typeof orderSchema>;
+
 export interface IProductsUser {
   id: number;
   name: string;
@@ -76,4 +84,21 @@ export interface ProductCart {
 
 export interface TokoCart {
   nama: string;
+}
+
+export interface ResCreateOrder {
+  order_id: string;
+  address: string;
+  Payment: PaymentOrder;
+}
+
+export interface PaymentOrder {
+  status_message: string;
+  status: string;
+  bank: string;
+  gross_amount: number;
+  va_number: number;
+  transaction_id: string;
+  transaction_time: string;
+  expired_at: string;
 }

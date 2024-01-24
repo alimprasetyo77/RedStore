@@ -31,19 +31,19 @@ const DataContext = createContext<Context>(contextValue);
 
 export const DataProvider = ({ children }: Readonly<Props>) => {
   const [carts, setCarts] = useState<Cart[]>([]);
-  console.log(carts);
   const { toast } = useToast();
 
-  useEffect(() => {}, [carts]);
-
   const productInCart = async () => {
-    const response = await getCart();
-    setCarts(response);
-    console.log(response);
-    toast({
-      title: "Berhasil ditambahkan",
-      description: "Product berhasil ditambahkan dalam favorites",
-    });
+    try {
+      const response = await getCart();
+      setCarts(response.data);
+      toast({
+        title: "Berhasil ditambahkan",
+        description: "Product berhasil ditambahkan dalam favorites",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const changeCart = useCallback(

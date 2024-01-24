@@ -19,6 +19,7 @@ const Orders = () => {
       setLoading(true);
       const result = await getOrders();
       setOrders(result.data);
+      console.log(result.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -49,7 +50,8 @@ const Orders = () => {
                     {order.data?.map((data, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 "
+                      >
                         <img
                           src={
                             "https://source.unsplash.com/100x100?products" ??
@@ -74,7 +76,8 @@ const Orders = () => {
                             {order.status !== "dibatalkan" ? (
                               <button
                                 className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded"
-                                onClick={() => handleCancelOrder(data.product.id)}>
+                                onClick={() => handleCancelOrder(data.product.id)}
+                              >
                                 Cancel Order
                               </button>
                             ) : null}

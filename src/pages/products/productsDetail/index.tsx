@@ -18,7 +18,6 @@ const ProductDetail = () => {
     if (id) {
       fetchDetail();
     }
-    fetchAddCart();
   }, []);
 
   const fetchDetail = async () => {
@@ -30,7 +29,6 @@ const ProductDetail = () => {
     const response = await addCart(`${id}`);
     setAddProduct(response.message);
     productInCart();
-    console.log(response.message);
   };
   return (
     <Layout>
