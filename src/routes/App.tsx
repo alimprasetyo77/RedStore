@@ -12,6 +12,7 @@ import OrderProducts from "../pages/order";
 import ProductsSearch from "../pages/products/productsSearch";
 import Cart from "../pages/cart";
 import ProtectedRoute from "./ProtectedRoute";
+import OrderResult from "../pages/order/orderResult";
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +30,7 @@ function App() {
           <Route path="/orderproducts" element={<OrderProducts />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/products/search/:search" element={<ProductsSearch />} />
+          <Route path="/orderproducts/orderresult" element={<OrderResult />} />
         </Route>
         <Route
           path="*"
