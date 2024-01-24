@@ -37,7 +37,7 @@ const Orders = () => {
     <Layout>
       <div className="flex bg-slate-100">
         <Sidebar />
-        <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white  ">
+        <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white  overflow-y-scroll">
           <h1 className="text-2xl font-semibold mb-6">My Orders</h1>
           {loading ? (
             <Loader2 className="text-center w-full h-8 animate-spin" />

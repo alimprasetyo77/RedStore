@@ -19,9 +19,7 @@ export const productSchema = z.object({
     .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       "Only .jpg, .jpeg, .png formats are supported"
-    )
-    .optional()
-    .or(z.literal("")),
+    ).optional().or(z.literal("")),
 });
 export type IProductType = z.infer<typeof productSchema>;
 
@@ -29,7 +27,7 @@ export const orderSchema = z.object({
   address: z.string().min(1, { message: "Enter your address" }),
   gross_amount: z.number().min(1),
   bank: z.string().min(1, { message: "Select your payment method" }),
-  cart_id: z.any().optional(),
+  cart_ids: z.any().optional(),
 });
 export type IOrderType = z.infer<typeof orderSchema>;
 

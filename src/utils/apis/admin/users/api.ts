@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminGetUsers } from "./types";
 import axiosWithConfig from "../../axiosWithConfig";
 

@@ -25,7 +25,6 @@ export const DataProvider = ({ children }: Readonly<Props>) => {
 
   useEffect(() => {
     token !== "" && changeCart();
-    console.log("changeCart");
   }, [setCarts, token]);
 
   const changeCart = async () => {

@@ -1,12 +1,10 @@
-import axios from "axios";
-import { Orders } from "./types";
+import { GetAdminOrders } from "./types";
+import axiosWithConfig from "../../axiosWithConfig";
 
-export const getOrders = async () => {
+export const getOrders = async (pageNumber: number, limit: number) => {
   try {
-    const response = await axios.get(
-      `https://virtserver.swaggerhub.com/L3NONEONE_1/EcommerceAppProject/1.0.0/admin/orders`
-    );
-    return response.data as Orders;
+    const response = await axiosWithConfig.get(`/admin/orders?page=${pageNumber}&limit=${limit}`);
+    return response.data as GetAdminOrders;
   } catch (error: any) {
     throw new Error(error.message);
   }

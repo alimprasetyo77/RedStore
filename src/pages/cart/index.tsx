@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { BsTrash3 } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
@@ -10,7 +11,7 @@ import { useCart } from "../../utils/contexts/cartContext";
 
 const Cart = () => {
   const { changeCart } = useCart();
-  const [cart, setCart] = useState<[]>([]);
+  const [cart, setCart] = useState<[] | any>([]);
 
   function getCart() {
     axiosWithConfig
@@ -26,7 +27,7 @@ const Cart = () => {
   }, [cart]);
 
   const handleDecrement = (cart_id: number) => {
-    cart.map((item) => {
+    cart.map((item: any) => {
       if (item.id == cart_id) {
         if (item.quantity == 1) {
           const quantity = item.quantity - 0;
@@ -40,7 +41,7 @@ const Cart = () => {
   };
 
   const handleIncrement = (cart_id: number) => {
-    cart.map((item) => {
+    cart.map((item: any) => {
       if (item.id == cart_id) {
         const quantity = item.quantity + 1;
         updateCartQuantity(cart_id, quantity);
@@ -50,12 +51,12 @@ const Cart = () => {
 
   const totalHarga: number[] =
     cart &&
-    cart.map((item) => {
+    cart.map((item: any) => {
       return item.Products.price * item.quantity;
     });
-  let sumTotal: number =
-    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
+  const sumTotal: number =
+    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
