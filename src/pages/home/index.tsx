@@ -14,19 +14,15 @@ import Swal from "sweetalert2";
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
   const [category, setCategory] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const recordsPerPage: number = 12;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = products.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(products.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const [page, setPage] = useState<number>(1);
+  console.log(page);
 
-  function getProduct() {
+  function getProduct(pageProduct: number) {
     axiosWithConfig
-      .get("/products")
+      .get(`/products?page=${pageProduct}`)
       .then((res) => {
         setProducts(res.data.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
@@ -48,8 +44,8 @@ const Home = () => {
   }
 
   useEffect(() => {
-    getProduct();
-  }, [category]);
+    getProduct(page);
+  }, [category, page]);
 
   return (
     <Layout>
@@ -125,14 +121,17 @@ const Home = () => {
           </div>
         </div>
         <div className="grid grid-cols-4 my-5 gap-5">
-          {records &&
-            records.map((item: any, index: number) => {
+          {products ? (
+            products.map((item: any, index: number) => {
               if (item.category == category) {
                 return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               } else if (category == "") {
                 return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
               }
-            })}
+            })
+          ) : (
+            <button onClick={() => setPage(1)}>Back to page 1</button>
+          )}
         </div>
         <div className="flex justify-center">
           {/* <Pagination data={products} /> */}
@@ -141,15 +140,9 @@ const Home = () => {
               <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={prePage}>
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
-              {numbers.map((n: number, i: number) => (
-                <li
-                  className={`h-[35px] w-[35px] relative ${currentPage === n ? "bg-red-500 text-white" : "bg-white"} rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
-                  key={i}
-                  onClick={() => changeCPage(n)}
-                >
-                  <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>{n}</p>
-                </li>
-              ))}
+              <li className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}>
+                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>{page}</p>
+              </li>
               <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
               </li>
@@ -161,19 +154,13 @@ const Home = () => {
   );
 
   function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
+    if (page !== 1) {
+      setPage(page - 1);
     }
-  }
-
-  function changeCPage(id: number) {
-    setCurrentPage(id);
   }
 
   function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
+    setPage(page + 1);
   }
 };
 
