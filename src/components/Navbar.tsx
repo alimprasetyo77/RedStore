@@ -12,7 +12,7 @@ import {
 } from "../components/ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
 import { useCart } from "../utils/contexts/cartContext";
-
+import brand from "/src/assets/logo-brand.png";
 const Navbar = () => {
   const { user, token, changeToken } = useAuth();
   const { toast } = useToast();
@@ -43,7 +43,7 @@ const Navbar = () => {
     <div className="w-full shadow py-4 bg-red-500 text-white sticky top-0 z-50">
       <div className="container flex items-center mx-auto ">
         <Link to={"/"}>
-          <img src="/src/assets/logo-brand.png" alt="logo-brand" width={80} height={80} />
+          <img src={brand} alt="logo-brand" width={80} height={80} />
         </Link>
         <ul className="flex items-center flex-grow justify-center gap-x-8">
           <Link
