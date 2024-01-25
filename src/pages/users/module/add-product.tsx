@@ -36,7 +36,8 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 ">
+          className=" py-10 px-2 rounded-lg max-w-6xl w-full space-y-5 "
+        >
           <div className="flex flex-col gap-y-1">
             <label htmlFor="name">Name</label>
             <input
@@ -76,15 +77,16 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
             <select
               id="category"
               {...register("category")}
-              className=" w-full px-4 py-2 rounded-md border outline-none">
+              className=" w-full px-4 py-2 rounded-md border outline-none"
+            >
               <option value={""} disabled hidden selected>
                 Choose category
               </option>
-              <option value="komputer">komputer</option>
-              <option value="kamera">kamera</option>
-              <option value="handphone">handphone</option>
-              <option value="smartwatch">smartwatch</option>
-              <option value="televisi">televisi</option>
+              <option value="computer">Computer</option>
+              <option value="camera">Cameras</option>
+              <option value="phone">Phones</option>
+              <option value="smartwatch">Smartwatch</option>
+              <option value="television">Television</option>
             </select>
             <p className="text-sm text-red-500 ">{errors.category && errors.category.message}</p>
           </div>
@@ -112,7 +114,8 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
           <button
             className="px-6 py-1 rounded-md border bg-sky-500 text-white "
             disabled={isSubmitting}
-            aria-disabled={isSubmitting}>
+            aria-disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <p className="flex items-center gap-x-3 text-sm">
                 <Loader2 className={"animate-spin text-xl "} /> Please wait

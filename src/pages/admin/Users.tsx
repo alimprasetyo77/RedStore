@@ -1,7 +1,6 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -32,7 +31,7 @@ const AdminUsers = () => {
     try {
       const result = await getUsers(pageNumber, limit);
       setUser(result.data);
-      console.log(result);
+      console.log(result.data);
     } catch (error) {
       console.log(error);
     }

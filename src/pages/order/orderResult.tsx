@@ -4,6 +4,7 @@ import { formattedAmount } from "../../utils/formattedAmount";
 
 const OrderResult = () => {
   const { state } = useLocation();
+  console.log(state);
 
   const foto = [
     "https://res.cloudinary.com/dypeyso0m/image/upload/v1703677027/bca_u8s8de.png",
