@@ -49,11 +49,12 @@ const Orders = () => {
                     {data.order.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 "
+                      >
                         <img
                           src={
-                            "https://source.unsplash.com/100x100?products" ??
-                            item.product.photo_product
+                            item.product.photo_product ||
+                            "https://via.placeholder.com/100x100?text=No+Image"
                           }
                           alt="photo-product"
                           className=" rounded size-28"
@@ -73,11 +74,12 @@ const Orders = () => {
                             </span>
                           </div>
                           <div className="flex  items-center">
-                            {item.status !== "dibatalkan" ? (
+                            {item.status === "pending" ? (
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(1)}>
+                                onAction={() => handleCancelOrder(1)}
+                              >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>
