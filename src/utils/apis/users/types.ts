@@ -17,5 +17,6 @@ export const userSchema = z.object({
       "Only .jpg, .jpeg, .png formats are supported",
     )
     .optional().or(z.literal("")),
+    role : z.string().optional()
 })
 export type IUserType = z.infer<typeof userSchema>
