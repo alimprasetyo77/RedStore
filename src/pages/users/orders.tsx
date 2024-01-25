@@ -49,9 +49,12 @@ const Orders = () => {
                     {data.order.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 border ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
                         <img
-                          src={item.product.photo_product}
+                          src={
+                            item.product.photo_product ||
+                            "https://via.placeholder.com/100x100?text=No+Image"
+                          }
                           alt="photo-product"
                           className=" rounded size-28"
                         />

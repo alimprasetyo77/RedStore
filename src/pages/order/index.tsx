@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { Checkbox } from "../../components/ui/checkbox";
-import { Cart, IOrderType, ResCreateOrder } from "../../utils/apis/products/types";
+import { Cart, IOrderType } from "../../utils/apis/products/types";
 import { createOrder, getCart } from "../../utils/apis/products/api";
 import { formattedAmount } from "../../utils/formattedAmount";
 import AccorPayment from "../../components/AccorPayment";
@@ -13,7 +13,6 @@ const OrderProducts = () => {
   const [term, setTerm] = useState<boolean>(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [dataCheckout, setDataCheckout] = useState<ResCreateOrder>();
   const [data, setData] = useState<IOrderType>({
     address: "",
     cart_ids: [],
@@ -50,8 +49,6 @@ const OrderProducts = () => {
     console.log(data);
     try {
       const result = await createOrder(data);
-      setDataCheckout(result.data);
-      console.log(result);
       toast({
         description: result.message,
       });
@@ -133,7 +130,8 @@ const OrderProducts = () => {
               <Checkbox onCheckedChange={(value: boolean) => setTerm(value)} />
               <label
                 htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3">
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3"
+              >
                 By ticking, you are confirming that you have already read all the details and input
                 correct information
               </label>
@@ -145,7 +143,8 @@ const OrderProducts = () => {
                   !term ? "bg-gray-200" : "bg-[#1E81B3]"
                 }`}
                 disabled={!term}
-                onClick={handleCheckout}>
+                onClick={handleCheckout}
+              >
                 Checkout
               </button>
             </div>
