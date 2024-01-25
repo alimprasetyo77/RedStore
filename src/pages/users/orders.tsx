@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { cancelOrder, getOrders } from "../../utils/apis/orders/api";
 import Layout from "../../components/Layout";
@@ -24,7 +25,7 @@ const Orders = () => {
       setLoading(false);
     }
   };
-  const handleCancelOrder = async (id: string) => {
+  const handleCancelOrder = async (id: any) => {
     try {
       const result = await cancelOrder(id);
       getDataOrders();
@@ -99,7 +100,7 @@ const Orders = () => {
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(`${data.order_id}`)}>
+                                onAction={() => handleCancelOrder(data.order_id)}>
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>
