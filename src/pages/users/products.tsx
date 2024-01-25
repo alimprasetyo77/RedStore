@@ -107,7 +107,7 @@ const Products = () => {
             <Loader2 className="animate-spin text-center w-full h-8" />
           ) : (
             <>
-              <div className="grid grid-cols-5 gap-6">
+              <div className="grid grid-cols-5 gap-10">
                 {productsUser && productsUser.length > 0 ? (
                   productsUser.map((product) => (
                     <Card

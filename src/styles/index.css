@@ -102,3 +102,14 @@
   border-collapse: separate;
   border-spacing: 0 15px;
 }
+
+.orders::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+}
+
+
+.orders::-webkit-scrollbar-thumb {
+  background-color: rgb(222, 222, 222);
+  border-radius: 50px;
+}

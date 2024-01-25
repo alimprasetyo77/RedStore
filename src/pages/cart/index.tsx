@@ -24,7 +24,7 @@ const Cart = () => {
 
   useEffect(() => {
     getCart();
-  }, [cart]);
+  }, []);
 
   const handleDecrement = (cart_id: number) => {
     cart.map((item: any) => {
