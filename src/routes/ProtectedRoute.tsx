@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
     "/admin/orders",
     "/admin/users",
   ];
-  // const adminProtected = ["/admin/orders", "/admin/users"];
+  const adminProtected = ["/admin/orders", "/admin/users"];
 
   if (authProtected.includes(pathname)) {
     if (token) return <Navigate to={"/"} />;
