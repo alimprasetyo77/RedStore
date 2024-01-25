@@ -97,7 +97,7 @@ const Orders = () => {
                             :<span>{item.va_number}</span>
                           </div>
                           <div className="flex gap-x-6 items-center  ">
-                            {item.status !== "cancelled" ? (
+                            {item.status === "pending" ? (
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
