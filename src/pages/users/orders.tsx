@@ -26,7 +26,7 @@ const Orders = () => {
   };
   const handleCancelOrder = async (id: string) => {
     try {
-      const result = await cancelOrder(`${id}`);
+      const result = await cancelOrder(id);
       getDataOrders();
       alert(result.message);
     } catch (error) {
