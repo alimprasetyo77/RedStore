@@ -5,6 +5,8 @@ import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
+import { formattedAmount } from "../../utils/formattedAmount";
+
 import "../../styles/index.css";
 const Orders = () => {
   const [loading, setLoading] = useState(false);
@@ -71,7 +73,7 @@ const Orders = () => {
                             <span className="w-48 ">{item.product.name}</span>
                             <span className="text-sm w-48 ">x {item.quantity}</span>
                             <span className="text-sm uppercase tracking-wide w-48 ">
-                              Rp.{item.product.price}
+                              {formattedAmount(item.product.price)}
                             </span>
                             <span className="text-sm text-red-500 uppercase tracking-wide w-48 ">
                               {item.status}

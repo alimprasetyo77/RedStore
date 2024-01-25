@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
 import { useCart } from "../../utils/contexts/cartContext";
+import { formattedAmount } from "../../utils/formattedAmount";
 
 const Cart = () => {
   const { changeCart } = useCart();
@@ -128,7 +129,9 @@ const Cart = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="text-center">Rp. {items.Products.price * items.quantity}</td>
+                    <td className="text-center">
+                      {formattedAmount(items.Products.price * items.quantity)}
+                    </td>
                     <td className="text-center">
                       <button onClick={() => deleteCartHandle(items.id)}>
                         <BsTrash3 />
@@ -150,13 +153,21 @@ const Cart = () => {
             <hr className="border-slate-400 mb-14" />
             <div className="flex justify-between mb-6">
               <p>Total:</p>
-              <p>Rp. {sumTotal}</p>
+              <p>{formattedAmount(sumTotal || 0)}</p>
             </div>
-            <Link to={"/orderproducts"}>
-              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+            {cart && cart.length > 0 ? (
+              <Link to={"/orderproducts"}>
+                <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+                  Process to Order
+                </button>
+              </Link>
+            ) : (
+              <button
+                className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm mx-1/5 bg-gray-400 text-white"
+                disabled>
                 Process to Order
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>

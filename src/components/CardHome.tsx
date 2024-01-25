@@ -7,14 +7,12 @@ const CardHome = (props: Products) => {
   const { user, token } = useAuth();
   return (
     <div>
-      <div className="max-w-xl w-full border shadow-sm rounded-lg overflow-hidden group">
+      <div className="max-w-xl w-full border shadow-sm rounded-lg overflow-hidden group mt-7">
         <div className="relative">
           <Link to={`/products/${props.id}`}>
             <img
               src={props.photo_product}
               alt="image-product"
-              width={300}
-              height={300}
               className="h-[250px] w-full object-center"
             />
           </Link>
@@ -29,7 +27,9 @@ const CardHome = (props: Products) => {
         <div className="p-3 ">
           <div className="flex justify-between">
             <Link to={`/products/${props.id}`}>
-              <h3 className="font-semibold tracking-wide cursor-pointer">{props.name}</h3>
+              <h3 className="font-semibold tracking-wide cursor-pointer max-w-[500px] min-h-12">
+                {props.name}
+              </h3>
             </Link>
           </div>
           <span className="font font-semibold text-sm text-red-500">

@@ -19,7 +19,6 @@ const OrderProducts = () => {
     address: "",
     cart_ids: [],
     bank: "",
-    gross_amount: 0,
   });
   const fetchCart = async () => {
     try {
@@ -42,7 +41,6 @@ const OrderProducts = () => {
     setData({
       ...data,
       cart_ids: cart.map((c) => c.id),
-      gross_amount: totalPayment,
       bank: selectedMethod,
     });
   };
