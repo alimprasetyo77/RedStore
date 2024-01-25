@@ -11,7 +11,7 @@ export const getOrders = async () => {
     throw new Error(error.message)
   }
 }
-export const cancelOrder = async (id: string) => {
+export const cancelOrder = async (id: number) => {
   try {
     const response = await axiosWithConfig.put(`/orders/${id}`)
     return response.data as { message: string }
