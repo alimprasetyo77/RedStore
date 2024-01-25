@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
 import "../../styles/index.css";
+import { formattedAmount } from "../../utils/formattedAmount";
 const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<IOrderUser[]>();
@@ -24,9 +25,9 @@ const Orders = () => {
       setLoading(false);
     }
   };
-  const handleCancelOrder = async (id: number) => {
+  const handleCancelOrder = async (id: string) => {
     try {
-      const result = await cancelOrder(`${id}`);
+      const result = await cancelOrder(id);
       getDataOrders();
       alert(result.message);
     } catch (error) {
@@ -54,7 +55,8 @@ const Orders = () => {
                     {data.order.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 "
+                      >
                         <img
                           src={
                             item.product.photo_product ||
@@ -71,7 +73,7 @@ const Orders = () => {
                             <span className="w-48 ">{item.product.name}</span>
                             <span className="text-sm w-48 ">x {item.quantity}</span>
                             <span className="text-sm uppercase tracking-wide w-48 ">
-                              Rp.{item.product.price}
+                              {formattedAmount(item.product.price)}
                             </span>
                             <span className="text-sm text-red-500 uppercase tracking-wide w-48 ">
                               {item.status}
@@ -99,7 +101,8 @@ const Orders = () => {
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(data.order_id)}>
+                                onAction={() => handleCancelOrder(data.order_id)}
+                              >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>
