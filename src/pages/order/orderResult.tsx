@@ -13,7 +13,7 @@ const OrderResult = () => {
   ];
   return (
     <Layout>
-      <div className="py-10 bg-slate-100 min-h-screen">
+      <div className="py-10 bg-slate-100 h-full">
         <div className="flex justify-center container mx-auto p-10 shadow-sm rounded-lg bg-white space-y-16">
           <div className="flex flex-col items-center space-y-8">
             <img

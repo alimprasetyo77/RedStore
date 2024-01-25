@@ -3,6 +3,7 @@ import { IProductsUser } from "../utils/apis/products/types";
 import { useState } from "react";
 import Alert from "./Alert";
 import { Link } from "react-router-dom";
+import { formattedAmount } from "../utils/formattedAmount";
 
 interface CardProps {
   data: IProductsUser;
@@ -59,7 +60,9 @@ const Card = ({ data, id, onDelete, onEdit }: CardProps) => {
             <h3 className="font-semibold tracking-wide">{data.name}</h3>
             <span className="text-sm text-zinc-500 font-semibold">{data.category}</span>
           </div>
-          <span className="font font-semibold text-sm text-red-500">Rp. {data.price}</span>
+          <span className="font font-semibold text-sm text-red-500">
+            {formattedAmount(data.price)}
+          </span>
         </div>
       </Link>
     </div>
