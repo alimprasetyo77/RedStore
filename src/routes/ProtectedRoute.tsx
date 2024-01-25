@@ -3,7 +3,7 @@ import { useAuth } from "../utils/contexts/auth";
 import { ReactNode } from "react";
 
 const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { pathname } = useLocation();
 
   const authProtected = ["/login", "/register"];
@@ -25,9 +25,9 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
   if (protectedByToken.includes(pathname)) {
     if (!token) return <Navigate to="/login" />;
 
-    // if (adminProtected.includes(pathname)) {
-    //   if (user.role === "user") return <Navigate to="/" />;
-    // }
+    if (adminProtected.includes(pathname)) {
+      if (user.role === "user") return <Navigate to="/" />;
+    }
   }
 
   return children ? children : <Outlet />;

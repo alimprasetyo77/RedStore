@@ -55,7 +55,7 @@ const Orders = () => {
                           alt="photo-product"
                           className=" rounded size-28"
                         />
-                        <div className="flex flex-grow flex-col gap-y-5 ">
+                        <div className="flex flex-grow flex-col gap-y-8 ">
                           <div className="flex justify-between items-center  ">
                             <span className="text-sm font-semibol w-48 ">
                               Toko {item.product.toko.name}
@@ -69,17 +69,18 @@ const Orders = () => {
                               {item.status}
                             </span>
                           </div>
-                          <div className="flex  items-center">
-                            {item.status !== "dibatalkan" ? (
+                          <div className="flex gap-x-6 items-center ">
+                            {item.status !== "cancel" ? (
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(1)}>
+                                onAction={() => handleCancelOrder(data.order_id)}>
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>
                               </Alert>
                             ) : null}
+                            <p>va_number : {item.va_number}</p>
                           </div>
                         </div>
                       </div>
