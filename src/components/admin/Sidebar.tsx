@@ -18,7 +18,12 @@ const Sidebar = () => {
   return (
     <div className="sticky top-0 mr-8 hidden h-[calc(100vh-40px)]  w-[220px] min-w-[220px] bg-[#1E81B3] dark:border xl:block rounded-br-xl">
       <div className="mt-5 flex flex-col p-3">
-        <ul>
+        <ul className="space-y-3">
+          <li>
+            <NavLink to="/" className={"flex w-full items-center gap-4  py-4 pl-3 "}>
+              <img src="/src/assets/logo-brand.png" className="h-20" alt="logo-brand" height={80} />
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="/admin/users"
@@ -43,6 +48,7 @@ const Sidebar = () => {
               Orders
             </NavLink>
           </li>
+
           <li>
             <button
               className="flex w-full items center text-white gap-4 py-4 pl-3 "

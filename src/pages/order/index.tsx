@@ -7,12 +7,14 @@ import { formattedAmount } from "../../utils/formattedAmount";
 import AccorPayment from "../../components/AccorPayment";
 import { useToast } from "../../components/ui/use-toast";
 import { useNavigate } from "react-router";
+import { useCart } from "../../utils/contexts/cartContext";
 
 const OrderProducts = () => {
-  const [cart, setCart] = useState<Cart[]>([]);
-  const [term, setTerm] = useState<boolean>(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { changeCart } = useCart();
+  const [cart, setCart] = useState<Cart[]>([]);
+  const [term, setTerm] = useState<boolean>(false);
   const [data, setData] = useState<IOrderType>({
     address: "",
     cart_ids: [],
@@ -46,9 +48,9 @@ const OrderProducts = () => {
   };
 
   const handleCheckout = async () => {
-    console.log(data);
     try {
       const result = await createOrder(data);
+      changeCart();
       toast({
         description: result.message,
       });
@@ -130,8 +132,7 @@ const OrderProducts = () => {
               <Checkbox onCheckedChange={(value: boolean) => setTerm(value)} />
               <label
                 htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3"
-              >
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3">
                 By ticking, you are confirming that you have already read all the details and input
                 correct information
               </label>
@@ -143,8 +144,7 @@ const OrderProducts = () => {
                   !term ? "bg-gray-200" : "bg-[#1E81B3]"
                 }`}
                 disabled={!term}
-                onClick={handleCheckout}
-              >
+                onClick={handleCheckout}>
                 Checkout
               </button>
             </div>

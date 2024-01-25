@@ -51,8 +51,19 @@ const Navbar = () => {
             className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}>
             <li>Home</li>
           </Link>
-          <li className="hover:font-semibold cursor-pointer">Contact</li>
-          <li className="hover:font-semibold cursor-pointer">About</li>
+          {user.role === "admin" ? (
+            <>
+              <li className="hover:font-semibold cursor-pointer">Dasboard</li>
+              <li className="hover:font-semibold cursor-pointer" onClick={() => handleLogout()}>
+                Logout
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="hover:font-semibold cursor-pointer">Contact</li>
+              <li className="hover:font-semibold cursor-pointer">About</li>
+            </>
+          )}
           {!token ? (
             <Link to={"/register"}>
               <li className={`${location.pathname === "/register" && "font-semibold "} `}>
@@ -72,7 +83,7 @@ const Navbar = () => {
             <Search className="text-red-500" />
           </Link>
         </div>
-        {token ? (
+        {token && user.role !== "admin" ? (
           <div className="flex items-center gap-x-7 ml-6 ">
             <Link
               to={"/cart"}

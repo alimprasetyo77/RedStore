@@ -1,8 +1,10 @@
 import { Products } from "../utils/apis/products/types";
 import { Link } from "react-router-dom";
 import { formattedAmount } from "../utils/formattedAmount";
+import { useAuth } from "../utils/contexts/auth";
 
 const CardHome = (props: Products) => {
+  const { user, token } = useAuth();
   return (
     <div>
       <div className="max-w-xl w-full border shadow-sm rounded-lg overflow-hidden group">
@@ -18,8 +20,9 @@ const CardHome = (props: Products) => {
           </Link>
           <div
             onClick={props.addToCart}
-            className="absolute w-full h-[50px] bg-red-500 text-white top-[200px] flex items-center justify-center cursor-pointer hover:opacity-100 opacity-0 hover:transition-opacity duration-300"
-          >
+            className={`absolute w-full h-[50px] bg-red-500 text-white top-[200px] flex items-center justify-center cursor-pointer hover:opacity-100 opacity-0 hover:transition-opacity duration-300 ${
+              user.role === "admin" || !token ? "hidden" : null
+            }`}>
             Add to cart
           </div>
         </div>

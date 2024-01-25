@@ -62,7 +62,10 @@ const Cart = () => {
       .put(`/carts/${id}`, {
         quantity: quantity,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        getCart();
+        console.log(res);
+      })
       .catch((error) => console.log(error));
   }
 
