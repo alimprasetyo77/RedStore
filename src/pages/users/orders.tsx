@@ -24,7 +24,7 @@ const Orders = () => {
       setLoading(false);
     }
   };
-  const handleCancelOrder = async (id: number) => {
+  const handleCancelOrder = async (id: string) => {
     try {
       const result = await cancelOrder(`${id}`);
       getDataOrders();
@@ -99,7 +99,7 @@ const Orders = () => {
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(data.order_id)}>
+                                onAction={() => handleCancelOrder(`${data.order_id}`)}>
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>
