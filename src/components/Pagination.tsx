@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { Data } from "../utils/apis/products/types";
 
 const Pagination = (props: Data) => {
   const datas = props?.data;
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
   const recordsPerPage: number = 5;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = datas.slice(firstIndex, lastIndex);
+  // const lastIndex = currentPage * recordsPerPage;
+  // const firstIndex = lastIndex - recordsPerPage;
+  // const records = datas.slice(firstIndex, lastIndex);
   const npage = Math.ceil(datas.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
