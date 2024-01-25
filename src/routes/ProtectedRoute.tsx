@@ -17,16 +17,18 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
     "/admin/users",
   ];
   const adminProtected = ["/admin/orders", "/admin/users"];
-
+  const userProtected = ["/user", "/user/orders", "/user/products", "/cart", "/orderproducts"];
   if (authProtected.includes(pathname)) {
     if (token) return <Navigate to={"/"} />;
   }
-
   if (protectedByToken.includes(pathname)) {
     if (!token) return <Navigate to="/login" />;
 
     if (adminProtected.includes(pathname)) {
       if (user.role === "user") return <Navigate to="/" />;
+    }
+    if (userProtected.includes(pathname)) {
+      if (user.role === "admin") return <Navigate to="/admin/users" />;
     }
   }
 

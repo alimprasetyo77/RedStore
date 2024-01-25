@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ProductsDetail } from "../../../utils/apis/products/types";
 import { addCart, getDetail } from "../../../utils/apis/products/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import { formattedAmount } from "../../../utils/formattedAmount";
 import { useCart } from "../../../utils/contexts/cartContext";
@@ -12,9 +12,9 @@ const ProductDetail = () => {
   const [detail, setDetail] = useState<ProductsDetail>();
   const { id } = useParams();
   const { changeCart } = useCart();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { toast } = useToast();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (id) {
       fetchDetail();
@@ -27,6 +27,7 @@ const ProductDetail = () => {
   };
 
   const fetchAddCart = async (id: number) => {
+    if (!token) return navigate("/login");
     try {
       const response = await addCart(`${id}`);
       changeCart();

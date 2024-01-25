@@ -9,6 +9,7 @@ export interface DataOrder {
   status: string
   gross_amount : number
   va_number : number
+  bank : string
 }
 
 export interface ProductItem {

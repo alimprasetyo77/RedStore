@@ -18,7 +18,6 @@ const Orders = () => {
       setLoading(true);
       const result = await getOrders();
       setOrders(result.data);
-      console.log(result.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,11 +27,17 @@ const Orders = () => {
   const handleCancelOrder = async (id: number) => {
     try {
       const result = await cancelOrder(id);
+      getDataOrders();
       alert(result.message);
     } catch (error) {
       console.log(error);
     }
   };
+  const iconBank = [
+    "https://res.cloudinary.com/dypeyso0m/image/upload/v1703677027/bca_u8s8de.png",
+    "https://res.cloudinary.com/dypeyso0m/image/upload/v1703677142/bri_tjmr7e.png",
+    "https://res.cloudinary.com/dypeyso0m/image/upload/v1703677155/647bf1a6c87148864bbb4cd44130da36_bl9g38.png",
+  ];
   return (
     <Layout>
       <div className="flex bg-slate-100">
@@ -58,7 +63,7 @@ const Orders = () => {
                           alt="photo-product"
                           className=" rounded size-28"
                         />
-                        <div className="flex flex-grow flex-col gap-y-8 ">
+                        <div className="flex flex-grow flex-col gap-y-4 ">
                           <div className="flex justify-between items-center  ">
                             <span className="text-sm font-semibol w-48 ">
                               Toko {item.product.toko.name}
@@ -72,8 +77,25 @@ const Orders = () => {
                               {item.status}
                             </span>
                           </div>
-                          <div className="flex gap-x-6 items-center ">
-                            {item.status !== "cancel" ? (
+
+                          <div className="flex gap-x-4 items-center">
+                            <span className={" text-sm"}>order-id : {data.order_id}</span>
+                            <img
+                              src={
+                                item.bank === "bca"
+                                  ? iconBank[0]
+                                  : item.bank === "bri"
+                                  ? iconBank[1]
+                                  : iconBank[2]
+                              }
+                              alt="icon-bank"
+                              width={50}
+                              height={50}
+                            />
+                            :<span>{item.va_number}</span>
+                          </div>
+                          <div className="flex gap-x-6 items-center  ">
+                            {item.status !== "cancelled" ? (
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
@@ -83,7 +105,6 @@ const Orders = () => {
                                 </button>
                               </Alert>
                             ) : null}
-                            <p>va_number : {item.va_number}</p>
                           </div>
                         </div>
                       </div>
