@@ -111,7 +111,7 @@ const Cart = () => {
                       <img src={`${items.Products.photo_product}`} width={100} height={100} />
                     </td>
                     <td className="w-32">{items.Products.name}</td>
-                    <td className="text-center">Rp. {items.Products.price}</td>
+                    <td className="text-center">{formattedAmount(items.Products.price)}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
                         <div

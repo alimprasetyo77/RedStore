@@ -8,6 +8,7 @@ import { IOrderUser } from "../../utils/apis/orders/types";
 import { formattedAmount } from "../../utils/formattedAmount";
 
 import "../../styles/index.css";
+import { formattedAmount } from "../../utils/formattedAmount";
 const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<IOrderUser[]>();
@@ -56,7 +57,8 @@ const Orders = () => {
                     {data.order.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 "
+                      >
                         <img
                           src={
                             item.product.photo_product ||
@@ -101,7 +103,8 @@ const Orders = () => {
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(data.order_id)}>
+                                onAction={() => handleCancelOrder(data.order_id)}
+                              >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
                                 </button>

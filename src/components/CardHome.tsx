@@ -20,7 +20,8 @@ const CardHome = (props: Products) => {
             onClick={props.addToCart}
             className={`absolute w-full h-[50px] bg-red-500 text-white top-[200px] flex items-center justify-center cursor-pointer hover:opacity-100 opacity-0 hover:transition-opacity duration-300 ${
               user.role === "admin" || !token ? "hidden" : null
-            }`}>
+            }`}
+          >
             Add to cart
           </div>
         </div>

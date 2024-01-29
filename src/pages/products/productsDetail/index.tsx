@@ -78,7 +78,8 @@ const ProductDetail = () => {
                 {detail.toko.user_name !== user.user_name ? (
                   <button
                     className="bg-[#1E81B3] text-white py-3 px-8"
-                    onClick={() => fetchAddCart(detail.id)}>
+                    onClick={() => fetchAddCart(detail.id)}
+                  >
                     Add to Cart
                   </button>
                 ) : null}
