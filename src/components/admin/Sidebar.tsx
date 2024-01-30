@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Users, ShoppingCart, LogOut } from "lucide-react";
 import { useAuth } from "../../utils/contexts/auth";
 import { useToast } from "../ui/use-toast";
-
+import image from "/src/assets/logo-brand.png";
 const Sidebar = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Sidebar = () => {
         <ul className="space-y-3">
           <li>
             <NavLink to="/" className={"flex w-full items-center gap-4  py-4 pl-3 "}>
-              <img src="/src/assets/logo-brand.png" className="h-20" alt="logo-brand" height={80} />
+              <img src={image} className="h-20" alt="logo-brand" height={80} />
             </NavLink>
           </li>
           <li>

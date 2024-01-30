@@ -44,9 +44,9 @@ const ProductDetail = () => {
   };
   return (
     <Layout>
-      <div className="py-10 bg-slate-100 min-h-screen">
+      <div className="py-10 bg-slate-100 min-h-screen flex items-center justify-center">
         {detail && (
-          <div className="flex container mx-auto p-10 shadow-sm rounded-lg bg-white space-y-16">
+          <div className="flex container   mx-auto p-10 shadow-sm rounded-lg bg-white space-y-16">
             <div className="flex flex-col space-y-8 items-center justify-center flex-1">
               <img
                 className="max-w-[600px] h-[500px] rounded-lg"
@@ -61,7 +61,7 @@ const ProductDetail = () => {
               {detail.toko && (
                 <div className="flex items-center mb-8 mr-64">
                   <img
-                    src={detail.toko.photo_profile}
+                    src={detail.toko.photo_profile || "https://via.placeholder.com/150"}
                     alt=""
                     className="w-16 h-16 rounded-full mr-4"
                   />

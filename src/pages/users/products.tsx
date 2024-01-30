@@ -86,19 +86,26 @@ const Products = () => {
   };
   return (
     <Layout>
-      <div className="flex bg-slate-100">
+      <div className="flex bg-slate-100 w-full 2xl:max-w-7xl">
         <Sidebar />
-        <div className="max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
+        <div className=" 2xl:max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">
             {isOpenForm ? (
-              <AddEditProduct onSubmit={handleCreateProduct} close={() => setIsOpenForm(false)} />
+              <AddEditProduct
+                onSubmit={handleCreateProduct}
+                close={() => setIsOpenForm(false)}
+              />
             ) : isOpenEditForm ? (
-              <UpdateProduct onSubmit={handleEditProduct} close={() => setIsOpenEditForm(false)} />
+              <UpdateProduct
+                onSubmit={handleEditProduct}
+                close={() => setIsOpenEditForm(false)}
+              />
             ) : null}
             <h1 className="text-2xl font-semibold ">My Products</h1>
             <button
               className="py1 px-5 rounded-md text-sm bg-red-500 text-white"
-              onClick={() => setIsOpenForm(true)}>
+              onClick={() => setIsOpenForm(true)}
+            >
               Add Product
             </button>
           </div>

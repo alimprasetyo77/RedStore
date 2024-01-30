@@ -9,8 +9,10 @@ import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
 import { useCart } from "../../utils/contexts/cartContext";
 import { formattedAmount } from "../../utils/formattedAmount";
+import { useToast } from "../../components/ui/use-toast";
 
 const Cart = () => {
+  const { toast } = useToast();
   const { changeCart } = useCart();
   const [cart, setCart] = useState<[] | any>([]);
 
@@ -19,6 +21,7 @@ const Cart = () => {
       .get("/carts")
       .then((res) => {
         setCart(res.data.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
@@ -45,7 +48,13 @@ const Cart = () => {
     cart.map((item: any) => {
       if (item.id == cart_id) {
         const quantity = item.quantity + 1;
-        updateCartQuantity(cart_id, quantity);
+        if (quantity <= item.Products.stock) {
+          updateCartQuantity(cart_id, quantity);
+        } else {
+          toast({
+            description: "Melebihi batas stock",
+          });
+        }
       }
     });
   };
@@ -57,7 +66,11 @@ const Cart = () => {
     });
 
   const sumTotal: number =
-    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    totalHarga &&
+    totalHarga.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
@@ -108,10 +121,16 @@ const Cart = () => {
                 <tbody key={index}>
                   <tr className="shadow-sm rounded-sm">
                     <td className="w-28 p-3">
-                      <img src={`${items.Products.photo_product}`} width={100} height={100} />
+                      <img
+                        src={`${items.Products.photo_product}`}
+                        width={100}
+                        height={100}
+                      />
                     </td>
                     <td className="w-32">{items.Products.name}</td>
-                    <td className="text-center">{formattedAmount(items.Products.price)}</td>
+                    <td className="text-center">
+                      {formattedAmount(items.Products.price)}
+                    </td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
                         <div

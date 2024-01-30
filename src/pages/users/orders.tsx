@@ -5,8 +5,9 @@ import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
-import "../../styles/index.css";
 import { formattedAmount } from "../../utils/formattedAmount";
+import "../../styles/index.css";
+
 const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<IOrderUser[]>();
@@ -41,14 +42,14 @@ const Orders = () => {
   ];
   return (
     <Layout>
-      <div className="flex bg-slate-100">
+      <div className="flex bg-slate-100 w-full 2xl:max-w-7xl">
         <Sidebar />
         <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white ">
           <h1 className="text-2xl font-semibold mb-6">My Orders</h1>
           {loading ? (
             <Loader2 className="text-center w-full h-8 animate-spin" />
           ) : (
-            <div className="max-h-[90%] space-y-6 overflow-y-scroll orders px-3">
+            <div className="max-h-[90%] space-y-6 2xl:overflow-y-scroll orders px-3">
               {orders && orders.length > 0 ? (
                 orders.map((data, index) => (
                   <div key={index} className="space-y-8">
@@ -71,7 +72,9 @@ const Orders = () => {
                               Toko {item.product.toko.name}
                             </span>
                             <span className="w-48 ">{item.product.name}</span>
-                            <span className="text-sm w-48 ">x {item.quantity}</span>
+                            <span className="text-sm w-48 ">
+                              x {item.quantity}
+                            </span>
                             <span className="text-sm uppercase tracking-wide w-48 ">
                               {formattedAmount(item.product.price)}
                             </span>
@@ -81,7 +84,9 @@ const Orders = () => {
                           </div>
 
                           <div className="flex gap-x-4 items-center">
-                            <span className={" text-sm"}>order-id : {data.order_id}</span>
+                            <span className={" text-sm"}>
+                              order-id : {data.order_id}
+                            </span>
                             <img
                               src={
                                 item.bank === "bca"
@@ -97,11 +102,13 @@ const Orders = () => {
                             :<span>{item.va_number}</span>
                           </div>
                           <div className="flex gap-x-6 items-center  ">
-                            {item.status !== "cancelled" ? (
+                            {item.status === "pending" ? (
                               <Alert
                                 title="Are you sure?"
-                                description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(data.order_id)}
+                                description={`This action cannot be undone. This will permanently cancel the order.`}
+                                onAction={() =>
+                                  handleCancelOrder(data.order_id)
+                                }
                               >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
