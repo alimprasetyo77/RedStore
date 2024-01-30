@@ -30,7 +30,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
   return (
     <>
       <div className="bg-black/20 fixed inset-0 z-10" onClick={close}></div>
-      <div className="absolute translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2 z-[999] max-w-3xl w-full bg-white rounded-md shadow px-10 py-8">
+      <div className="absolute translate-x-1/2 -translate-y-1/4 2xl:-translate-y-1/2 top-1/2 right-1/2 z-[999] max-w-3xl w-full bg-white rounded-md shadow px-10 py-8">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold">Update product</h1>
           <button onClick={close} className="text-xl font-semibold">

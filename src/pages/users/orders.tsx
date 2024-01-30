@@ -42,14 +42,14 @@ const Orders = () => {
   ];
   return (
     <Layout>
-      <div className="flex bg-slate-100">
+      <div className="flex bg-slate-100 w-full 2xl:max-w-7xl">
         <Sidebar />
         <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white ">
           <h1 className="text-2xl font-semibold mb-6">My Orders</h1>
           {loading ? (
             <Loader2 className="text-center w-full h-8 animate-spin" />
           ) : (
-            <div className="max-h-[90%] space-y-6 overflow-y-scroll orders px-3">
+            <div className="max-h-[90%] space-y-6 2xl:overflow-y-scroll orders px-3">
               {orders && orders.length > 0 ? (
                 orders.map((data, index) => (
                   <div key={index} className="space-y-8">
