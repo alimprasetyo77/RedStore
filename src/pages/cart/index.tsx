@@ -9,8 +9,10 @@ import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
 import { useCart } from "../../utils/contexts/cartContext";
 import { formattedAmount } from "../../utils/formattedAmount";
+import { useToast } from "../../components/ui/use-toast";
 
 const Cart = () => {
+  const { toast } = useToast();
   const { changeCart } = useCart();
   const [cart, setCart] = useState<[] | any>([]);
 
@@ -46,7 +48,13 @@ const Cart = () => {
     cart.map((item: any) => {
       if (item.id == cart_id) {
         const quantity = item.quantity + 1;
-        updateCartQuantity(cart_id, quantity);
+        if (quantity <= item.Products.stock) {
+          updateCartQuantity(cart_id, quantity);
+        } else {
+          toast({
+            description: "Melebihi batas stock",
+          });
+        }
       }
     });
   };
