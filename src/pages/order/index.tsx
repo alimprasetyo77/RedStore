@@ -88,13 +88,17 @@ const OrderProducts = () => {
                             src={item.Products.photo_product}
                             alt="Product Image"
                           />
-                          <span className="font-semibold pl-2">{item.Products.name}</span>
+                          <span className="font-semibold pl-2">
+                            {item.Products.name}
+                          </span>
                         </div>
                       </th>
                       <th className="py-12 px-4 font-normal">
                         {formattedAmount(item.Products.price)}
                       </th>
-                      <th className="py-12 px-4 font-normal">{item.quantity}</th>
+                      <th className="py-12 px-4 font-normal">
+                        {item.quantity}
+                      </th>
                       <th className="py-12 px-4 text-right pr-12 font-semibold">
                         {formattedAmount(item.Products.price * item.quantity)}
                       </th>
@@ -132,8 +136,8 @@ const OrderProducts = () => {
                 htmlFor="terms"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-3"
               >
-                By ticking, you are confirming that you have already read all the details and input
-                correct information
+                By ticking, you are confirming that you have already read all
+                the details and input correct information
               </label>
             </div>
 

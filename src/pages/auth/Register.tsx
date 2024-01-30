@@ -1,4 +1,4 @@
-import Layout from "../../components/Layout";
+
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterType, registerSchema } from "../../utils/apis/auth/types";
 import { userRegister } from "../../utils/apis/auth/api";
@@ -31,7 +31,6 @@ const Register = () => {
     }
   };
   return (
-    <Layout>
       <div className="flex min-h-screen ">
         <div
           className="w-4/6 bg-black/20 bg-blend-overlay bg-no-repeat bg-cover bg-center"
@@ -110,7 +109,6 @@ const Register = () => {
           </form>
         </div>
       </div>
-    </Layout>
   );
 };
 

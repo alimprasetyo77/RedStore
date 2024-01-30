@@ -20,7 +20,7 @@ const Card = ({ data, id, onDelete, onEdit }: CardProps) => {
   };
   return (
     <div className="max-w-xl w-full border shadow-sm rounded overflow-hidden group">
-      <div className="relative">
+      <div className="relative ">
         <Link to={`/products/${data.id}`}>
           <img
             src={`${data.photo_product}`}
@@ -31,7 +31,7 @@ const Card = ({ data, id, onDelete, onEdit }: CardProps) => {
           />
         </Link>
         <MoreHorizontal
-          className={`absolute top-1 right-1 text-zinc-500 opacity-0 group-hover:opacity-100 group-hover:bg-zinc-100 rounded-full duration-300 cursor-pointer ${
+          className={`absolute top-1 right-1 text-zinc-500 opacity-100 bg-zinc-100 rounded-full duration-300 cursor-pointer ${
             optionIsOpen && "opacity-100 bg-zinc-300"
           }`}
           onClick={() => handleOptions()}
@@ -40,14 +40,19 @@ const Card = ({ data, id, onDelete, onEdit }: CardProps) => {
           <div className=" absolute top-8 right-2 rounded bg-white flex flex-col gap-y-1">
             <button
               className="text-sm hover:bg-slate-100 w-full px-6 py-2"
-              onClick={() => onEdit(true, data.id)}>
+              onClick={() => onEdit(true, data.id)}
+            >
               Edit
             </button>
             <Alert
               title="Are you sure?"
               description={`This action cannot be undone. This will permanently delete the your product.`}
-              onAction={() => onDelete(data.id)}>
-              <button className="text-sm hover:bg-slate-100 w-full px-6 py-2"> Delete</button>
+              onAction={() => onDelete(data.id)}
+            >
+              <button className="text-sm hover:bg-slate-100 w-full px-6 py-2">
+                {" "}
+                Delete
+              </button>
             </Alert>
           </div>
         ) : null}
@@ -56,7 +61,9 @@ const Card = ({ data, id, onDelete, onEdit }: CardProps) => {
         <div className="p-3 ">
           <div className="flex justify-between">
             <h3 className="font-semibold tracking-wide">{data.name}</h3>
-            <span className="text-sm text-zinc-500 font-semibold">{data.category}</span>
+            <span className="text-sm text-zinc-500 font-semibold">
+              {data.category}
+            </span>
           </div>
           <span className="font font-semibold text-sm text-red-500">
             {formattedAmount(data.price)}

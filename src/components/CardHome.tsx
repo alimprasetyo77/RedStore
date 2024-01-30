@@ -13,12 +13,12 @@ const CardHome = (props: Products) => {
             <img
               src={props.photo_product}
               alt="image-product"
-              className="h-[250px] w-full object-center"
+              className="h-[250px] w-full object-center group-hover:opacity-100 transition-opacity duration-300"
             />
           </Link>
           <div
             onClick={props.addToCart}
-            className={`absolute w-full h-[50px] bg-red-500 text-white top-[200px] flex items-center justify-center cursor-pointer hover:opacity-100 opacity-0 hover:transition-opacity duration-300 ${
+            className={`absolute w-full h-[50px] bg-red-500 text-white top-[200px] flex items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 hover:transition-opacity duration-300 ${
               user.role === "admin" || !token ? "hidden" : null
             }`}
           >

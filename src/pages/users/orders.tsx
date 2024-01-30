@@ -6,9 +6,8 @@ import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
 import { formattedAmount } from "../../utils/formattedAmount";
-
 import "../../styles/index.css";
-import { formattedAmount } from "../../utils/formattedAmount";
+
 const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<IOrderUser[]>();
@@ -73,7 +72,9 @@ const Orders = () => {
                               Toko {item.product.toko.name}
                             </span>
                             <span className="w-48 ">{item.product.name}</span>
-                            <span className="text-sm w-48 ">x {item.quantity}</span>
+                            <span className="text-sm w-48 ">
+                              x {item.quantity}
+                            </span>
                             <span className="text-sm uppercase tracking-wide w-48 ">
                               {formattedAmount(item.product.price)}
                             </span>
@@ -83,7 +84,9 @@ const Orders = () => {
                           </div>
 
                           <div className="flex gap-x-4 items-center">
-                            <span className={" text-sm"}>order-id : {data.order_id}</span>
+                            <span className={" text-sm"}>
+                              order-id : {data.order_id}
+                            </span>
                             <img
                               src={
                                 item.bank === "bca"
@@ -102,8 +105,10 @@ const Orders = () => {
                             {item.status === "pending" ? (
                               <Alert
                                 title="Are you sure?"
-                                description={`This action cannot be undone. This will permanently delete the order.`}
-                                onAction={() => handleCancelOrder(data.order_id)}
+                                description={`This action cannot be undone. This will permanently cancel the order.`}
+                                onAction={() =>
+                                  handleCancelOrder(data.order_id)
+                                }
                               >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order

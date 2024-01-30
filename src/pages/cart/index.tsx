@@ -19,6 +19,7 @@ const Cart = () => {
       .get("/carts")
       .then((res) => {
         setCart(res.data.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
@@ -57,7 +58,11 @@ const Cart = () => {
     });
 
   const sumTotal: number =
-    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    totalHarga &&
+    totalHarga.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
@@ -108,15 +113,22 @@ const Cart = () => {
                 <tbody key={index}>
                   <tr className="shadow-sm rounded-sm">
                     <td className="w-28 p-3">
-                      <img src={`${items.Products.photo_product}`} width={100} height={100} />
+                      <img
+                        src={`${items.Products.photo_product}`}
+                        width={100}
+                        height={100}
+                      />
                     </td>
                     <td className="w-32">{items.Products.name}</td>
-                    <td className="text-center">{formattedAmount(items.Products.price)}</td>
+                    <td className="text-center">
+                      {formattedAmount(items.Products.price)}
+                    </td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
                         <div
                           className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`}
-                          onClick={() => handleDecrement(items.id)}>
+                          onClick={() => handleDecrement(items.id)}
+                        >
                           <FaMinus />
                         </div>
                         <div className="w-8 h-8 flex justify-center items-center">
@@ -124,7 +136,8 @@ const Cart = () => {
                         </div>
                         <div
                           className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center"
-                          onClick={() => handleIncrement(items.id)}>
+                          onClick={() => handleIncrement(items.id)}
+                        >
                           <FaPlus />
                         </div>
                       </div>
@@ -164,7 +177,8 @@ const Cart = () => {
             ) : (
               <button
                 className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm mx-1/5 bg-gray-400 text-white"
-                disabled>
+                disabled
+              >
                 Process to Order
               </button>
             )}
