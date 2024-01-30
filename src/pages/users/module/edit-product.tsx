@@ -1,6 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { IProductType, productSchema } from "../../../utils/apis/products/types";
+import {
+  IProductType,
+  productSchema,
+} from "../../../utils/apis/products/types";
 import { Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -46,7 +49,9 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               {...register("name")}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.name && errors.name.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.name && errors.name.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="description">Description</label>
@@ -70,7 +75,9 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.price && errors.price.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.price && errors.price.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="category">Category</label>
@@ -88,7 +95,9 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               <option value="smartwatch">Smartwatch</option>
               <option value="television">Television</option>
             </select>
-            <p className="text-sm text-red-500 ">{errors.category && errors.category.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.category && errors.category.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="stock">Stock</label>
@@ -100,7 +109,9 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.stock && errors.stock.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.stock && errors.stock.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="photo_product">Photo product</label>

@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="mx-[100px] my-[50px]">
+      <div className="w-full lg:max-w-7xl mx-[100px] my-[50px] mt-2">
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
@@ -65,7 +65,8 @@ const Home = () => {
           ) : (
             <button
               className="hover:bg-red-500 hover:text-white p-1"
-              onClick={() => setCategory("")}>
+              onClick={() => setCategory("")}
+            >
               Show all product
             </button>
           )}
@@ -75,7 +76,8 @@ const Home = () => {
             onClick={() => setCategory("phone")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "phone" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <CiMobile4 className="text-5xl" />
             <h1 className="text-center">Phones</h1>
           </div>
@@ -83,7 +85,8 @@ const Home = () => {
             onClick={() => setCategory("computer")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "computer" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <HiOutlineComputerDesktop className="text-5xl" />
             <h1 className="text-center">Computers</h1>
           </div>
@@ -91,7 +94,8 @@ const Home = () => {
             onClick={() => setCategory("camera")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "camera" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <MdOutlineCamera className="text-5xl" />
             <h1 className="text-center">Cameras</h1>
           </div>
@@ -99,7 +103,8 @@ const Home = () => {
             onClick={() => setCategory("smartwatch")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "smartwatch" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <BsSmartwatch className="text-5xl" />
             <h1 className="text-center">Smartwatch</h1>
           </div>
@@ -107,7 +112,8 @@ const Home = () => {
             onClick={() => setCategory("television")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "television" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <PiTelevisionSimpleLight className="text-5xl" />
             <h1 className="text-center">Television</h1>
           </div>
@@ -115,7 +121,8 @@ const Home = () => {
             onClick={() => setCategory("laptop")}
             className={`w-[170px] h-[145px] border-2 rounded-lg ${
               category === "laptop" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}>
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+          >
             <IoIosLaptop className="text-5xl" />
             <h1 className="text-center">Laptop</h1>
           </div>
@@ -157,19 +164,28 @@ const Home = () => {
             <ul className="flex gap-2">
               <li
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
-                onClick={prePage}>
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
+                onClick={prePage}
+              >
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                  Back
+                </p>
               </li>
               <li
-                className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}>
-                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>
+                className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
+              >
+                <p
+                  className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}
+                >
                   {page}
                 </p>
               </li>
               <li
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
-                onClick={nextPage}>
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
+                onClick={nextPage}
+              >
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                  Next
+                </p>
               </li>
             </ul>
           </div>
