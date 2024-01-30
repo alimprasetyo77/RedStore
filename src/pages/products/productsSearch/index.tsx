@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import Layout from "../../../components/Layout";
 import { Products } from "../../../utils/apis/products/types";
 import { getSearch } from "../../../utils/apis/products/api";
-import Card from "../../../components/CardSearch";
+import CardHome from "../../../components/CardHome";
 import { Link, useParams } from "react-router-dom";
+import axiosWithConfig from "../../../utils/apis/axiosWithConfig";
+import Swal from "sweetalert2";
+import { useCart } from "../../../utils/contexts/cartContext";
 
 const ProductsSearch = () => {
   const [results, setResults] = useState<Products[]>([]);
   const { search } = useParams();
+  const { changeCart } = useCart();
 
   console.log(search);
 
@@ -25,6 +29,22 @@ const ProductsSearch = () => {
     fetchResult(search as string);
   }, [search]);
 
+  function addToCartHandle(id_product: number) {
+    axiosWithConfig
+      .post(`/carts/${id_product}`)
+      .then((res) => {
+        console.log(res);
+        changeCart();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Added to cart",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
   return (
     <Layout>
       <div className="py-10 bg-slate-100 min-h-screen">
@@ -35,7 +55,14 @@ const ProductsSearch = () => {
             {results &&
               results.map((product, index) => (
                 <Link key={index} to={`/products/${product.id}`}>
-                  <Card data={product} />
+                  <CardHome
+                    key={index}
+                    photo_product={product.photo_product}
+                    name={product.name}
+                    price={product.price}
+                    id={product.id}
+                    addToCart={() => addToCartHandle(product.id)}
+                  />
                 </Link>
               ))}
           </div>
