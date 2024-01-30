@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && searchTerm.trim() !== "") {
       navigate(`/products/search/${searchTerm}`);
     }
   };
@@ -48,7 +48,8 @@ const Navbar = () => {
         <ul className="flex items-center flex-grow justify-center gap-x-8">
           <Link
             to={"/"}
-            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}>
+            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}
+          >
             <li>Home</li>
           </Link>
           {user.role === "admin" ? (
@@ -79,7 +80,7 @@ const Navbar = () => {
             onChange={(e) => handleSearchTerm(e)}
             onKeyDown={handleKeyDown}
           />
-          <Link to={`/products/search?search=${searchTerm}`}>
+          <Link to={searchTerm.trim() !== "" ? `/products/search?search=${searchTerm}` : "#"}>
             <Search className="text-red-500" />
           </Link>
         </div>
@@ -87,7 +88,8 @@ const Navbar = () => {
           <div className="flex items-center gap-x-7 ml-6 ">
             <Link
               to={"/cart"}
-              className="relative cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300">
+              className="relative cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300"
+            >
               <ShoppingCart />
               <span className="absolute z-10 -top-2 -right-2 bg-white font-medium text-black size-4 flex items-center justify-center text-xs rounded-full p-2">
                 {carts ? carts.length : 0}
