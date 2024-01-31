@@ -6,7 +6,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import "../styles/index.css";
-
+import image1 from "/src/assets/supersale.jpg";
+import image2 from "/src/assets/supersale2.jpg";
+import image3 from "/src/assets/supersale3.jpg";
+import image4 from "/src/assets/supersale4.jpg";
+import image5 from "/src/assets/supersale5.jpg";
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
@@ -22,22 +26,21 @@ const Swipper = () => {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper rounded-lg"
-      >
+        className="mySwiper rounded-lg">
         <SwiperSlide>
-          <img src="src\assets\supersale.jpg" />
+          <img src={image1} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="src\assets\supersale2.jpg" />
+          <img src={image2} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="src\assets\supersale3.jpg" />
+          <img src={image3} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="src\assets\supersale4.jpg" />
+          <img src={image4} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="src\assets\supersale5.jpg" />
+          <img src={image5} />
         </SwiperSlide>
       </Swiper>
     </>

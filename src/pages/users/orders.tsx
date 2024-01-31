@@ -5,6 +5,8 @@ import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
 import Alert from "../../components/Alert";
 import { IOrderUser } from "../../utils/apis/orders/types";
+import { formattedAmount } from "../../utils/formattedAmount";
+
 import "../../styles/index.css";
 const Orders = () => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +61,7 @@ const Orders = () => {
                             <span className="text-sm font-semibol w-48 ">Toko {item.product.toko.name}</span>
                             <span className="w-48 ">{item.product.name}</span>
                             <span className="text-sm w-48 ">x {item.quantity}</span>
-                            <span className="text-sm uppercase tracking-wide w-48 ">Rp.{item.product.price}</span>
+                            <span className="text-sm uppercase tracking-wide w-48 ">{formattedAmount(item.product.price)}</span>
                             <span className="text-sm text-red-500 uppercase tracking-wide w-48 ">{item.status}</span>
                           </div>
 
@@ -68,7 +70,7 @@ const Orders = () => {
                             <img src={item.bank === "bca" ? iconBank[0] : item.bank === "bri" ? iconBank[1] : iconBank[2]} alt="icon-bank" width={50} height={50} />:<span>{item.va_number}</span>
                           </div>
                           <div className="flex gap-x-6 items-center  ">
-                            {item.status !== "cancelled" ? (
+                            {item.status === "pending" ? (
                               <Alert title="Are you sure?" description={`This action cannot be undone. This will permanently delete the order.`} onAction={() => handleCancelOrder(data.order_id)}>
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">Cancel Order</button>
                               </Alert>

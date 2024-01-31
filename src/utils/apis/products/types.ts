@@ -25,18 +25,21 @@ export const productSchema = z.object({
 });
 export type IProductType = z.infer<typeof productSchema>;
 
-export const orderSchema = z.object({
-  address: z.string().min(1, { message: "Enter your address" }),
-  gross_amount: z.number().min(1),
-  bank: z.string().min(1, { message: "Select your payment method" }),
-  cart_ids: z.any().optional(),
-});
-export type IOrderType = z.infer<typeof orderSchema>;
-
+// export const orderSchema = z.object({
+//   address: z.string().min(1, { message: "Enter your address" }),
+//   bank: z.string().min(1, { message: "Select your payment method" }),
+//   cart_ids: z.any().optional(),
+// });
+// export type IOrderType = z.infer<typeof orderSchema>;
+export interface IOrderType {
+  address : string
+  bank : string
+  cart_ids: number[]
+}
 export interface IProductsUser {
   id: number;
   name: string;
-  price: number | string;
+  price: number ;
   category: string;
   thumbnail: string;
   images: string[];

@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
 import { useCart } from "../../utils/contexts/cartContext";
+import { formattedAmount } from "../../utils/formattedAmount";
+import "./style.css";
 
 const Cart = () => {
   const { changeCart } = useCart();
@@ -55,8 +57,7 @@ const Cart = () => {
       return item.Products.price * item.quantity;
     });
 
-  const sumTotal: number =
-    totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  const sumTotal: number = totalHarga && totalHarga.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
       .put(`/carts/${id}`, {
@@ -87,11 +88,14 @@ const Cart = () => {
 
   return (
     <Layout>
-      <div className="mx-[100px] my-[50px]">
+      <div className="lg:mx-[100px] lg:my-[50px] mx-[20px] my-[10px]">
         <h1 className="mb-14">
-          <span className="text-slate-300">Home /</span> Cart
+          <Link to={"/"}>
+            <span className="text-slate-300">Home /</span>
+          </Link>{" "}
+          Cart
         </h1>
-        <table className="w-full table-cart mb-5">
+        <table className="w-full table-cart mb-5 for-website">
           <thead className="h-14 shadow-sm rounded-sm">
             <tr>
               <th colSpan={2}>Product</th>
@@ -110,25 +114,19 @@ const Cart = () => {
                       <img src={`${items.Products.photo_product}`} width={100} height={100} />
                     </td>
                     <td className="w-32">{items.Products.name}</td>
-                    <td className="text-center">Rp. {items.Products.price}</td>
+                    <td className="text-center">{formattedAmount(items.Products.price)}</td>
                     <td className="text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div
-                          className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`}
-                          onClick={() => handleDecrement(items.id)}>
+                        <div className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`} onClick={() => handleDecrement(items.id)}>
                           <FaMinus />
                         </div>
-                        <div className="w-8 h-8 flex justify-center items-center">
-                          {items.quantity}
-                        </div>
-                        <div
-                          className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center"
-                          onClick={() => handleIncrement(items.id)}>
+                        <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.id)}>
                           <FaPlus />
                         </div>
                       </div>
                     </td>
-                    <td className="text-center">Rp. {items.Products.price * items.quantity}</td>
+                    <td className="text-center">{formattedAmount(items.Products.price * items.quantity)}</td>
                     <td className="text-center">
                       <button onClick={() => deleteCartHandle(items.id)}>
                         <BsTrash3 />
@@ -139,24 +137,61 @@ const Cart = () => {
               );
             })}
         </table>
-        <div className="flex justify-between">
+        <div className="for-mobile">
+          {cart &&
+            cart.map((items: any, index: number) => {
+              return (
+                <div key={index} className="mb-5 p-4 shadow rounded-sm flex justify-between items-start">
+                  <div>
+                    <h1 className="text-xl font-semibold">Product</h1>
+                    <img src={`${items.Products.photo_product}`} width={100} height={100} />
+                    <h4>
+                      {items.Products.name} {formattedAmount(items.Products.price)}
+                    </h4>
+                    <div className="flex items-center gap-4">
+                      <h1>Quantity</h1>
+                      <div className="flex items-center gap-2">
+                        <div className={`w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center`} onClick={() => handleDecrement(items.id)}>
+                          <FaMinus />
+                        </div>
+                        <div className="w-8 h-8 flex justify-center items-center">{items.quantity}</div>
+                        <div className="w-8 h-8 rounded-full bg-red-500 text-white cursor-pointer flex justify-center items-center" onClick={() => handleIncrement(items.id)}>
+                          <FaPlus />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <h1>Sub total</h1>
+                      <h4>{formattedAmount(items.Products.price * items.quantity)}</h4>
+                    </div>
+                  </div>
+                  <button onClick={() => deleteCartHandle(items.id)}>
+                    <BsTrash3 className="text-2xl" />
+                  </button>
+                </div>
+              );
+            })}
+        </div>
+        <div className="flex justify-between flex-wrap">
           <Link to={"/"}>
-            <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">
-              Return To Home
-            </button>
+            <button className="p-0 md:py-3 md:px-8 h-14 border-2 border-slate-400 rounded-sm hover:bg-red-500 hover:text-white">Return To Home</button>
           </Link>
-          <div className="border-2 border-black rounded-sm p-8 w-[470px]">
+          <div className="border-2 border-black rounded-sm p-8 w-[300px] md:w-[470px]">
             <h1 className="text-md font-semibold">Cart Total</h1>
             <hr className="border-slate-400 mb-14" />
             <div className="flex justify-between mb-6">
               <p>Total:</p>
-              <p>Rp. {sumTotal}</p>
+              <p>{formattedAmount(sumTotal || 0)}</p>
             </div>
-            <Link to={"/orderproducts"}>
-              <button className="py-3 px-8 h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">
+            {cart && cart.length > 0 ? (
+              <Link to={"/orderproducts"}>
+                <button className="px-4 md:py-3 md:px-8 h-10 md:h-14 border-2 border-slate-400 rounded-sm bg-red-500 text-white mx-1/5">Process to Order</button>
+              </Link>
+            ) : (
+              <button className="px-4 md:py-3 md:px-8 h-10 md:h-14 border-2 border-slate-400 rounded-sm mx-1/5 bg-gray-400 text-white" disabled>
                 Process to Order
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>
