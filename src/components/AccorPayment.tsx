@@ -20,7 +20,7 @@ const AccorPayment = (props: Props) => {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger className="text-lg rounded-lg rounded-b-none border border-b-0 pb-4 px-4 text-gray-800">
+        <AccordionTrigger className="lg:text-lg rounded-lg rounded-b-none border border-b-0 pb-4 px-4 text-gray-800">
           Payment Method: {selectedMethod}
         </AccordionTrigger>
         <AccordionContent className="border-x">

@@ -84,7 +84,7 @@ const OrderProducts = () => {
                       <th className="py-12 px-4 font-normal max-w-40">
                         <div className="flex items-center ">
                           <img
-                            className="w-20 h-20 mr-2"
+                            className="w-20 h-20 mr-2 rounded-sm"
                             src={item.Products.photo_product}
                             alt="Product Image"
                           />
@@ -106,7 +106,7 @@ const OrderProducts = () => {
             {cart &&
               cart.map((item, index) => (
                 <div className="md:hidden flex justify-center gap-12" key={index}>
-                  <img className="w-28 h-28" src={item.Products.photo_product} />
+                  <img className="w-28 h-28 rounded-sm" src={item.Products.photo_product} />
                   <div className="flex flex-col justify-center gap-3">
                     <div className="font-semibold">{item.Products.name}</div>
                     <div className="flex">
@@ -128,7 +128,7 @@ const OrderProducts = () => {
             <div className="flex justify-center md:justify-start">
               <textarea
                 rows={2}
-                className="md:py-2 w-full md:w-80 outline-none border bg-transparent border-gray-300 rounded-sm shadow-md md:p-6"
+                className="md:py-2 w-full md:w-80 outline-none border bg-transparent border-gray-300 rounded-sm shadow-md p-1 md:p-6"
                 style={{ resize: "none" }}
                 placeholder=" Alamat Penerima...."
                 onChange={(e) =>
