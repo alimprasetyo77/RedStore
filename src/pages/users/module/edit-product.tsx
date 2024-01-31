@@ -8,17 +8,27 @@ import { Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 
 interface UpdateProductProps {
+  data: IProductType;
   close: () => void;
   onSubmit: (data: IProductType) => void;
 }
 
-const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
+const UpdateProduct = ({ data, close, onSubmit }: UpdateProductProps) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, errors, isSubmitSuccessful },
   } = useForm<IProductType>({
     resolver: zodResolver(productSchema),
+    defaultValues: {
+      photo_product: "",
+      name: "",
+      category: "",
+      description: "",
+      price: 0,
+      stock: 0,
+    },
   });
 
   useEffect(() => {
@@ -26,6 +36,14 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
       close();
     }
   }, [isSubmitSuccessful]);
+
+  useEffect(() => {
+    setValue("name", data.name);
+    setValue("description", data.description);
+    setValue("price", data.price);
+    setValue("category", data.category);
+    setValue("stock", data.stock);
+  }, [data]);
 
   return (
     <>
@@ -47,7 +65,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               type="text"
               id="name"
               {...register("name")}
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
             />
             <p className="text-sm text-red-500 ">
               {errors.name && errors.name.message}
@@ -59,7 +77,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               type="text"
               id="description"
               {...register("description")}
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
             />
             <p className="text-sm text-red-500 ">
               {errors.description && errors.description.message}
@@ -73,7 +91,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               {...register("price", {
                 valueAsNumber: true,
               })}
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
             />
             <p className="text-sm text-red-500 ">
               {errors.price && errors.price.message}
@@ -84,7 +102,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
             <select
               id="category"
               {...register("category")}
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
             >
               <option value={""} disabled hidden selected>
                 Choose category
@@ -107,7 +125,7 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
               {...register("stock", {
                 valueAsNumber: true,
               })}
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
             />
             <p className="text-sm text-red-500 ">
               {errors.stock && errors.stock.message}
@@ -118,9 +136,12 @@ const UpdateProduct = ({ close, onSubmit }: UpdateProductProps) => {
             <input
               type="file"
               id="photo_product"
-              className=" w-full px-4 py-2 rounded-md border outline-none"
+              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
               {...register("photo_product")}
             />
+            <p className="text-sm text-red-500">
+              {errors.photo_product?.message as string}
+            </p>
           </div>
           <button
             className="px-6 py-1 rounded-md border bg-sky-500 text-white "

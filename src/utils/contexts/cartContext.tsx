@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Cart } from "../apis/products/types";
 import { getCart } from "../apis/products/api";
 import { useAuth } from "./auth";
@@ -41,7 +47,11 @@ export const DataProvider = ({ children }: Readonly<Props>) => {
     changeCart,
   };
 
-  return <DataContext.Provider value={dataContextValue}>{children}</DataContext.Provider>;
+  return (
+    <DataContext.Provider value={dataContextValue}>
+      {children}
+    </DataContext.Provider>
+  );
 };
 
 export const useCart = () => {

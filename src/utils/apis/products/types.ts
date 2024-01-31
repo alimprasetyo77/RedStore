@@ -19,9 +19,7 @@ export const productSchema = z.object({
     .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       "Only .jpg, .jpeg, .png formats are supported"
-    )
-    .optional()
-    .or(z.literal("")),
+    ).optional().or(z.literal("")),
 });
 export type IProductType = z.infer<typeof productSchema>;
 
@@ -41,18 +39,19 @@ export interface IProductsUser {
   name: string;
   price: number ;
   category: string;
+  stock : number;
   thumbnail: string;
   images: string[];
   photo_product: string;
   addToCart: React.MouseEventHandler;
 }
 export interface Products {
-  id: number;
-  name: string;
-  price: number;
+  id?: number;
+  name?: string;
+  price?: number;
   category?: string;
-  photo_product: string;
-  addToCart: React.MouseEventHandler;
+  photo_product?: string;
+  addToCart?: React.MouseEventHandler;
 }
 
 export interface ProductsDetail {

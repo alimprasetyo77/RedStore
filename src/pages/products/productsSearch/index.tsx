@@ -16,8 +16,12 @@ const ProductsSearch = () => {
   const fetchResult = async (search: string) => {
     try {
       const response = await getSearch(search);
+<<<<<<< HEAD
       setResults(response.data.data);
       console.log(response);
+=======
+      setResults(response.data);
+>>>>>>> 5ab728b88f2b5035ea8821b6567f78c47ff9b036
     } catch (error) {
       setResults([]);
       console.log(error);
@@ -60,7 +64,8 @@ const ProductsSearch = () => {
                     name={product.name}
                     price={product.price}
                     id={product.id}
-                    addToCart={() => addToCartHandle(product.id)}
+                    addToCart={() => addToCartHandle(product.id!)}
+                    type="card-home"
                   />
                 </Link>
               ))}
