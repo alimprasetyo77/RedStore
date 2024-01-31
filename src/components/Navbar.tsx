@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && searchTerm.trim() !== "") {
       navigate(`/products/search/${searchTerm}`);
     }
   };
@@ -63,7 +63,7 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center bg-[#F5F5F5] px-3 py-1 h-8 overflow-hidden rounded-lg text-sm border">
           <input className="px-5 py-1 outline-none border-none bg-transparent text-zinc-800" placeholder="Search" onChange={(e) => handleSearchTerm(e)} onKeyDown={handleKeyDown} />
-          <Link to={`/products/search?search=${searchTerm}`}>
+          <Link to={searchTerm.trim() !== "" ? `/products/search?search=${searchTerm}` : "#"}>
             <Search className="text-red-500" />
           </Link>
         </div>
