@@ -31,7 +31,8 @@ const Sidebar = () => {
                 isActive
                   ? "flex w-full items-center gap-4 rounded-lg bg-white text-[#1E81B3] font-bold py-4 pl-3"
                   : "flex w-full items-center gap-4 rounded-lg bg-transparent text-white py-4 pl-3"
-              }>
+              }
+            >
               <Users />
               Users
             </NavLink>
@@ -43,7 +44,8 @@ const Sidebar = () => {
                 isActive
                   ? "flex w-full items-center gap-4 rounded-lg bg-white text-[#1E81B3] font-bold py-4 pl-3"
                   : "flex w-full items-center gap-4 rounded-lg bg-transparent text-white py-4 pl-3"
-              }>
+              }
+            >
               <ShoppingCart />
               Orders
             </NavLink>
@@ -52,7 +54,8 @@ const Sidebar = () => {
           <li>
             <button
               className="flex w-full items center text-white gap-4 py-4 pl-3 "
-              onClick={() => handleLogout()}>
+              onClick={() => handleLogout()}
+            >
               <LogOut />
               Logout
             </button>
