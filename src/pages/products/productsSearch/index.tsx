@@ -13,13 +13,10 @@ const ProductsSearch = () => {
   const { search } = useParams();
   const { changeCart } = useCart();
 
-  console.log(search);
-
   const fetchResult = async (search: string) => {
     try {
       const response = await getSearch(search);
       setResults(response.data);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +58,8 @@ const ProductsSearch = () => {
                     name={product.name}
                     price={product.price}
                     id={product.id}
-                    addToCart={() => addToCartHandle(product.id)}
+                    addToCart={() => addToCartHandle(product.id!)}
+                    type="card-home"
                   />
                 </Link>
               ))}

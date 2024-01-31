@@ -8,11 +8,7 @@ import {
   getProductsByUser,
   updateProduct,
 } from "../../utils/apis/products/api";
-import {
-  IProductType,
-  IProductsUser,
-  ProductsDetail,
-} from "../../utils/apis/products/types";
+import { IProductType, IProductsUser } from "../../utils/apis/products/types";
 import Layout from "../../components/Layout";
 import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
@@ -99,7 +95,7 @@ const Products = () => {
   };
   return (
     <Layout>
-      <div className="flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3 ">
+      <div className="min-h-screen flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3 ">
         <Sidebar />
         <div className=" 2xl:max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">

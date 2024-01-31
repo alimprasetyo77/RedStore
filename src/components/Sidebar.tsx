@@ -5,7 +5,7 @@ const Sidebar = () => {
   const location = useLocation();
   const pathname = location.pathname;
   return (
-    <div className="hidden lg:block w-[280px] bg-white border-r min-h-screen ">
+    <div className="hidden 2xl:block w-[280px] bg-white border-r min-h-screen ">
       <ul className="space-y-3 p-6">
         <li
           className={`p-3 hover:bg-zinc-50 hover:font-semibold rounded-md cursor-pointer ${

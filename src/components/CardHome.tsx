@@ -97,7 +97,11 @@ const CardHome = ({
             <span className="font font-semibold text-lg text-red-500">
               {formattedAmount(props.price ?? data?.price!)}
             </span>
-            <span className="text-teal-500 font-medium text-xs uppercase">
+            <span
+              className={`text-teal-500 font-medium text-xs uppercase ${
+                type === "card-home" ? "hidden" : "block"
+              }`}
+            >
               stock : {data?.stock}
             </span>
           </div>

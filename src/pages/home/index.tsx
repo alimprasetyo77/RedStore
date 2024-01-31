@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="md:mx-[100px] sm:my-[50px] mx-[10px]">
+      <div className="md:mx-[100px] sm:my-[50px] mx-[10px] ">
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
@@ -92,7 +92,9 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <HiOutlineComputerDesktop className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">Computers</h1>
+            <h1 className="text-center md:text-sm hidden md:inline">
+              Computers
+            </h1>
           </div>
           <div
             onClick={() => changeCategory("camera")}
@@ -110,7 +112,9 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <BsSmartwatch className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">Smartwatch</h1>
+            <h1 className="text-center md:text-sm hidden md:inline">
+              Smartwatch
+            </h1>
           </div>
           <div
             onClick={() => changeCategory("television")}
@@ -119,7 +123,9 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <PiTelevisionSimpleLight className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">Television</h1>
+            <h1 className="text-center md:text-sm hidden md:inline">
+              Television
+            </h1>
           </div>
           <div
             onClick={() => changeCategory("laptop")}
@@ -137,6 +143,7 @@ const Home = () => {
               return (
                 <CardHome
                   key={index}
+                  type="card-home"
                   photo_product={item.photo_product}
                   name={item.name}
                   price={item.price}
@@ -148,7 +155,9 @@ const Home = () => {
           ) : (
             <div>
               <h1>No product...</h1>
-              <button onClick={() => setPage((prev) => prev - 1)}>Back to previous page</button>
+              <button onClick={() => setPage((prev) => prev - 1)}>
+                Back to previous page
+              </button>
             </div>
           )}
         </div>
@@ -160,12 +169,16 @@ const Home = () => {
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
                 onClick={prePage}
               >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                  Back
+                </p>
               </li>
               <li
                 className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
               >
-                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>
+                <p
+                  className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}
+                >
                   {page}
                 </p>
               </li>
@@ -173,7 +186,9 @@ const Home = () => {
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
                 onClick={nextPage}
               >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                  Next
+                </p>
               </li>
             </ul>
           </div>

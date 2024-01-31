@@ -73,7 +73,7 @@ export const getDetail = async (id: string) => {
 export const getSearch = async (query: string) => {
   try {
     const response = await axiosWithConfig.get(`products/search?search=${query}`);
-    return response.data;
+    return response;
   } catch (error: any) {
     throw new Error(error.message);
   }
