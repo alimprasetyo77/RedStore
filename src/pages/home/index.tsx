@@ -166,16 +166,12 @@ const Home = () => {
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
                 onClick={prePage}
               >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                  Back
-                </p>
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
               <li
                 className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
               >
-                <p
-                  className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}
-                >
+                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>
                   {page}
                 </p>
               </li>
@@ -183,9 +179,7 @@ const Home = () => {
                 className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
                 onClick={nextPage}
               >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                  Next
-                </p>
+                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
               </li>
             </ul>
           </div>
