@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { CiMobile4 } from "react-icons/ci";
@@ -18,9 +17,9 @@ const Home = () => {
   const [page, setPage] = useState<number>(1);
   const { changeCart } = useCart();
 
-  function getProduct(pageProduct: number) {
+  function getProduct(pageProduct: number, productCategory: string) {
     axiosWithConfig
-      .get(`/products?page=${pageProduct}`)
+      .get(`/products?page=${pageProduct}&category=${productCategory}`)
       .then((res) => {
         setProducts(res.data.data);
         console.log(res.data);
@@ -45,13 +44,18 @@ const Home = () => {
       .catch((err) => console.log(err));
   }
 
+  function changeCategory(productCategory: string) {
+    setCategory(productCategory);
+    setPage(1);
+  }
+
   useEffect(() => {
-    getProduct(page);
+    getProduct(page, category);
   }, [category, page]);
 
   return (
     <Layout>
-      <div className="w-full lg:max-w-7xl mx-[100px] my-[50px] mt-2">
+      <div className="md:mx-[100px] sm:my-[50px] mx-[10px]">
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
@@ -73,89 +77,79 @@ const Home = () => {
         </div>
         <div className="flex gap-auto justify-between flex-wrap">
           <div
-            onClick={() => setCategory("phone")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("phone")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "phone" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <CiMobile4 className="text-5xl" />
-            <h1 className="text-center">Phones</h1>
+            <CiMobile4 className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Phones</h1>
           </div>
           <div
-            onClick={() => setCategory("computer")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("computer")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "computer" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <HiOutlineComputerDesktop className="text-5xl" />
-            <h1 className="text-center">Computers</h1>
+            <HiOutlineComputerDesktop className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Computers</h1>
           </div>
           <div
-            onClick={() => setCategory("camera")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("camera")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "camera" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <MdOutlineCamera className="text-5xl" />
-            <h1 className="text-center">Cameras</h1>
+            <MdOutlineCamera className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Cameras</h1>
           </div>
           <div
-            onClick={() => setCategory("smartwatch")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("smartwatch")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "smartwatch" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <BsSmartwatch className="text-5xl" />
-            <h1 className="text-center">Smartwatch</h1>
+            <BsSmartwatch className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Smartwatch</h1>
           </div>
           <div
-            onClick={() => setCategory("television")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("television")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "television" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <PiTelevisionSimpleLight className="text-5xl" />
-            <h1 className="text-center">Television</h1>
+            <PiTelevisionSimpleLight className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Television</h1>
           </div>
           <div
-            onClick={() => setCategory("laptop")}
-            className={`w-[170px] h-[145px] border-2 rounded-lg ${
+            onClick={() => changeCategory("laptop")}
+            className={`xl:w-[170px] xl:h-[145px] lg:w-[120px] lg:h-[95px] md:w-[80px] border-2 lg:rounded-lg p-4 md:p-0 rounded-sm ${
               category === "laptop" ? "bg-red-500 text-white" : "bg-white"
-            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5`}
+            } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
-            <IoIosLaptop className="text-5xl" />
-            <h1 className="text-center">Laptop</h1>
+            <IoIosLaptop className="xl:text-5xl lg:text-3xl sm:text-4xl" />
+            <h1 className="text-center md:text-sm hidden md:inline">Laptop</h1>
           </div>
         </div>
-        <div className="grid grid-cols-4 my-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-5 gap-5">
           {products ? (
             products.map((item: any, index: number) => {
-              if (item.category == category) {
-                return (
-                  <CardHome
-                    key={index}
-                    photo_product={item.photo_product}
-                    name={item.name}
-                    price={item.price}
-                    id={item.id}
-                    addToCart={() => addToCartHandle(item.id)}
-                  />
-                );
-              } else if (category == "") {
-                return (
-                  <CardHome
-                    key={index}
-                    photo_product={item.photo_product}
-                    name={item.name}
-                    price={item.price}
-                    id={item.id}
-                    addToCart={() => addToCartHandle(item.id)}
-                  />
-                );
-              }
+              return (
+                <CardHome
+                  key={index}
+                  photo_product={item.photo_product}
+                  name={item.name}
+                  price={item.price}
+                  id={item.id}
+                  addToCart={() => addToCartHandle(item.id)}
+                />
+              );
             })
           ) : (
-            <button onClick={() => setPage(1)}>Back to page 1</button>
+            <div>
+              <h1>No product...</h1>
+              <button onClick={() => setPage((prev) => prev - 1)}>Back to previous page</button>
+            </div>
           )}
         </div>
         <div className="flex justify-center">
@@ -195,7 +189,11 @@ const Home = () => {
   }
 
   function nextPage() {
-    setPage(page + 1);
+    if (products) {
+      setPage(page + 1);
+    } else {
+      setPage(page + 0);
+    }
   }
 };
 

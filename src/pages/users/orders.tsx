@@ -54,65 +54,25 @@ const Orders = () => {
                 orders.map((data, index) => (
                   <div key={index} className="space-y-8">
                     {data.order.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-x-8 bg-white rounded shadow p-3 "
-                      >
-                        <img
-                          src={
-                            item.product.photo_product ||
-                            "https://via.placeholder.com/100x100?text=No+Image"
-                          }
-                          alt="photo-product"
-                          className=" rounded size-28"
-                        />
+                      <div key={index} className="flex items-center gap-x-8 bg-white rounded shadow p-3 ">
+                        <img src={item.product.photo_product || "https://via.placeholder.com/100x100?text=No+Image"} alt="photo-product" className=" rounded size-28" />
                         <div className="flex flex-grow flex-col gap-y-4 ">
                           <div className="flex justify-between items-center  ">
-                            <span className="text-sm font-semibol w-48 ">
-                              Toko {item.product.toko.name}
-                            </span>
+                            <span className="text-sm font-semibol w-48 ">Toko {item.product.toko.name}</span>
                             <span className="w-48 ">{item.product.name}</span>
-                            <span className="text-sm w-48 ">
-                              x {item.quantity}
-                            </span>
-                            <span className="text-sm uppercase tracking-wide w-48 ">
-                              {formattedAmount(item.product.price)}
-                            </span>
-                            <span className="text-sm text-red-500 uppercase tracking-wide w-48 ">
-                              {item.status}
-                            </span>
+                            <span className="text-sm w-48 ">x {item.quantity}</span>
+                            <span className="text-sm uppercase tracking-wide w-48 ">{formattedAmount(item.product.price)}</span>
+                            <span className="text-sm text-red-500 uppercase tracking-wide w-48 ">{item.status}</span>
                           </div>
 
                           <div className="flex gap-x-4 items-center">
-                            <span className={" text-sm"}>
-                              order-id : {data.order_id}
-                            </span>
-                            <img
-                              src={
-                                item.bank === "bca"
-                                  ? iconBank[0]
-                                  : item.bank === "bri"
-                                  ? iconBank[1]
-                                  : iconBank[2]
-                              }
-                              alt="icon-bank"
-                              width={50}
-                              height={50}
-                            />
-                            :<span>{item.va_number}</span>
+                            <span className={" text-sm"}>order-id : {data.order_id}</span>
+                            <img src={item.bank === "bca" ? iconBank[0] : item.bank === "bri" ? iconBank[1] : iconBank[2]} alt="icon-bank" width={50} height={50} />:<span>{item.va_number}</span>
                           </div>
                           <div className="flex gap-x-6 items-center  ">
                             {item.status === "pending" ? (
-                              <Alert
-                                title="Are you sure?"
-                                description={`This action cannot be undone. This will permanently cancel the order.`}
-                                onAction={() =>
-                                  handleCancelOrder(data.order_id)
-                                }
-                              >
-                                <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
-                                  Cancel Order
-                                </button>
+                              <Alert title="Are you sure?" description={`This action cannot be undone. This will permanently cancel the order.`} onAction={() => handleCancelOrder(data.order_id)}>
+                                <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">Cancel Order</button>
                               </Alert>
                             ) : null}
                           </div>
