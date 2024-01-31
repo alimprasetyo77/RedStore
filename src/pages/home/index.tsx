@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { CiMobile4 } from "react-icons/ci";
@@ -60,13 +59,18 @@ const Home = () => {
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
-        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">Categories</h1>
+        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">
+          Categories
+        </h1>
         <div className="flex items-center gap-3">
           <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>{" "}
           {category == "" ? (
             <></>
           ) : (
-            <button className="hover:bg-red-500 hover:text-white p-1" onClick={() => setCategory("")}>
+            <button
+              className="hover:bg-red-500 hover:text-white p-1"
+              onClick={() => setCategory("")}
+            >
               Show all product
             </button>
           )}
@@ -130,7 +134,16 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-5 gap-5">
           {products ? (
             products.map((item: any, index: number) => {
-              return <CardHome key={index} photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
+              return (
+                <CardHome
+                  key={index}
+                  photo_product={item.photo_product}
+                  name={item.name}
+                  price={item.price}
+                  id={item.id}
+                  addToCart={() => addToCartHandle(item.id)}
+                />
+              );
             })
           ) : (
             <div>
@@ -143,13 +156,23 @@ const Home = () => {
           {/* <Pagination data={products} /> */}
           <div>
             <ul className="flex gap-2">
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={prePage}>
+              <li
+                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
+                onClick={prePage}
+              >
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Back</p>
               </li>
-              <li className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}>
-                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>{page}</p>
+              <li
+                className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
+              >
+                <p className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}>
+                  {page}
+                </p>
               </li>
-              <li className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer" onClick={nextPage}>
+              <li
+                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
+                onClick={nextPage}
+              >
                 <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">Next</p>
               </li>
             </ul>
