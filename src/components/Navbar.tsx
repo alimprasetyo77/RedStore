@@ -1,12 +1,4 @@
-import {
-  ListOrdered,
-  MenuIcon,
-  Search,
-  ShoppingCart,
-  User,
-  UserRound,
-  X,
-} from "lucide-react";
+import { ListOrdered, MenuIcon, Search, ShoppingCart, User, UserRound, X } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/contexts/auth";
@@ -58,19 +50,14 @@ const Navbar = () => {
         <ul className="hidden lg:flex items-center flex-grow justify-center gap-x-8">
           <Link
             to={"/"}
-            className={`${
-              location.pathname === "/" && "font-semibold"
-            } cursor-pointer`}
+            className={`${location.pathname === "/" && "font-semibold"} cursor-pointer`}
           >
             <li>Home</li>
           </Link>
           {user.role === "admin" ? (
             <>
               <li className="hover:font-semibold cursor-pointer">Dasboard</li>
-              <li
-                className="hover:font-semibold cursor-pointer"
-                onClick={() => handleLogout()}
-              >
+              <li className="hover:font-semibold cursor-pointer" onClick={() => handleLogout()}>
                 Logout
               </li>
             </>
@@ -81,14 +68,8 @@ const Navbar = () => {
             </>
           )}
           {!token ? (
-            <Link to={"/register"}>
-              <li
-                className={`${
-                  location.pathname === "/register" && "font-semibold "
-                } `}
-              >
-                Sign Up
-              </li>
+            <Link to={"/login"}>
+              <li className={`${location.pathname === "/login" && "font-semibold "} `}>Sign in</li>
             </Link>
           ) : null}
         </ul>
@@ -99,13 +80,7 @@ const Navbar = () => {
             onChange={(e) => handleSearchTerm(e)}
             onKeyDown={handleKeyDown}
           />
-          <Link
-            to={
-              searchTerm.trim() !== ""
-                ? `/products/search?search=${searchTerm}`
-                : "#"
-            }
-          >
+          <Link to={searchTerm.trim() !== "" ? `/products/search?search=${searchTerm}` : "#"}>
             <Search className="text-red-500" />
           </Link>
         </div>
@@ -120,10 +95,7 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <MenuIcon
-          className="lg:hidden size-8 "
-          onClick={() => setNavMob(!navMob)}
-        />
+        <MenuIcon className="lg:hidden size-8 " onClick={() => setNavMob(!navMob)} />
 
         <div
           className={`lg:hidden flex flex-col items-center gap-5 fixed bg-white inset-x-0 bottom-0 top-6 ${
@@ -158,22 +130,13 @@ const Navbar = () => {
                 My Products
               </Link>
               <hr className="bg-black h-px w-full" />
-              <Link
-                to={"/"}
-                className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2"
-              >
+              <Link to={"/"} className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2">
                 Home
               </Link>
-              <Link
-                to={"/"}
-                className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2"
-              >
+              <Link to={"/"} className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2">
                 About
               </Link>
-              <Link
-                to={"/"}
-                className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2"
-              >
+              <Link to={"/"} className="text-black font-medium hover:bg-slate-100 w-full px-4 py-2">
                 Contact
               </Link>
 
@@ -215,18 +178,14 @@ const Navbar = () => {
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div
-                  className={`cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300`}
-                >
+                <div className={`cursor-pointer hover:bg-red-400/70 p-1 rounded-full duration-300`}>
                   <UserRound />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2">
                 <DropdownMenuLabel>Hi {user.user_name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => navigate("/user")}>
-                  Profile
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/user")}>Profile</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/user/orders")}>
                   My Orders
                 </DropdownMenuItem>
@@ -234,9 +193,7 @@ const Navbar = () => {
                   My Products
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => handleLogout()}>
-                  Logout
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleLogout()}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
