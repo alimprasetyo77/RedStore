@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import AddEditProduct from "./module/add-product";
 import UpdateProduct from "./module/edit-product";
-import Card from "../../components/Card";
 import {
   createProduct,
   deleteProduct,
+  getDetail,
   getProductsByUser,
   updateProduct,
 } from "../../utils/apis/products/api";
-import { IProductType, IProductsUser } from "../../utils/apis/products/types";
+import {
+  IProductType,
+  IProductsUser,
+  ProductsDetail,
+} from "../../utils/apis/products/types";
 import Layout from "../../components/Layout";
 import Sidebar from "../../components/Sidebar";
 import { Loader2 } from "lucide-react";
 import { useToast } from "../../components/ui/use-toast";
+import CardHome from "../../components/CardHome";
 
 const Products = () => {
   const { toast } = useToast();
@@ -21,6 +26,8 @@ const Products = () => {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
   const [productsUser, setProductsUser] = useState<IProductsUser[]>();
+  const [detailProduct, SetDetailProduct] = useState<IProductType>();
+
   useEffect(() => {
     getProductUser();
   }, []);
@@ -81,12 +88,18 @@ const Products = () => {
   };
 
   const onEditProduct = async (open: boolean, id: number) => {
-    setIsOpenEditForm(open);
-    setIdEdit(id);
+    try {
+      const response = await getDetail(`${id}`);
+      SetDetailProduct(response);
+      setIsOpenEditForm(open);
+      setIdEdit(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Layout>
-      <div className="flex bg-slate-100 w-full 2xl:max-w-7xl">
+      <div className="flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3 ">
         <Sidebar />
         <div className=" 2xl:max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">
@@ -99,6 +112,7 @@ const Products = () => {
               <UpdateProduct
                 onSubmit={handleEditProduct}
                 close={() => setIsOpenEditForm(false)}
+                data={detailProduct!}
               />
             ) : null}
             <h1 className="text-2xl font-semibold ">My Products</h1>
@@ -114,13 +128,14 @@ const Products = () => {
             <Loader2 className="animate-spin text-center w-full h-8" />
           ) : (
             <>
-              <div className="grid grid-cols-5 gap-10">
+              <div className="grid  grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-10">
                 {productsUser && productsUser.length > 0 ? (
                   productsUser.map((product) => (
-                    <Card
+                    <CardHome
                       key={product.id}
+                      type="card-my-product"
+                      id_product={product.id}
                       data={product}
-                      id={product.id}
                       onDelete={handleDeleteProduct}
                       onEdit={onEditProduct}
                     />

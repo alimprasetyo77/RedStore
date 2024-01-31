@@ -42,7 +42,7 @@ const Orders = () => {
   ];
   return (
     <Layout>
-      <div className="flex bg-slate-100 w-full 2xl:max-w-7xl">
+      <div className="flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3">
         <Sidebar />
         <div className="max-h-screen container mx-auto p-10 my-8 shadow-sm rounded-lg bg-white ">
           <h1 className="text-2xl font-semibold mb-6">My Orders</h1>

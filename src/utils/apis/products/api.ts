@@ -22,7 +22,6 @@ export const createProduct = async (body: IProductType) => {
   formData.append("category", body.category);
   formData.append("stock", body.stock.toString());
   formData.append("photo_product", body.photo_product[0]);
-
   try {
     const response = await axiosWithConfig.post("/products", formData);
     return response.data as { message: string };
@@ -39,7 +38,11 @@ export const updateProduct = async (body: IProductType, id: number) => {
   formData.append("price", body.price.toString());
   formData.append("category", body.category);
   formData.append("stock", body.stock.toString());
-  formData.append("photo_product", body.photo_product[0]);
+  if(body.photo_product.length !== 0){
+
+    formData.append("photo_product", body.photo_product[0] );
+  }
+console.log(body)
 
   try {
     const response = await axiosWithConfig.put(`/products/${id}`, formData);

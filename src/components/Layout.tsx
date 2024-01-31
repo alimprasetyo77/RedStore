@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="w-full min-h-screen">
       <Navbar />
-      <div className="flex justify-center overflow-hidden">{children}</div>
+      <div className="flex overflow-hidden">{children}</div>
     </div>
   );
 };
