@@ -16,7 +16,7 @@ const ProductsSearch = () => {
   const fetchResult = async (search: string) => {
     try {
       const response = await getSearch(search);
-      setResults(response.data);
+      setResults(response.data.data);
     } catch (error) {
       setResults([]);
       console.log(error);
