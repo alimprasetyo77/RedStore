@@ -27,23 +27,23 @@ const OrderResult = () => {
               }
             />
             <div className="flex flex-col gap-4">
-              <div className="flex gap-32 border-b pb-4">
+              <div className="flex gap-4 md:gap-32 border-b pb-4">
                 <p>Transaction id </p>
                 <p className="text-sm">: {state.data.Payment.transaction_id}</p>
               </div>
-              <div className="flex gap-36 border-b pb-4">
+              <div className="flex gap-4 md:gap-36 border-b pb-4">
                 <p>VA Number</p>
                 <p>: {state.data.Payment.va_number}</p>
               </div>
-              <div className="flex gap-[169px] border-b pb-4">
+              <div className="flex gap-4 md:gap-[169px] border-b pb-4">
                 <p>Amount </p>
                 <p>: {formattedAmount(state.data.Payment.gross_amount)}</p>
               </div>
-              <div className="flex gap-[107px] border-b pb-4">
+              <div className="flex gap-4 md:gap-[107px] border-b pb-4">
                 <p>Transaction Time </p>
                 <p>: {state.data.Payment.transaction_time} </p>
               </div>
-              <div className="flex gap-[136px] border-b pb-4">
+              <div className="flex gap-4 md:gap-[136px] border-b pb-4">
                 <p>Expired Date </p>
                 <p>: {state.data.Payment.expired_at} </p>
               </div>
