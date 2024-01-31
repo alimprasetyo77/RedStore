@@ -51,7 +51,7 @@ const ProductsSearch = () => {
         <div className="container mx-auto p-10 shadow-sm rounded-lg bg-white space-y-16">
           <h1>Search Result "{search}"</h1>
 
-          <div className="grid grid-cols-5 gap-8 p-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-3">
             {results &&
               results.map((product, index) => (
                 <Link key={index} to={`/products/${product.id}`}>

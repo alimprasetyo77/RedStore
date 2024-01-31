@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useAuth } from "../../utils/contexts/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
-import brand from "../../assets/logo-brand.png";
+import brand from "../../assets/brand.png";
 
 const Login = () => {
   const { toast } = useToast();
@@ -40,20 +40,22 @@ const Login = () => {
   return (
     <div className="flex min-h-screen">
       <div
-        className="w-4/6 bg-black/20 bg-blend-overlay bg-no-repeat bg-cover bg-center"
+        className="hidden md:block w-3/6 xl:w-4/6 bg-black/20 bg-blend-overlay bg-no-repeat bg-cover bg-center"
         style={{
           backgroundImage: `url(https://source.unsplash.com/1200x800?online-shop)`,
         }}
       ></div>
-      <div className="w-4/12 p-16 ">
-        <Link to={"/"}>
-          <img src={brand} alt="logo-brand" width={80} height={80} />
-        </Link>
+      <div className="w-full md:w-6/12 xl:w-4/12 p-16 ">
+        <div className="flex justify-center md:justify-start">
+          <Link to={"/"}>
+            <img className="md:ml-12" src={brand} alt="logo-brand" width={180} height={80} />
+          </Link>
+        </div>
         <form
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col items-start  gap-y-16 pt-20"
         >
-          <h3 className="text-4xl font-semibold ">Log In to Account</h3>
+          <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold ">Log In to Account</h3>
           <div className="flex flex-col w-full gap-y-8">
             <input
               type="text"
@@ -63,11 +65,7 @@ const Login = () => {
               disabled={isSubmitting}
               aria-disabled={isSubmitting}
             />
-            {errors.email && (
-              <p className="text-sm text-red-500 -mt-3">
-                {errors.email.message}
-              </p>
-            )}
+            {errors.email && <p className="text-sm text-red-500 -mt-3">{errors.email.message}</p>}
             <input
               type="password"
               placeholder="Password"
@@ -77,14 +75,12 @@ const Login = () => {
               aria-disabled={isSubmitting}
             />
             {errors.password && (
-              <p className="text-sm text-red-500 -mt-3">
-                {errors.password.message}
-              </p>
+              <p className="text-sm text-red-500 -mt-3">{errors.password.message}</p>
             )}
           </div>
           <div className="flex flex-col w-full gap-y-3">
             <button
-              className="w-1/3 py-3 rounded-md bg-red-500 text-white "
+              className="w-full md:w-1/3 py-3 rounded-md bg-red-500 text-white "
               disabled={isSubmitting}
               aria-disabled={isSubmitting}
             >
