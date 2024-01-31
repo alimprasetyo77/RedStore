@@ -16,8 +16,14 @@ const ProductsSearch = () => {
   const fetchResult = async (search: string) => {
     try {
       const response = await getSearch(search);
+<<<<<<< HEAD
+      setResults(response.data.data);
+      console.log(response);
+=======
       setResults(response.data);
+>>>>>>> 5ab728b88f2b5035ea8821b6567f78c47ff9b036
     } catch (error) {
+      setResults([]);
       console.log(error);
     }
   };
@@ -48,9 +54,9 @@ const ProductsSearch = () => {
         <div className="container mx-auto p-10 shadow-sm rounded-lg bg-white space-y-16">
           <h1>Search Result "{search}"</h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-3">
-            {results &&
-              results.map((product, index) => (
+          {results && results.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-3">
+              {results.map((product, index) => (
                 <Link key={index} to={`/products/${product.id}`}>
                   <CardHome
                     key={index}
@@ -63,7 +69,10 @@ const ProductsSearch = () => {
                   />
                 </Link>
               ))}
-          </div>
+            </div>
+          ) : (
+            <p>No results found.</p>
+          )}
         </div>
       </div>
     </Layout>
