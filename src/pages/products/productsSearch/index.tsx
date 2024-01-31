@@ -17,7 +17,6 @@ const ProductsSearch = () => {
     try {
       const response = await getSearch(search);
       setResults(response.data.data);
-      console.log(response);
     } catch (error) {
       setResults([]);
       console.log(error);
