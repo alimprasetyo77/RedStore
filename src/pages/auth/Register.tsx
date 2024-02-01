@@ -18,9 +18,9 @@ const Register = () => {
 
   const handleRegister = async (body: RegisterType) => {
     try {
-      const result = await userRegister(body);
+      await userRegister(body);
       toast({
-        description: result?.message,
+        description: "Register successfully",
       });
       navigate("/login");
     } catch (error: any) {
