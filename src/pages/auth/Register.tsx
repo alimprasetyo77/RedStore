@@ -20,13 +20,13 @@ const Register = () => {
     try {
       const result = await userRegister(body);
       toast({
-        description: result.message,
+        description: result?.message,
       });
       navigate("/login");
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Oops! Something went wrong.",
-        description: (error as Error).message,
+        description: error.message.toString(),
         variant: "destructive",
       });
     }
@@ -42,14 +42,22 @@ const Register = () => {
       <div className="w-full md:w-6/12 xl:w-4/12 p-16 ">
         <div className="flex justify-center md:justify-start">
           <Link to={"/"}>
-            <img className="md:ml-12" src={brand} alt="logo-brand" width={180} height={80} />
+            <img
+              className="md:ml-12"
+              src={brand}
+              alt="logo-brand"
+              width={180}
+              height={80}
+            />
           </Link>
         </div>
         <form
           onSubmit={handleSubmit(handleRegister)}
           className="flex flex-col items-start  gap-y-10 pt-16"
         >
-          <h3 className="text-2xl xl:text-3xl font-semibold">Create an account</h3>
+          <h3 className="text-2xl xl:text-3xl font-semibold">
+            Create an account
+          </h3>
           <div className="p-4 flex flex-col w-full gap-y-8">
             <input
               type="text"
@@ -59,7 +67,11 @@ const Register = () => {
               disabled={isSubmitting}
               aria-disabled={isSubmitting}
             />
-            {errors.name && <p className="text-sm text-red-500 -mt-3">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-sm text-red-500 -mt-3">
+                {errors.name.message}
+              </p>
+            )}
 
             <input
               type="text"
@@ -70,7 +82,9 @@ const Register = () => {
               aria-disabled={isSubmitting}
             />
             {errors.user_name && (
-              <p className="text-sm text-red-500 -mt-3">{errors.user_name.message}</p>
+              <p className="text-sm text-red-500 -mt-3">
+                {errors.user_name.message}
+              </p>
             )}
 
             <input
@@ -81,7 +95,11 @@ const Register = () => {
               disabled={isSubmitting}
               aria-disabled={isSubmitting}
             />
-            {errors.email && <p className="text-sm text-red-500 -mt-3">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-sm text-red-500 -mt-3">
+                {errors.email.message}
+              </p>
+            )}
             <input
               type="password"
               placeholder="Password"
@@ -91,7 +109,9 @@ const Register = () => {
               aria-disabled={isSubmitting}
             />
             {errors.password && (
-              <p className="text-sm text-red-500 -mt-3">{errors.password.message}</p>
+              <p className="text-sm text-red-500 -mt-3">
+                {errors.password.message}
+              </p>
             )}
           </div>
           <div className="flex flex-col w-full gap-y-3">

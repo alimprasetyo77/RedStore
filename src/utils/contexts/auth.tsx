@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IUserType } from "../apis/users/types";
 import { getUser } from "../apis/users/api";
 import axiosWithConfig, { setAxiosConfig } from "../apis/axiosWithConfig";
@@ -7,12 +13,14 @@ interface Context {
   token: string;
   user: Partial<IUserType>;
   changeToken: (token?: string) => void;
+  fetchUser: () => void;
 }
 
 const InitialState = {
   token: "",
   user: {},
   changeToken: () => {},
+  fetchUser: () => {},
 };
 
 const AuthContext = createContext<Context>(InitialState);
@@ -30,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (error.response.status === 401) {
           changeToken();
         }
+        return Promise.reject(error);
       }
     );
   }, [token]);
@@ -58,9 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     token,
     user,
     changeToken,
+    fetchUser,
   };
 
-  return <AuthContext.Provider value={AuthContextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={AuthContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {

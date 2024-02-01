@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { IProductType, productSchema } from "../../../utils/apis/products/types";
-import { Loader2, X } from "lucide-react";
-import { useEffect } from "react";
+import {
+  IProductType,
+  productSchema,
+} from "../../../utils/apis/products/types";
+import { Loader2, X, FileImage, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MdCloudUpload } from "react-icons/md";
 
 interface AddProductProps {
   close: () => void;
@@ -10,9 +14,13 @@ interface AddProductProps {
 }
 
 const AddProduct = ({ close, onSubmit }: AddProductProps) => {
+  const [image, setImage] = useState<string>("");
+
   const {
     register,
     handleSubmit,
+    getValues,
+    resetField,
     formState: { isSubmitting, errors, isSubmitSuccessful },
   } = useForm<IProductType>({
     resolver: zodResolver(productSchema),
@@ -46,7 +54,9 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               {...register("name")}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.name && errors.name.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.name && errors.name.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="description">Description</label>
@@ -70,7 +80,9 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.price && errors.price.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.price && errors.price.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="category">Category</label>
@@ -89,7 +101,9 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               <option value="television">Television</option>
               <option value="laptop">Laptop</option>
             </select>
-            <p className="text-sm text-red-500 ">{errors.category && errors.category.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.category && errors.category.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="stock">Stock</label>
@@ -101,16 +115,52 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">{errors.stock && errors.stock.message}</p>
+            <p className="text-sm text-red-500 ">
+              {errors.stock && errors.stock.message}
+            </p>
           </div>
           <div className="flex flex-col gap-y-1">
-            <label htmlFor="photo_product">Photo product</label>
-            <input
-              type="file"
-              id="photo_product"
-              className=" w-full px-4 py-2 rounded-md border outline-none"
-              {...register("photo_product")}
-            />
+            <label
+              htmlFor="photo_product"
+              className="w-1/2 px-4 py-2 rounded-md border-2 border-dashed outline-none text-gray-500 focus:text-gray-900 flex items-center justify-center gap-x-3 cursor-pointer"
+            >
+              <input
+                type="file"
+                id="photo_product"
+                className="  hidden"
+                {...register("photo_product", {
+                  onChange: (e) =>
+                    setImage(URL.createObjectURL(e.target.files[0])),
+                })}
+              />
+              {image ? (
+                <img src={image} alt="photo-product" className="size-32" />
+              ) : (
+                <>
+                  <MdCloudUpload color="#1475cf" size={30} />
+                  <span className="text-xs">Upload photo product</span>
+                </>
+              )}
+            </label>
+            <div className="flex items-center text-xs gap-x-2 ">
+              <FileImage className="text-[#1475cf] size-4" />
+              {getValues("photo_product")?.length > 0 ? (
+                <>
+                  {JSON.stringify(getValues("photo_product")[0]?.name)}
+                  <Trash2
+                    className="size-4 text-red-500 cursor-pointer"
+                    onClick={() => {
+                      return resetField("photo_product"), setImage("");
+                    }}
+                  />
+                </>
+              ) : (
+                "No file selected"
+              )}
+            </div>
+            <p className="text-sm text-red-500">
+              {errors.photo_product?.message as string}
+            </p>
           </div>
           <button
             className="px-6 py-1 rounded-md border bg-sky-500 text-white "

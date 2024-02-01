@@ -25,16 +25,14 @@ const Login = () => {
     try {
       const result = await userLogin(body);
       changeToken(result?.data.token);
-
       toast({
-        description: result.message,
+        description: result?.message,
       });
-
-      result.data.role === "admin" ? navigate("/admin/users") : navigate("/");
-    } catch (error) {
+      result?.data.role === "admin" ? navigate("/admin/users") : navigate("/");
+    } catch (error: any) {
       toast({
         title: "Oops! Something went wrong.",
-        description: (error as Error).message,
+        description: error.message.toString(),
         variant: "destructive",
       });
     }

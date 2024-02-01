@@ -93,6 +93,7 @@ const Products = () => {
       console.log(error);
     }
   };
+
   return (
     <Layout>
       <div className="min-h-screen flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3 ">
