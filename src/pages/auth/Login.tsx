@@ -32,7 +32,6 @@ const Login = () => {
 
       result.data.role === "admin" ? navigate("/admin/users") : navigate("/");
     } catch (error) {
-      console.log(error);
       toast({
         title: "Oops! Something went wrong.",
         description: (error as Error).message,
