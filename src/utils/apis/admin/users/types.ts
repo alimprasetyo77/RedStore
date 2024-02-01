@@ -1,6 +1,7 @@
-export interface AdminGetUsers {
-  message: string;
-  data: Users[];
+export interface ResponseAdminOrders {
+  data : Users[]
+  message : string
+  total_page : number
 }
 
 export interface Users {
