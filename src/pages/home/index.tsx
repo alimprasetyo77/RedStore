@@ -11,10 +11,13 @@ import CardHome from "../../components/CardHome";
 import axiosWithConfig from "../../utils/apis/axiosWithConfig";
 import Swal from "sweetalert2";
 import { useCart } from "../../utils/contexts/cartContext";
+import ReactPaginate from "react-paginate";
+
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
   const [category, setCategory] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
   const { changeCart } = useCart();
 
   function getProduct(pageProduct: number, productCategory: string) {
@@ -22,6 +25,7 @@ const Home = () => {
       .get(`/products?page=${pageProduct}&category=${productCategory}`)
       .then((res) => {
         setProducts(res.data.data);
+        setTotalPage(res.data.total_page);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -49,6 +53,10 @@ const Home = () => {
     setPage(1);
   }
 
+  const handlePageClick = (data: any) => {
+    setPage(data.selected + 1);
+  };
+
   useEffect(() => {
     getProduct(page, category);
   }, [category, page]);
@@ -59,18 +67,13 @@ const Home = () => {
         <div className="h-[350px] mb-20">
           <Swipper />
         </div>
-        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">
-          Categories
-        </h1>
+        <h1 className="text-red-500 font-semibold ps-5 border-s-[15px] border-red-500 text-lg mb-5">Categories</h1>
         <div className="flex items-center gap-3">
           <h1 className="text-3xl font-bold mb-5">Browse By Category</h1>{" "}
           {category == "" ? (
             <></>
           ) : (
-            <button
-              className="hover:bg-red-500 hover:text-white p-1"
-              onClick={() => setCategory("")}
-            >
+            <button className="hover:bg-red-500 hover:text-white p-1" onClick={() => setCategory("")}>
               Show all product
             </button>
           )}
@@ -92,9 +95,7 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <HiOutlineComputerDesktop className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">
-              Computers
-            </h1>
+            <h1 className="text-center md:text-sm hidden md:inline">Computers</h1>
           </div>
           <div
             onClick={() => changeCategory("camera")}
@@ -112,9 +113,7 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <BsSmartwatch className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">
-              Smartwatch
-            </h1>
+            <h1 className="text-center md:text-sm hidden md:inline">Smartwatch</h1>
           </div>
           <div
             onClick={() => changeCategory("television")}
@@ -123,9 +122,7 @@ const Home = () => {
             } border-slate-400 hover:bg-red-500 hover:text-white cursor-pointer flex flex-col justify-center items-center gap-5 md:gap-2`}
           >
             <PiTelevisionSimpleLight className="xl:text-5xl lg:text-3xl sm:text-4xl" />
-            <h1 className="text-center md:text-sm hidden md:inline">
-              Television
-            </h1>
+            <h1 className="text-center md:text-sm hidden md:inline">Television</h1>
           </div>
           <div
             onClick={() => changeCategory("laptop")}
@@ -140,76 +137,38 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-5 gap-5">
           {products ? (
             products.map((item: any, index: number) => {
-              return (
-                <CardHome
-                  key={index}
-                  type="card-home"
-                  photo_product={item.photo_product}
-                  name={item.name}
-                  price={item.price}
-                  id={item.id}
-                  addToCart={() => addToCartHandle(item.id)}
-                />
-              );
+              return <CardHome key={index} type="card-home" photo_product={item.photo_product} name={item.name} price={item.price} id={item.id} addToCart={() => addToCartHandle(item.id)} />;
             })
           ) : (
             <div>
               <h1>No product...</h1>
-              <button onClick={() => setPage((prev) => prev - 1)}>
-                Back to previous page
-              </button>
+              <button onClick={() => setPage((prev) => prev - 1)}>Back to previous page</button>
             </div>
           )}
         </div>
         <div className="flex justify-center">
-          {/* <Pagination data={products} /> */}
-          <div>
-            <ul className="flex gap-2">
-              <li
-                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
-                onClick={prePage}
-              >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                  Back
-                </p>
-              </li>
-              <li
-                className={`h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer`}
-              >
-                <p
-                  className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2`}
-                >
-                  {page}
-                </p>
-              </li>
-              <li
-                className="h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"
-                onClick={nextPage}
-              >
-                <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                  Next
-                </p>
-              </li>
-            </ul>
-          </div>
+          <ReactPaginate
+            previousLabel={"Back"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            pageCount={totalPage}
+            forcePage={page - 1}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"flex gap-2"}
+            pageClassName={"h-[35px] w-[35px] relative  rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"}
+            pageLinkClassName={"absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"}
+            previousClassName={"h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"}
+            previousLinkClassName={"absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"}
+            nextClassName={"h-[35px] w-[70px] relative rounded-sm hover:bg-red-500 hover:text-white border-2 border-slate-300 cursor-pointer"}
+            nextLinkClassName={"absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"}
+            activeClassName={"bg-red-500 text-white"}
+          />
         </div>
       </div>
     </Layout>
   );
-
-  function prePage() {
-    if (page !== 1) {
-      setPage(page - 1);
-    }
-  }
-
-  function nextPage() {
-    if (products) {
-      setPage(page + 1);
-    } else {
-      setPage(page + 0);
-    }
-  }
 };
 
 export default Home;
