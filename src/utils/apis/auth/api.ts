@@ -4,9 +4,9 @@ import { ResponsePayload } from "../../types/api";
 import axiosWithConfig from "../axiosWithConfig";
 
 interface LoginPayload {
-  nama: string
-  role: string
-  token: string
+  nama: string;
+  role: string;
+  token: string;
 }
 
 export const userLogin = async (body: LoginType) => {
