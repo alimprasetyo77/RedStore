@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IUserType } from "../apis/users/types";
 import { getUser } from "../apis/users/api";
 import axiosWithConfig, { setAxiosConfig } from "../apis/axiosWithConfig";
@@ -30,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (error.response.status === 401) {
           changeToken();
         }
+        return Promise.reject(error);
       }
     );
   }, [token]);
@@ -60,7 +67,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     changeToken,
   };
 
-  return <AuthContext.Provider value={AuthContextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={AuthContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
