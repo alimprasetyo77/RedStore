@@ -12,8 +12,10 @@ import { useToast } from "../../components/ui/use-toast";
 
 const Profile = () => {
   const [formDisabled, setformDisabled] = useState(true);
-  const { user, changeToken } = useAuth();
+  const [image, setImage] = useState<string>("");
+  const { user, changeToken, fetchUser } = useAuth();
   const { toast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ const Profile = () => {
     setValue("name", user?.name as string);
     setValue("user_name", user?.user_name as string);
     setValue("email", user?.email as string);
-    // setValue("photo_profile", user?.photo_profile ?? "");
+    setImage(user?.photo_profile);
   }, [user]);
 
   const handleUpdateUser = async (body: IUserType) => {
@@ -43,7 +45,7 @@ const Profile = () => {
       toast({
         description: result.message,
       });
-      window.location.reload();
+      fetchUser();
     } catch (error) {
       toast({
         description: (error as Error).message,
@@ -73,9 +75,9 @@ const Profile = () => {
           <div className="flex flex-col items-center gap-y-4  flex-grow">
             <div className="relative">
               <img
-                src={user?.photo_profile || "https://via.placeholder.com/150"}
+                src={image || "https://via.placeholder.com/150"}
                 alt="profile-user"
-                className="rounded-full size-48"
+                className="rounded-full border shadow-sm size-48"
               />
               <label
                 htmlFor="upload-image"
@@ -115,7 +117,11 @@ const Profile = () => {
                 type="file"
                 id="upload-image"
                 hidden
-                {...register("photo_profile")}
+                {...register("photo_profile", {
+                  onChange: (e) => {
+                    setImage(URL.createObjectURL(e.target.files[0]));
+                  },
+                })}
               />
 
               <div className="flex flex-col gap-y-1">

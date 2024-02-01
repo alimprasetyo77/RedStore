@@ -4,8 +4,9 @@ import {
   IProductType,
   productSchema,
 } from "../../../utils/apis/products/types";
-import { Loader2, X } from "lucide-react";
-import { useEffect } from "react";
+import { FileImage, Loader2, Trash2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MdCloudUpload } from "react-icons/md";
 
 interface UpdateProductProps {
   data: IProductType;
@@ -14,10 +15,13 @@ interface UpdateProductProps {
 }
 
 const UpdateProduct = ({ data, close, onSubmit }: UpdateProductProps) => {
+  const [image, setImage] = useState<string>("");
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
+    resetField,
     formState: { isSubmitting, errors, isSubmitSuccessful },
   } = useForm<IProductType>({
     resolver: zodResolver(productSchema),
@@ -43,8 +47,8 @@ const UpdateProduct = ({ data, close, onSubmit }: UpdateProductProps) => {
     setValue("price", data.price);
     setValue("category", data.category);
     setValue("stock", data.stock);
+    setImage(data.photo_product);
   }, [data]);
-
   return (
     <>
       <div className="bg-black/20 fixed inset-0 z-10" onClick={close}></div>
@@ -132,13 +136,44 @@ const UpdateProduct = ({ data, close, onSubmit }: UpdateProductProps) => {
             </p>
           </div>
           <div className="flex flex-col gap-y-1">
-            <label htmlFor="photo_product">Photo product</label>
-            <input
-              type="file"
-              id="photo_product"
-              className=" w-full px-4 py-2 rounded-md border outline-none text-gray-500 focus:text-gray-900"
-              {...register("photo_product")}
-            />
+            <label
+              htmlFor="photo_product"
+              className="w-1/2 px-4 py-2 rounded-md border-2 border-dashed outline-none text-gray-500 focus:text-gray-900 flex items-center justify-center gap-x-3 cursor-pointer"
+            >
+              <input
+                type="file"
+                id="photo_product"
+                className="  hidden"
+                {...register("photo_product", {
+                  onChange: (e) =>
+                    setImage(URL.createObjectURL(e.target.files[0])),
+                })}
+              />
+              {image ? (
+                <img src={image} alt="photo-product" className="size-32" />
+              ) : (
+                <>
+                  <MdCloudUpload color="#1475cf" size={30} />
+                  <span className="text-xs">Upload photo product</span>
+                </>
+              )}
+            </label>
+            <div className="flex items-center text-xs gap-x-2 ">
+              <FileImage className="text-[#1475cf] size-4" />
+              {getValues("photo_product").length > 0 ? (
+                <>
+                  {JSON.stringify(getValues("photo_product")[0]?.name)}
+                  <Trash2
+                    className="size-4 text-red-500 cursor-pointer"
+                    onClick={() => {
+                      return resetField("photo_product"), setImage("");
+                    }}
+                  />
+                </>
+              ) : (
+                "No file selected"
+              )}
+            </div>
             <p className="text-sm text-red-500">
               {errors.photo_product?.message as string}
             </p>
