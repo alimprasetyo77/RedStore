@@ -69,7 +69,7 @@ const Navbar = () => {
           )}
           {!token ? (
             <Link to={"/login"}>
-              <li className={`${location.pathname === "/login" && "font-semibold "} `}>Sign in</li>
+              <li className="hover:font-semibold">Sign in</li>
             </Link>
           ) : null}
         </ul>
