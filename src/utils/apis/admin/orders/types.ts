@@ -1,3 +1,8 @@
+export interface ResponseAdminOrders {
+  data : GetAdminOrders
+  message : string
+  total_page : number
+}
 export interface GetAdminOrders {
   order: OrderData[];
 }
