@@ -19,7 +19,7 @@ const CardHome = ({
   id_product,
   onDelete,
   onEdit,
-  type = "card-home",
+  type,
   ...props
 }: CardProps) => {
   const { user, token } = useAuth();

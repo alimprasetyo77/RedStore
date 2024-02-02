@@ -13,6 +13,7 @@ import ProductsSearch from "../pages/products/productsSearch";
 import Cart from "../pages/cart";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderResult from "../pages/order/orderResult";
+import NotFound from "../pages/404page";
 function App() {
   return (
     <BrowserRouter>
@@ -32,12 +33,7 @@ function App() {
           <Route path="/products/search/:search" element={<ProductsSearch />} />
           <Route path="/orderproducts/orderresult" element={<OrderResult />} />
         </Route>
-        <Route
-          path="*"
-          element={
-            <p className="text-center text-3xl font-medium py-20">There's nothing here: 404!</p>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
