@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AddEditProduct from "./module/add-product";
+import AddProduct from "./module/add-product";
 import UpdateProduct from "./module/edit-product";
 import {
   createProduct,
@@ -101,7 +101,10 @@ const Products = () => {
         <div className="flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">
             {isOpenForm ? (
-              <AddEditProduct onSubmit={handleCreateProduct} close={() => setIsOpenForm(false)} />
+              <AddProduct
+                onSubmit={handleCreateProduct}
+                close={() => setIsOpenForm(false)}
+              />
             ) : isOpenEditForm ? (
               <UpdateProduct
                 onSubmit={handleEditProduct}

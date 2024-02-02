@@ -127,7 +127,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               <input
                 type="file"
                 id="photo_product"
-                className="  hidden"
+                className="hidden"
                 {...register("photo_product", {
                   onChange: (e) =>
                     setImage(URL.createObjectURL(e.target.files[0])),
