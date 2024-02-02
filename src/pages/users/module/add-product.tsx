@@ -1,9 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  IProductType,
-  productSchema,
-} from "../../../utils/apis/products/types";
+import { IProductType, productSchema } from "../../../utils/apis/products/types";
 import { Loader2, X, FileImage, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { MdCloudUpload } from "react-icons/md";
@@ -54,9 +51,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               {...register("name")}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">
-              {errors.name && errors.name.message}
-            </p>
+            <p className="text-sm text-red-500 ">{errors.name && errors.name.message}</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="description">Description</label>
@@ -80,9 +75,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">
-              {errors.price && errors.price.message}
-            </p>
+            <p className="text-sm text-red-500 ">{errors.price && errors.price.message}</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="category">Category</label>
@@ -97,13 +90,10 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               <option value="computer">Computer</option>
               <option value="camera">Cameras</option>
               <option value="phone">Phones</option>
-              <option value="smartwatch">Smartwatch</option>
               <option value="television">Television</option>
               <option value="laptop">Laptop</option>
             </select>
-            <p className="text-sm text-red-500 ">
-              {errors.category && errors.category.message}
-            </p>
+            <p className="text-sm text-red-500 ">{errors.category && errors.category.message}</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label htmlFor="stock">Stock</label>
@@ -115,9 +105,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
               })}
               className=" w-full px-4 py-2 rounded-md border outline-none"
             />
-            <p className="text-sm text-red-500 ">
-              {errors.stock && errors.stock.message}
-            </p>
+            <p className="text-sm text-red-500 ">{errors.stock && errors.stock.message}</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <label
@@ -129,8 +117,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
                 id="photo_product"
                 className="hidden"
                 {...register("photo_product", {
-                  onChange: (e) =>
-                    setImage(URL.createObjectURL(e.target.files[0])),
+                  onChange: (e) => setImage(URL.createObjectURL(e.target.files[0])),
                 })}
               />
               {image ? (
@@ -158,9 +145,7 @@ const AddProduct = ({ close, onSubmit }: AddProductProps) => {
                 "No file selected"
               )}
             </div>
-            <p className="text-sm text-red-500">
-              {errors.photo_product?.message as string}
-            </p>
+            <p className="text-sm text-red-500">{errors.photo_product?.message as string}</p>
           </div>
           <button
             className="px-6 py-1 rounded-md border bg-sky-500 text-white "
