@@ -98,13 +98,10 @@ const Products = () => {
     <Layout>
       <div className="min-h-screen flex bg-slate-100 gap-x-3 w-full pr-0 lg:pr-3 ">
         <Sidebar />
-        <div className=" 2xl:max-h-screen flex flex-col container bg-white my-8 p-10 gap-8">
+        <div className="flex flex-col container bg-white my-8 p-10 gap-8">
           <div className="flex justify-between">
             {isOpenForm ? (
-              <AddEditProduct
-                onSubmit={handleCreateProduct}
-                close={() => setIsOpenForm(false)}
-              />
+              <AddEditProduct onSubmit={handleCreateProduct} close={() => setIsOpenForm(false)} />
             ) : isOpenEditForm ? (
               <UpdateProduct
                 onSubmit={handleEditProduct}

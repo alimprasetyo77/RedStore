@@ -48,22 +48,14 @@ const Login = () => {
       <div className="w-full md:w-6/12 xl:w-4/12 p-16 ">
         <div className="flex justify-center md:justify-start">
           <Link to={"/"}>
-            <img
-              className="md:ml-12"
-              src={brand}
-              alt="logo-brand"
-              width={180}
-              height={80}
-            />
+            <img className="md:ml-12" src={brand} alt="logo-brand" width={180} height={80} />
           </Link>
         </div>
         <form
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col items-start  gap-y-16 pt-20"
         >
-          <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold ">
-            Log In to Account
-          </h3>
+          <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold ">Log In to Account</h3>
           <div className="flex flex-col w-full gap-y-8">
             <input
               type="text"
@@ -73,11 +65,7 @@ const Login = () => {
               disabled={isSubmitting}
               aria-disabled={isSubmitting}
             />
-            {errors.email && (
-              <p className="text-sm text-red-500 -mt-3">
-                {errors.email.message}
-              </p>
-            )}
+            {errors.email && <p className="text-sm text-red-500 -mt-3">{errors.email.message}</p>}
             <input
               type="password"
               placeholder="Password"
@@ -87,9 +75,7 @@ const Login = () => {
               aria-disabled={isSubmitting}
             />
             {errors.password && (
-              <p className="text-sm text-red-500 -mt-3">
-                {errors.password.message}
-              </p>
+              <p className="text-sm text-red-500 -mt-3">{errors.password.message}</p>
             )}
           </div>
           <div className="flex flex-col w-full gap-y-3">
