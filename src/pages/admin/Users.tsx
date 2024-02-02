@@ -70,28 +70,28 @@ const AdminUsers = () => {
             <TableHead className="text-left">Name</TableHead>
             <TableHead className="text-center">Username</TableHead>
             <TableHead className="text-left">Email</TableHead>
-            <TableHead className="text-left">Status</TableHead>
+            <TableHead className="text-center">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {user &&
             user.map((user, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium text-center">
-                  {user.id}
-                </TableCell>
+                <TableCell className="font-medium text-center">{user.id}</TableCell>
                 <TableCell className="font-medium text-center">
                   <img
                     className="w-10 h-10 rounded-full"
-                    src={
-                      user?.photo_profile || "https://via.placeholder.com/150"
-                    }
+                    src={user?.photo_profile || "https://via.placeholder.com/150"}
                   />
                 </TableCell>
                 <TableCell className="text-left">{user.name}</TableCell>
                 <TableCell className="text-center">{user.user_name}</TableCell>
                 <TableCell className="text-left">{user.email}</TableCell>
-                <TableCell className="text-left font-semibold">
+                <TableCell
+                  className={`text-center font-semibold ${
+                    user.status_user === "Active" ? "text-green-500" : "text-red-500"
+                  }`}
+                >
                   {user.status_user.toUpperCase()}
                 </TableCell>
               </TableRow>
@@ -102,9 +102,7 @@ const AdminUsers = () => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              className={`${
-                pageNumber === 1 ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
+              className={`${pageNumber === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
               onClick={handlePreviousPage}
             />
           </PaginationItem>
@@ -124,11 +122,7 @@ const AdminUsers = () => {
           ))}
           <PaginationItem>
             <PaginationNext
-              className={`${
-                totalPage === pageNumber
-                  ? "cursor-not-allowed"
-                  : "cursor-pointer"
-              }`}
+              className={`${totalPage === pageNumber ? "cursor-not-allowed" : "cursor-pointer"}`}
               onClick={handleNextPage}
             />
           </PaginationItem>

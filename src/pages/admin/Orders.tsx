@@ -69,23 +69,28 @@ const AdminOrders = () => {
           {order &&
             order.order?.map((order, index) => (
               <TableRow key={index} className="">
-                <TableCell className="font-medium text-center">
-                  {order.order_id}
-                </TableCell>
-                <TableCell className="text-left">
-                  {order.product.name}
-                </TableCell>
+                <TableCell className="font-medium text-center">{order.order_id}</TableCell>
+                <TableCell className="text-left">{order.product.name}</TableCell>
                 <TableCell className="text-center">{order.quantity}</TableCell>
                 <TableCell className="text-left">{order.created_at}</TableCell>
-                <TableCell className="text-center">
-                  {order.bank.toUpperCase()}
-                </TableCell>
-                <TableCell className="text-left ">
-                  {formattedAmount(order.gross_amount)}
-                </TableCell>
+                <TableCell className="text-center">{order.bank.toUpperCase()}</TableCell>
+                <TableCell className="text-left ">{formattedAmount(order.gross_amount)}</TableCell>
                 <TableCell className="text-center">{order.address}</TableCell>
-                <TableCell className="text-center">
-                  {order.status.toUpperCase()}
+                <TableCell
+                  className={`text-center ${
+                    order.status === "cancel"
+                      ? "text-red-500"
+                      : order.status === "expire"
+                      ? "text-yellow-500"
+                      : "text-green-500"
+                  }`}
+                >
+                  {(order.status === "expire"
+                    ? "expired"
+                    : order.status === "cancel"
+                    ? "cancelled"
+                    : order.status
+                  ).toUpperCase()}
                 </TableCell>
               </TableRow>
             ))}
@@ -95,9 +100,7 @@ const AdminOrders = () => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              className={`${
-                pageNumber === 1 ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
+              className={`${pageNumber === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
               onClick={handlePreviousPage}
             />
           </PaginationItem>
@@ -119,11 +122,7 @@ const AdminOrders = () => {
 
           <PaginationItem>
             <PaginationNext
-              className={`${
-                totalPage === pageNumber
-                  ? "cursor-not-allowed"
-                  : "cursor-pointer"
-              }`}
+              className={`${totalPage === pageNumber ? "cursor-not-allowed" : "cursor-pointer"}`}
               onClick={handleNextPage}
             />
           </PaginationItem>

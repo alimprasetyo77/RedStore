@@ -20,6 +20,7 @@ const Orders = () => {
       setLoading(true);
       const result = await getOrders();
       setOrders(result.data);
+      console.log(result.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -72,24 +73,48 @@ const Orders = () => {
                               Toko {item.product.toko.name}
                             </span>
                             <span className="w-48 ">{item.product.name}</span>
-                            <span className="text-sm w-48 ">
-                              x {item.quantity}
-                            </span>
+                            <span className="text-sm w-48 ">x {item.quantity}</span>
                             <span className="text-sm uppercase tracking-wide w-48 ">
                               {formattedAmount(item.product.price)}
-                              <p className="text-sm text-red-500 uppercase tracking-wide w-48 block  xl:hidden">
-                                {item.status}
+                              <p
+                                className={`text-sm text-center uppercase tracking-wide w-48 block xl:hidden ${
+                                  item.status === "settlement"
+                                    ? "text-green-500"
+                                    : item.status === "cancel"
+                                    ? "text-red-500"
+                                    : item.status === "pending"
+                                    ? "text-orange-500"
+                                    : "text-gray-500"
+                                }`}
+                              >
+                                {item.status === "expire"
+                                  ? "expired"
+                                  : item.status === "cancel"
+                                  ? "cancelled"
+                                  : item.status}
                               </p>
                             </span>
-                            <span className="text-sm text-red-500 uppercase tracking-wide w-48 hidden xl:block">
-                              {item.status}
+                            <span
+                              className={`text-sm text-center uppercase tracking-wide w-48 hidden xl:block ${
+                                item.status === "settlement"
+                                  ? "text-green-500"
+                                  : item.status === "cancel"
+                                  ? "text-red-500"
+                                  : item.status === "pending"
+                                  ? "text-yellow-500"
+                                  : "text-gray-500"
+                              }`}
+                            >
+                              {item.status === "expire"
+                                ? "expired"
+                                : item.status === "cancel"
+                                ? "cancelled"
+                                : item.status}
                             </span>
                           </div>
 
                           <div className="flex flex-col lg:flex-row justify-start items-center gap-4 ">
-                            <span
-                              className={" text-xs max-w-md hidden lg:block"}
-                            >
+                            <span className={" text-xs max-w-md hidden lg:block"}>
                               order-id : {data.order_id}
                             </span>
                             <div className="flex gap-x-3 ">
@@ -114,9 +139,7 @@ const Orders = () => {
                               <Alert
                                 title="Are you sure?"
                                 description={`This action cannot be undone. This will permanently cancel the order.`}
-                                onAction={() =>
-                                  handleCancelOrder(data.order_id)
-                                }
+                                onAction={() => handleCancelOrder(data.order_id)}
                               >
                                 <button className="py-1 px-4 bg-rose-500 text-white font-medium text-xs rounded">
                                   Cancel Order
