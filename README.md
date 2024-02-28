@@ -53,7 +53,7 @@ Clone this project
 
 ## 🤖 Authors
 
-- Alim Prasetyo
+- Alim Prasetyo Putra Sinambela
   [![github](https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/alimprasetyo77)
 - Gilang Ramadhan
   [![github](https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gilangr1440)
